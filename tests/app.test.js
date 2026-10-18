@@ -5,7 +5,7 @@ const path = require("path");
 
 const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
 const app = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].pop()[1]
-  .replace(/\}\)\(\);\s*$/, "window.__t={S,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
+  .replace(/\}\)\(\);\s*$/, "window.__t={S,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---
 const mk = () => {
@@ -35,12 +35,15 @@ global.navigator = {};
 global.FileReader = class { readAsDataURL(b) { b.arrayBuffer().then(a => { this.result = "data:x;base64," + Buffer.from(a).toString("base64"); this.onload() }) } };
 
 // --- Faux téléphone : plugins Capacitor Filesystem + Share ---
-const native = { written: [], shared: [], cancelShare: false, scheduled: [], cancelled: 0, actionTypes: null, listeners: {} };
+const native = { written: [], shared: [], cancelShare: false, scheduled: [], cancelled: 0, actionTypes: null, listeners: {}, files: {} };
 function boot(withPhone) {
   els = {};
   global.window = { scrollTo() {}, addEventListener() {}, jspdf: null };
   if (withPhone) window.Capacitor = { isNativePlatform: () => true, Plugins: {
-    Filesystem: { writeFile: async o => { native.written.push(o); return { uri: "file:///cache/" + o.path } } },
+    Filesystem: {
+      writeFile: async o => { if (o.directory === "DATA") { native.files[o.path] = o.data; return { uri: "file:///data/" + o.path } } native.written.push(o); return { uri: "file:///cache/" + o.path } },
+      readFile: async o => { if (!(o.path in native.files)) throw new Error("File does not exist"); return { data: native.files[o.path] } },
+      deleteFile: async o => { delete native.files[o.path] } },
     Share: { share: async o => { if (native.cancelShare) throw new Error("Share canceled"); native.shared.push(o) } },
     App: { addListener() {}, exitApp() {} },
     LocalNotifications: { cancel: async () => { native.cancelled++ }, schedule: async o => { native.scheduled.push(o.notifications) },
@@ -235,6 +238,37 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
     sleep: 7, water: 5, screen: 4, coffee: 1, glasses: "oui", stress: "2", period: "non", notes: trap, custom: {} });
   ok(!/<img|<script/i.test(dx) && (dx.match(/&lt;img/g) || []).length >= 7 && dx.includes("&lt;script&gt;"),
     "détail du jour : notes, repas, médicaments et zones piégés restent du texte échappé");
+
+  // Sauvegarde automatique : copie à chaque changement, retrouvée si l'appli perd ses notes
+  const tick = () => new Promise(r => setTimeout(r, 30));
+  native.files = {};
+  T = boot(true); await tick();
+  await T.putEntry({ date: "2025-06-01", migraine: true, intensity: 7, zones: ["Front"], symptoms: [], notes: "orage", updatedAt: 1 });
+  await T.putEntry({ date: "2025-06-02", migraine: false, intensity: 0, zones: [], symptoms: [] });
+  await T.writeSnapshot(); await tick();
+  const snap = JSON.parse(native.files["sauvegarde-auto.json"] || "{}");
+  ok(snap.entries && snap.entries["2025-06-01"] && snap.entries["2025-06-01"].notes === "orage" && snap.entries["2025-06-02"], "copie automatique écrite dans le dossier privé à chaque changement");
+  // Le téléphone a perdu les notes de l'appli (nouveau téléphone) mais Android a remis le dossier privé
+  for (const k of Object.keys(store)) delete store[k];
+  T = boot(true); await tick(); await tick();
+  ok(T.S.entries["2025-06-01"] && T.S.entries["2025-06-01"].notes === "orage" && T.S.entries["2025-06-02"], "notes perdues : retrouvées toutes seules au démarrage depuis la copie");
+  ok(JSON.parse(store["jm-cache-v2"]).entries["2025-06-01"], "notes retrouvées et de nouveau enregistrées dans l'appli");
+  // Un jour plus récent dans l'appli n'est jamais remplacé par la copie
+  await T.putEntry({ date: "2025-06-01", migraine: true, intensity: 3, zones: [], symptoms: [], notes: "plus récent" });
+  native.files["sauvegarde-auto.json"] = JSON.stringify(snap);
+  await T.restoreFromSnapshot();
+  ok(T.S.entries["2025-06-01"].notes === "plus récent", "la copie ne remplace jamais un jour plus récent");
+  // Copie abîmée : on retrouve la copie de la veille
+  native.files["sauvegarde-auto.json"] = "{abîmé";
+  native.files["sauvegarde-auto-veille.json"] = JSON.stringify({ entries: { "2025-05-30": { date: "2025-05-30", migraine: false, intensity: 0, zones: [], symptoms: [], updatedAt: 5 } } });
+  await T.restoreFromSnapshot();
+  ok(T.S.entries["2025-05-30"], "copie abîmée : la copie de la veille prend le relais");
+  // Tout effacer efface aussi les copies (sinon les notes reviendraient au démarrage)
+  await T.resetAll(); await tick();
+  const after = JSON.parse(native.files["sauvegarde-auto.json"] || "{}");
+  ok(!native.files["sauvegarde-auto-veille.json"] && after.entries && !Object.keys(after.entries).length, "« Tout effacer » efface aussi les copies automatiques");
+  T = boot(true); await tick(); await tick();
+  ok(!Object.keys(T.S.entries).length, "après « Tout effacer », rien ne revient au démarrage");
 
   // Bilan
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }

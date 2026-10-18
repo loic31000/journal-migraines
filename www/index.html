@@ -87,10 +87,12 @@ p{margin:0}
 /* Fondu en opacité sur la vue (une animation de transform figerait la barre fixe du formulaire),
    puis les cartes montent en cascade */
 main.wrap:not([hidden]){animation:fade .3s ease-out}
-main.wrap:not([hidden]) > :is(.top,.card,.hero,.notice,.seg,.pernav,.btn,.step,.formhead,.progress){animation:rise .55s var(--ease) both}
+main.wrap:not([hidden]) > :is(.top,.card,.hero,.notice,.seg,.pernav,.btn,.step,.formhead,.progress):not(.sheet){animation:rise .55s var(--ease) both}
 main.wrap > :nth-child(2){animation-delay:.04s!important}main.wrap > :nth-child(3){animation-delay:.08s!important}
 main.wrap > :nth-child(4){animation-delay:.12s!important}main.wrap > :nth-child(5){animation-delay:.16s!important}
 main.wrap > :nth-child(6){animation-delay:.2s!important}main.wrap > :nth-child(n+7){animation-delay:.24s!important}
+/* Panneaux (détail du jour, questionnaire) : jamais de délai de cascade, fond et panneau partent ensemble */
+main.wrap > :is(.sheet,.sheet-bg){animation-delay:0s!important}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rowhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .rowhead h2{min-width:0}
@@ -355,11 +357,11 @@ nav.tabs button:focus-visible{outline-color:var(--dock-pill);outline-offset:-3px
 /* panneau du jour, qui monte du bas */
 .sheet-bg{position:fixed;inset:0;z-index:29;background:color-mix(in srgb,var(--ink) 38%,transparent);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:fade .25s ease-out}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:84vh;overflow:auto;border-radius:34px 34px 0 0;border-bottom:0;background:var(--surface);
-  padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .5s var(--spring)}
+  padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .32s var(--ease) both}
 .sheet > *{width:100%;max-width:520px;margin-inline:auto}
 .sheet > .pill{width:fit-content;margin-inline:0}
 .sheet .grab{width:44px;height:5px;border-radius:99px;background:var(--line-strong);opacity:.6}
-@keyframes up{from{transform:translateY(60px);opacity:.3}to{transform:none;opacity:1}}
+@keyframes up{from{transform:translateY(48px);opacity:0}to{transform:none;opacity:1}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 /* bilan */
@@ -944,16 +946,62 @@ function writeCache(){
   catch(e){toast("Espace plein : télécharge une sauvegarde puis efface de vieilles notes");return false}
 }
 const clean=e=>{const o=JSON.parse(JSON.stringify(e));delete o._local;return o};
-async function putEntry(e){e.updatedAt=Date.now();delete e._local;S.entries[e.date]=e;writeCache();scheduleReminders()}
-async function removeEntry(date){delete S.entries[date];writeCache();scheduleReminders()}
-async function putSettings(){S.settings.updatedAt=Date.now();writeCache()}
+async function putEntry(e){e.updatedAt=Date.now();delete e._local;S.entries[e.date]=e;writeCache();scheduleReminders();writeSnapshot()}
+async function removeEntry(date){delete S.entries[date];writeCache();scheduleReminders();writeSnapshot()}
+async function putSettings(){S.settings.updatedAt=Date.now();writeCache();writeSnapshot()}
+
+/* =============== SAUVEGARDE AUTOMATIQUE =============== */
+// À chaque changement, une copie complète des notes est écrite dans le dossier privé de l'appli
+// (plus une copie de la veille). Android l'inclut dans la sauvegarde Google du téléphone (allowBackup),
+// sans permission Internet. Au démarrage, si l'appli a perdu des notes (nouveau téléphone, données effacées),
+// elle les retrouve dans cette copie.
+const SNAP="sauvegarde-auto.json",SNAP_PREV="sauvegarde-auto-veille.json",SNAP_AT="jm-snap-at",SNAP_DAY="jm-snap-day";
+const FSP=()=>{const c=window.Capacitor;return c&&c.isNativePlatform&&c.isNativePlatform()&&c.Plugins&&c.Plugins.Filesystem||null};
+const backupData=()=>JSON.stringify({app:"journal-migraines",version:2,savedAt:new Date().toISOString(),settings:S.settings,entries:Object.fromEntries(Object.entries(S.entries).map(([k,e])=>[k,clean(e)]))});
+const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}},lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+let snapBusy=null,snapAgain=false;
+function writeSnapshot(){
+  const fs=FSP();if(!fs)return Promise.resolve(false);
+  if(snapBusy){snapAgain=true;return snapBusy}
+  snapBusy=(async()=>{
+    try{
+      do{snapAgain=false;
+        // Une fois par jour, la copie d'hier est mise de côté (si la dernière copie était abîmée)
+        if(lsGet(SNAP_DAY)!==todayStr()){try{const old=await fs.readFile({path:SNAP,directory:"DATA",encoding:"utf8"});
+          if(old&&old.data&&String(old.data).includes('"entries"'))await fs.writeFile({path:SNAP_PREV,directory:"DATA",data:String(old.data),encoding:"utf8"})}catch(e){}
+          lsSet(SNAP_DAY,todayStr())}
+        await fs.writeFile({path:SNAP,directory:"DATA",data:backupData(),encoding:"utf8"});
+        lsSet(SNAP_AT,new Date().toISOString());
+      }while(snapAgain);
+      return true;
+    }catch(e){return false}finally{snapBusy=null}
+  })();
+  return snapBusy;
+}
+async function readSnapshot(path){
+  const fs=FSP();if(!fs)return null;
+  try{const r=await fs.readFile({path,directory:"DATA",encoding:"utf8"});const o=JSON.parse(String(r.data));return o&&o.entries&&typeof o.entries==="object"?o:null}catch(e){return null}
+}
+async function deleteSnapshots(){const fs=FSP();if(!fs)return;for(const path of [SNAP,SNAP_PREV])try{await fs.deleteFile({path,directory:"DATA"})}catch(e){}}
+// Au démarrage : remettre les journées absentes ou plus récentes dans la copie (jamais au détriment d'un jour plus récent)
+async function restoreFromSnapshot(){
+  const o=await readSnapshot(SNAP)||await readSnapshot(SNAP_PREV);if(!o)return 0;
+  const missing=Object.values(o.entries).filter(e=>e&&e.date&&(!S.entries[e.date]||(e.updatedAt||0)>(S.entries[e.date].updatedAt||0))).length;
+  if(!missing)return 0;
+  const r=await mergeBackup(o);
+  if(r.added){if(tab==="home")renderHome();toast(`Notes retrouvées : ${r.added} journée${r.added>1?"s":""} remise${r.added>1?"s":""} en place`)}
+  return r.added;
+}
 const daysSince=d=>d?Math.floor((parse(todayStr())-parse(d))/864e5):Infinity;
 function renderStatus(){
   const el=$("status"),last=S.settings.lastBackup;
   el.classList.add("cloud");el.querySelector("span").textContent="Sur ce téléphone";
-  $("whereText").innerHTML="Tes notes sont enregistrées <b>uniquement sur ce téléphone</b>, dans l'appli. Personne d'autre n'y a accès et l'appli marche sans internet."
-    +"<br><br>Si le téléphone casse ou est perdu, seules tes sauvegardes permettent de tout récupérer. Envoie-en une sur ton Drive ou par mail une fois par mois. "
-    +(last?`Dernière sauvegarde : <b>${esc(dayLong(last))}</b>.`:"<b>Tu n'as encore fait aucune sauvegarde.</b>");
+  $("whereText").innerHTML="Tes notes restent dans ce téléphone. Personne d'autre n'y a accès et l'appli marche sans internet."
+    +"<br><br>Si le téléphone casse ou est perdu, tes notes sont protégées deux fois : par la copie automatique, et par les sauvegardes que tu envoies sur ton Drive. Fais-en une chaque semaine, c'est la protection la plus sûre. "
+    +(last?`Dernière sauvegarde envoyée : <b>${esc(dayLong(last))}</b>.`:"<b>Tu n'as encore envoyé aucune sauvegarde.</b>")
+    +(FSP()?`<br><br><b>Copie automatique</b> : ${(()=>{const a=lsGet(SNAP_AT);return a?`à jour (${esc(dayLong(ymd(new Date(a))))} à ${hhmm(new Date(a))})`:"en cours"})()}. `
+      +"À chaque note, l'appli garde une copie complète dans le téléphone, et Android l'envoie dans la sauvegarde Google si elle est activée (Réglages › Google › Sauvegarde). Sur un nouveau téléphone, tes notes reviennent toutes seules."
+      :"<br><br>La copie automatique marche dans l'appli installée sur le téléphone.");
 }
 
 /* =============== RAPPEL DU SOIR =============== */
@@ -1206,8 +1254,8 @@ let noticeAct=null;
 function checkNotice(){
   const t=new Date(),dow=t.getDay();let T="",Sx="";
   if(!Object.keys(S.entries).length){$("notice").hidden=true;return}
-  if(daysSince(S.settings.lastBackup)>=30){T=S.settings.lastBackup?"C'est l'heure de ta sauvegarde du mois":"Pense à faire ta première sauvegarde";
-    Sx="Envoie-la sur ton Drive ou par mail : elle protège tes notes si le téléphone casse.";noticeAct=()=>"data"}
+  if(daysSince(S.settings.lastBackup)>=7){T=S.settings.lastBackup?"Ta sauvegarde de la semaine":"Pense à faire ta première sauvegarde";
+    Sx="Un toucher pour en mettre une copie sur ton Drive, en plus de la copie automatique : comme ça, rien ne se perd si le téléphone casse.";noticeAct=()=>"data"}
   else if(Object.keys(S.entries).length>=28&&(!(S.settings.midas||[]).length||daysSince(S.settings.midas[S.settings.midas.length-1].date)>=90)){
     T="Questionnaire de suivi";Sx="2 minutes pour mesurer la gêne de ces 3 derniers mois. Utile pour ton médecin.";noticeAct=()=>{sMode="quarter";sAnchor=t;setTimeout(openMidas,60)}}
   else if(t.getDate()<=3){T=`Ton bilan de ${MONTHS[(t.getMonth()+11)%12]} est prêt`;Sx="Tout le mois en un coup d'œil.";noticeAct=()=>{sMode="month";sAnchor=new Date(t.getFullYear(),t.getMonth()-1,1)}}
@@ -1802,7 +1850,7 @@ $("csvBtn").addEventListener("click",async()=>{
   await saveFile(`journal-migraines-${from}-au-${to}.csv`,csv);
 });
 $("bkBtn").addEventListener("click",async()=>{
-  const data=JSON.stringify({app:"journal-migraines",version:2,savedAt:new Date().toISOString(),settings:S.settings,entries:Object.fromEntries(Object.entries(S.entries).map(([k,e])=>[k,clean(e)]))});
+  const data=backupData();
   const ok=await saveFile(`sauvegarde-journal-migraines-${todayStr()}.json`,data);
   if(ok){S.settings.lastBackup=todayStr();await putSettings();renderStatus();checkNotice()}
   else{const t=$("bkText");t.value=data;t.hidden=false;t.focus();t.select();
@@ -1813,8 +1861,13 @@ $("bkBtn").addEventListener("click",async()=>{
 async function restoreText(txt){
   let o=null;try{o=JSON.parse(String(txt||"").trim())}catch(e){}
   if(!o||typeof o!=="object"||!o.entries){toast("Ce n'est pas une sauvegarde du journal");return false}
+  toast(`Restauration de ${Object.keys(o.entries).length} journées…`);
+  const{added,kept}=await mergeBackup(o);
+  toast(kept?`${added} journées remises · ${kept} plus récentes gardées`:`${added} journées remises en place`);renderData();
+  return true;
+}
+async function mergeBackup(o){
   const list=Object.values(o.entries).filter(e=>e&&e.date&&/^\d{4}-\d{2}-\d{2}$/.test(e.date)&&!e.demo);
-  toast(`Restauration de ${list.length} journées…`);
   if(o.settings||o.custom){const st=o.settings||{custom:o.custom||[]};
     const ids=new Set((S.settings.custom||[]).map(q=>q.id));cleanSettings({custom:st.custom}).custom.forEach(q=>{if(!ids.has(q.id)){S.settings.custom.push(q);ids.add(q.id)}});
     if(typeof st.name==="string"&&st.name.trim()&&!S.settings.name)S.settings.name=st.name.slice(0,80);
@@ -1824,10 +1877,10 @@ async function restoreText(txt){
   for(const e of list){
     const ex=S.entries[e.date],ts=e.updatedAt||0;
     if(ex&&ts<=(ex.updatedAt||0)){kept++;continue}
-    const x=cleanEntry(e,false);if(!x)continue;delete x.quick;await putEntry(x);added++;
+    const x=cleanEntry(e,false);if(!x)continue;delete x.quick;const ts0=e.updatedAt;await putEntry(x);if(ts0)x.updatedAt=ts0;added++;
   }
-  toast(kept?`${added} journées remises · ${kept} plus récentes gardées`:`${added} journées remises en place`);renderData();
-  return true;
+  if(added)writeCache();
+  return{added,kept};
 }
 $("bkFile").addEventListener("change",ev=>{
   const f=ev.target.files&&ev.target.files[0];if(!f)return;
@@ -1838,7 +1891,7 @@ $("bkFile").addEventListener("change",ev=>{
 // Remise à zéro : efface toutes les notes et les réglages de ce téléphone
 async function resetAll(){
   S.entries={};S.settings={custom:[],name:"",updatedAt:Date.now()};
-  writeCache();renderStatus();await scheduleReminders();
+  writeCache();await deleteSnapshots();await writeSnapshot();renderStatus();await scheduleReminders();
 }
 const rsClose=()=>{$("rsBox").hidden=true;$("rsInput").value="";$("rsErr").hidden=true;$("rsInput").removeAttribute("aria-invalid");$("rsOpen").setAttribute("aria-expanded","false")};
 $("rsOpen").addEventListener("click",()=>{const open=$("rsBox").hidden;$("rsBox").hidden=!open;$("rsOpen").setAttribute("aria-expanded",String(open));if(open)$("rsInput").focus();else rsClose()});
@@ -1863,6 +1916,7 @@ try{const t=localStorage.getItem(THEME_KEY);if(t==="dark"||t==="light")document.
 $("themeBtn").addEventListener("click",()=>{const t=isDark()?"light":"dark";document.documentElement.dataset.theme=t;try{localStorage.setItem(THEME_KEY,t)}catch(e){}paintTheme()});
 paintTheme();
 readCache();renderStatus();show("home");scheduleReminders();
+restoreFromSnapshot().then(()=>writeSnapshot()).then(()=>renderStatus());
 // Bouton retour d'Android : recule dans l'appli au lieu de la fermer d'un coup
 const CapApp=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App;
 if(CapApp)CapApp.addListener("backButton",()=>{

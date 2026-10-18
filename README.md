@@ -7,11 +7,11 @@
 **Un journal des maux de tête pour Android, 100 % local.**
 Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, et préparer un rapport PDF pour le médecin.
 
-![Version](https://img.shields.io/badge/version-2.1-a92c49)
+![Version](https://img.shields.io/badge/version-2.2.1-a92c49)
 ![Android](https://img.shields.io/badge/Android-5.1%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-51%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-58%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
 ![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
@@ -95,8 +95,9 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 ### Pour le médecin et la sauvegarde
 - **Rapport PDF** sur 1, 3, 6, 12 mois ou tout l'historique : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
 - **Tableau** (CSV, s'ouvre dans Excel ou Google Sheets).
-- **Sauvegarde** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…). **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
-- **Rappel de sauvegarde** sur l'accueil si la dernière date de plus de 30 jours.
+- **Sauvegarde automatique** : à chaque note, une copie complète (plus celle de la veille) est écrite dans le dossier privé de l'appli. Android l'envoie dans la sauvegarde Google du téléphone, sans que l'appli ait besoin d'Internet. Si l'appli perd ses notes (nouveau téléphone, données effacées), elle les retrouve toute seule au démarrage, sans jamais remplacer un jour plus récent.
+- **Sauvegarde sur Drive** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…), rappelée chaque semaine. **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
+- **Rappel de sauvegarde** sur l'accueil si la dernière copie envoyée sur Drive date de plus de 7 jours.
 
 ### Confort
 - **Rappel du soir** (notification, 21 h par défaut, heure réglable) : seulement si la journée n'est pas encore notée.
@@ -115,16 +116,18 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 | **Connexion internet** | Aucune : l'appli n'a pas la permission Internet, Android lui interdit toute connexion. |
 | **Compte, publicité, statistiques** | Aucun. |
 | **Permissions demandées** | Notifications (rappel du soir, fin de crise, prochaine prise), réveil et redémarrage du téléphone (pour que les rappels survivent à un redémarrage). |
-| **Sauvegarde Google du téléphone** | Si elle est activée dans les réglages Android, Android peut inclure les notes de l'appli dans la sauvegarde Google du téléphone (chiffrée, liée au compte Google). Elles reviennent alors en réinstallant sur un nouveau téléphone. L'appli elle-même n'envoie rien. |
-| **Si le téléphone casse** | Les sauvegardes envoyées ailleurs (Drive, mail) permettent de tout récupérer, même sans la sauvegarde Google. D'où le rappel mensuel. |
+| **Sauvegarde Google du téléphone** | L'appli écrit une copie de ses notes dans son dossier privé à chaque changement. Si la sauvegarde Google est activée (Réglages › Google › Sauvegarde, en général activée par défaut), Android l'envoie chiffrée dans le compte Google, environ une fois par jour (en Wi-Fi, téléphone en charge). Sur un nouveau téléphone, en réinstallant l'appli avec le même compte, les notes reviennent. L'appli elle-même n'envoie rien. |
+| **Si le téléphone casse** | Deux protections indépendantes : la sauvegarde Google automatique, et les copies envoyées sur Drive chaque semaine. La seconde marche même si la sauvegarde Google est désactivée. |
 
-> ⚠️ Désinstaller l'appli ou faire « Effacer les données » dans les réglages Android supprime toutes les notes. Faire une sauvegarde avant.
+> ⚠️ Désinstaller l'appli ou faire « Effacer les données » dans les réglages Android supprime les notes et la copie automatique du téléphone. Seules la sauvegarde Google du téléphone et les copies envoyées sur Drive permettent alors de tout récupérer : faire une sauvegarde sur Drive avant.
 
 ## Installer sur le téléphone
 
 1. Copier `Mon-Journal-Migraines.apk` sur le téléphone (câble USB, mail à soi-même, Drive…).
 2. L'ouvrir depuis l'appli **Fichiers**, puis autoriser l'installation pour cette source si Android le demande.
 3. **Mise à jour** : installer le nouvel APK par-dessus. Les notes sont conservées.
+4. **Vérifier la sauvegarde Google** (une fois) : *Réglages* › *Google* › *Sauvegarde* (selon les téléphones : *Système* › *Sauvegarde*), « Sauvegarde par Google One » activée. C'est elle qui emporte la copie automatique hors du téléphone.
+5. **Nouveau téléphone** : se connecter au même compte Google, installer l'APK, ouvrir l'appli. Si Android a remis la copie automatique, l'appli retrouve les notes toute seule au démarrage. Sinon : *Mes données* › *Remettre une sauvegarde (fichier)* avec la dernière copie envoyée sur Drive.
 
 > **Changement de clé de signature (une seule fois)** : Android refuse d'installer un APK signé avec une autre clé par-dessus l'appli déjà installée. Dans l'ancienne appli : *Mes données* → *Faire une sauvegarde* (l'envoyer sur Drive ou par mail). Désinstaller, installer le nouvel APK, puis *Mes données* → *Remettre une sauvegarde (fichier)*. Les mises à jour suivantes, signées avec la même clé, s'installent de nouveau par-dessus.
 
@@ -207,6 +210,7 @@ Pour redessiner l'icône : `node scripts/icons.js` puis `npx @capacitor/assets g
 - rappel du soir : 14 soirs programmés à la bonne heure, aucun rappel un soir déjà noté ;
 - plusieurs médicaments par jour : ancien et nouveau format lus, chaque prise comptée dans le bilan, vieilles sauvegardes restaurées sans perte ;
 - heures : fin de crise calculée (même après minuit), détail du jour rangé par heure et complet ;
+- sauvegarde automatique : copie écrite à chaque changement, notes retrouvées au démarrage, jamais au détriment d'un jour plus récent, copie de la veille si la dernière est abîmée, « Tout effacer » efface aussi les copies ;
 - remise à zéro, seuils médicaments, bilan semaine et mois.
 
 Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de partage, notifications).
@@ -243,6 +247,8 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.2.1** | 7 | Correction : le détail d'un jour (et le questionnaire MIDAS) s'ouvre sans flash, le panneau glisse du bas en même temps que le fond s'assombrit. |
+| **2.2** | 6 | Sauvegarde automatique (copie à chaque note dans le dossier privé, incluse dans la sauvegarde Google du téléphone, notes retrouvées toutes seules au démarrage) et rappel de copie sur Drive chaque semaine. |
 | **2.1** | 5 | Mode crise (appui long sur *Forte*), fin de crise en un toucher et notification, écart entre deux prises avec rappel, *Comme d'habitude*, questionnaire MIDAS, bilan plus fiable (seuils, aliments comparés, moment des crises, jauge médicaments, période 3 mois), rapport PDF aux couleurs de la v2, nouvelle icône et écran de démarrage, accessibilité (zoom 200 %, cibles de 44 px). |
 | **2.0** | 4 | Refonte « Ciel intérieur » (aurore qui suit la journée, nouvelles polices, dock d'onglets, animations). Icônes météo pour la crise rapide. Bilan « En bref » en phrases simples. Accueil sans carte une fois la journée notée. Sécurité : données nettoyées à la restauration, CSP, jsPDF 4, APK de publication signé et non débogable. |
 | **1.2** | 3 | Plusieurs médicaments dans une même journée, chacun avec son heure et son efficacité. Heure des repas. Détail du jour complet dans le calendrier, avec la journée heure par heure. Correction : les jours de douleur forte redeviennent visibles dans le calendrier. |
