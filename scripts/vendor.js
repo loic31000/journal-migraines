@@ -23,6 +23,8 @@ for (const [family, pkg, weights, styles] of faces) {
     fs.copyFileSync(nm("@fontsource", pkg, "files", file), path.join(out, "fonts", file));
     css += `@font-face{font-family:"${family}";font-style:${st};font-weight:${w};font-display:swap;src:url("fonts/${file}") format("woff2")}\n`;
   }
+  // Licence SIL OFL 1.1 : son texte et l'avis de copyright doivent accompagner les polices redistribuées
+  fs.copyFileSync(nm("@fontsource", pkg, "LICENSE"), path.join(out, "fonts", `OFL-${family}.txt`));
 }
 fs.writeFileSync(path.join(out, "fonts.css"), css);
-console.log("vendor : outil PDF et polices copiés dans www/vendor");
+console.log("vendor : outil PDF, polices et leurs licences copiés dans www/vendor");

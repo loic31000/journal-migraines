@@ -7,8 +7,10 @@
 **Un journal des maux de tête pour Android, 100 % local.**
 Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, et préparer un rapport PDF pour le médecin.
 
-![Version](https://img.shields.io/badge/version-2.2.1-a92c49)
-![Android](https://img.shields.io/badge/Android-5.1%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
+**[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
+
+![Version](https://img.shields.io/badge/version-2.2.2-a92c49)
+![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
 ![Tests](https://img.shields.io/badge/tests-58%20réussis-1f7a5c)
@@ -39,6 +41,7 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 - [Historique des versions](#historique-des-versions)
 - [Contribuer](#contribuer)
 - [Licence](#licence)
+- [Licences tierces](#licences-tierces)
 - [Avertissement médical](#avertissement-médical)
 
 ## Captures d'écran
@@ -123,7 +126,7 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 
 ## Installer sur le téléphone
 
-1. Copier `Mon-Journal-Migraines.apk` sur le téléphone (câble USB, mail à soi-même, Drive…).
+1. Sur le téléphone, ouvrir la [page des versions](https://github.com/loic31000/journal-migraines/releases/latest) et télécharger le fichier `journal-migraines-x.y.z.apk` (ou fabriquer l'APK soi-même, voir plus bas).
 2. L'ouvrir depuis l'appli **Fichiers**, puis autoriser l'installation pour cette source si Android le demande.
 3. **Mise à jour** : installer le nouvel APK par-dessus. Les notes sont conservées.
 4. **Vérifier la sauvegarde Google** (une fois) : *Réglages* › *Google* › *Sauvegarde* (selon les téléphones : *Système* › *Sauvegarde*), « Sauvegarde par Google One » activée. C'est elle qui emporte la copie automatique hors du téléphone.
@@ -131,7 +134,7 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 
 > **Changement de clé de signature (une seule fois)** : Android refuse d'installer un APK signé avec une autre clé par-dessus l'appli déjà installée. Dans l'ancienne appli : *Mes données* → *Faire une sauvegarde* (l'envoyer sur Drive ou par mail). Désinstaller, installer le nouvel APK, puis *Mes données* → *Remettre une sauvegarde (fichier)*. Les mises à jour suivantes, signées avec la même clé, s'installent de nouveau par-dessus.
 
-L'APK n'est pas dans le dépôt : il se fabrique avec `npm run apk` (voir ci-dessous).
+L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](https://github.com/loic31000/journal-migraines/releases), ou se fabrique avec `npm run apk` (voir ci-dessous).
 
 ## Stack technique
 
@@ -147,7 +150,7 @@ L'APK n'est pas dans le dépôt : il se fabrique avec `npm run apk` (voir ci-des
 | Compilation | Node.js, Java 17, SDK Android 34, Gradle | Fabrication de l'APK |
 | Tests | Node.js, sans dépendance | Logique de stockage, sauvegardes, partage, rappels |
 
-**Android** : version minimale 5.1 (API 22), cible Android 14 (API 34).
+**Android** : version minimale 7.0 (API 24), avec la WebView Android à jour (Play Store). Cible Android 14 (API 34). Les couleurs de l'interface utilisent `color-mix()`, géré par les WebView depuis 2023 ; Android 5 et 6 ne reçoivent plus ces mises à jour.
 
 ## Fabriquer l'APK
 
@@ -231,7 +234,9 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 ├── tests/
 │   └── app.test.js         tests de la logique
 ├── capacitor.config.json   identité de l'appli et réglages des plugins
-└── package.json            dépendances et scripts
+├── package.json            dépendances et scripts
+├── CONTRIBUTING.md         comment proposer une correction
+└── SECURITY.md             signaler une faille
 ```
 
 ## Publier une nouvelle version
@@ -247,6 +252,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.2.2** | 8 | Version publique : licences des polices (OFL) jointes à l'APK, Android 7.0 minimum (la WebView d'Android 5 et 6 ne gère plus les couleurs de l'interface), lien de téléchargement dans le README. |
 | **2.2.1** | 7 | Correction : le détail d'un jour (et le questionnaire MIDAS) s'ouvre sans flash, le panneau glisse du bas en même temps que le fond s'assombrit. |
 | **2.2** | 6 | Sauvegarde automatique (copie à chaque note dans le dossier privé, incluse dans la sauvegarde Google du téléphone, notes retrouvées toutes seules au démarrage) et rappel de copie sur Drive chaque semaine. |
 | **2.1** | 5 | Mode crise (appui long sur *Forte*), fin de crise en un toucher et notification, écart entre deux prises avec rappel, *Comme d'habitude*, questionnaire MIDAS, bilan plus fiable (seuils, aliments comparés, moment des crises, jauge médicaments, période 3 mois), rapport PDF aux couleurs de la v2, nouvelle icône et écran de démarrage, accessibilité (zoom 200 %, cibles de 44 px). |
@@ -257,11 +263,21 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 ## Contribuer
 
-Les suggestions et corrections sont les bienvenues : ouvrez une *issue* pour signaler un problème ou proposer une idée, ou une *pull request* avec vos modifications. Merci de lancer `npm test` avant d'envoyer un changement.
+Les suggestions et corrections sont les bienvenues : ouvrez une [issue](https://github.com/loic31000/journal-migraines/issues/new/choose) pour signaler un problème ou proposer une idée, ou une *pull request* avec vos modifications. Les règles du projet sont dans [CONTRIBUTING.md](CONTRIBUTING.md). Pour une faille de sécurité, voir [SECURITY.md](SECURITY.md).
 
 ## Licence
 
 Distribué sous licence [MIT](LICENSE) : libre d'utiliser, modifier et redistribuer, sans garantie.
+
+## Licences tierces
+
+L'APK embarque, sans modification :
+
+| Élément | Licence | Avis |
+|---|---|---|
+| Polices [Fraunces](https://github.com/undercasetype/Fraunces) et [Manrope](https://github.com/sharanda/manrope) (via Fontsource) | SIL Open Font License 1.1 | Texte joint dans l'APK : `vendor/fonts/OFL-Fraunces.txt` et `vendor/fonts/OFL-Manrope.txt` |
+| [jsPDF](https://github.com/parallax/jsPDF) et [jsPDF-AutoTable](https://github.com/simonbengtsson/jsPDF-AutoTable) | MIT | En tête de chaque fichier |
+| [Capacitor](https://capacitorjs.com) et ses plugins officiels | MIT | Dépendances Android |
 
 ## Avertissement médical
 
