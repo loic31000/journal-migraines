@@ -26,6 +26,7 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 ## Sommaire
 
+- [Captures d'écran](#captures-décran)
 - [Pourquoi cette appli](#pourquoi-cette-appli)
 - [Fonctionnalités](#fonctionnalités)
 - [Vie privée et données](#vie-privée-et-données)
@@ -39,6 +40,21 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 - [Contribuer](#contribuer)
 - [Licence](#licence)
 - [Avertissement médical](#avertissement-médical)
+
+## Captures d'écran
+
+<p align="center">
+  <img src="docs/captures/accueil.png" alt="Accueil : la question « Comment va ta tête aujourd'hui ? » avec les tuiles J'ai eu mal et Pas de mal" width="200">
+  <img src="docs/captures/formulaire.png" alt="Formulaire, étape La crise : heure de début, durée, zones douloureuses et signes associés" width="200">
+  <img src="docs/captures/calendrier.png" alt="Calendrier du mois : chaque jour est une jauge remplie selon la force de la douleur" width="200">
+</p>
+<p align="center">
+  <img src="docs/captures/bilan.png" alt="Bilan du mois : nombre de jours avec mal, tendance, force moyenne, heures de douleur et sommeil" width="200">
+  <img src="docs/captures/donnees.png" alt="Mes données : rapport PDF pour le médecin et export en tableau" width="200">
+  <img src="docs/captures/accueil-nuit.png" alt="Accueil en mode nuit" width="200">
+</p>
+
+<sub>Captures réalisées avec des données d'exemple fictives.</sub>
 
 ## Pourquoi cette appli
 
@@ -172,6 +188,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 │   └── index.html          l'appli (interface et logique)
 ├── android/                projet Android généré par Capacitor
 ├── assets/                 icône et écrans de démarrage sources
+├── docs/captures/          captures d'écran du README
 ├── scripts/
 │   ├── vendor.js           intègre l'outil PDF et les polices
 │   ├── icons.js            dessine l'icône et l'écran de démarrage
