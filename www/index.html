@@ -108,9 +108,6 @@ main.wrap > :is(.sheet,.sheet-bg){animation-delay:0s!important}
 #v-home .hello{grid-row:2;grid-column:1/-1}
 .top .date{font-weight:800;color:var(--ink-2);font-size:.8125rem;text-transform:uppercase;letter-spacing:.16em;margin-bottom:6px}
 .hello{font-style:italic;font-weight:500;font-size:2.05rem;letter-spacing:-.02em}
-.hello .nw{white-space:nowrap}
-.hello svg{display:inline-block;width:.62em;height:.62em;margin-left:.22em;vertical-align:.02em;color:var(--accent-hi);filter:drop-shadow(0 4px 10px color-mix(in srgb,var(--accent-hi) 60%,transparent));animation:beat 1.4s ease-in-out .4s 1}
-@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.2)}24%{transform:scale(1)}36%{transform:scale(1.1)}48%{transform:scale(1)}}
 .status{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;padding:7px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap;-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--ink-2)}
 .status.cloud i{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
@@ -535,7 +532,7 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   nav.tabs .in::before{top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4)}
   nav.tabs button{font-size:0;gap:0;min-height:52px}
   nav.tabs button svg{width:24px;height:24px}
-  .hello{font-size:1.5rem}.hello .nw{white-space:normal}
+  .hello{font-size:1.5rem}
   .duo,.quick,.stats3{grid-template-columns:1fr}
   .withtime{grid-template-columns:1fr}
   .tl li span:last-child{white-space:normal}
@@ -553,7 +550,6 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   <symbol id="i-lv1" viewBox="0 0 48 48"><clipPath id="hc1"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="31.5" width="48" height="16.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc1)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-lv2" viewBox="0 0 48 48"><clipPath id="hc2"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="20.5" width="48" height="27.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc2)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-lv3" viewBox="0 0 48 48"><clipPath id="hc3"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="8" width="48" height="40" fill="currentColor" fill-opacity=".85" clip-path="url(#hc3)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.4A5.4 5.4 0 0 1 12 6.1a5.4 5.4 0 0 1 9.6 5.5C19.5 16.4 12 21 12 21z" fill="currentColor"/></symbol>
 </svg>
 <div class="wrap" id="app">
 
@@ -1183,9 +1179,7 @@ function renderHome(){
   $("homeDate").textContent=dayLong(t);
   document.body.dataset.sky=!e?"dawn":e.migraine?"storm":"calm";
   const first=(S.settings.name||"").trim().split(/\s+/)[0],hi=h>=18||h<5?"Bonsoir":"Bonjour";
-  // Le cœur est collé au dernier mot : il ne peut jamais partir seul à la ligne
-  const words=(first?`${hi} ${first}`:hi).split(" "),last=words.pop();
-  $("hello").innerHTML=`${words.length?esc(words.join(" "))+" ":""}<span class="nw">${esc(last)}<svg aria-hidden="true"><use href="#i-heart"/></svg></span>`;
+  $("hello").textContent=first?`${hi} ${first}`:hi;
   // Une seule entrée tant que la journée n'est pas notée ; ensuite la semaine suffit (un toucher sur le jour le rouvre). La carte du jour ne reste qu'après une crise rapide, à compléter
   $("askCard").hidden=!!e;$("todayCard").hidden=!(e&&e.quick);$("quickCard").hidden=!(e&&!e.migraine);
   if(e){

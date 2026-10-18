@@ -9,7 +9,7 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 **[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
 
-![Version](https://img.shields.io/badge/version-2.2.2-a92c49)
+![Version](https://img.shields.io/badge/version-2.2.3-a92c49)
 ![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
@@ -252,6 +252,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.2.3** | 9 | Salutation de l'accueil sans cœur, captures d'écran mises à jour. |
 | **2.2.2** | 8 | Version publique : licences des polices (OFL) jointes à l'APK, Android 7.0 minimum (la WebView d'Android 5 et 6 ne gère plus les couleurs de l'interface), lien de téléchargement dans le README. |
 | **2.2.1** | 7 | Correction : le détail d'un jour (et le questionnaire MIDAS) s'ouvre sans flash, le panneau glisse du bas en même temps que le fond s'assombrit. |
 | **2.2** | 6 | Sauvegarde automatique (copie à chaque note dans le dossier privé, incluse dans la sauvegarde Google du téléphone, notes retrouvées toutes seules au démarrage) et rappel de copie sur Drive chaque semaine. |
