@@ -228,6 +228,14 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
     && T.periodTitle(D(2026, 8, 1), D(2026, 10, 31), "quarter") === "août - octobre 2026"
     && T.periodTitle(D(2025, 11, 1), D(2026, 1, 31), "quarter") === "novembre 2025 - janvier 2026", "titres de période unifiés (mois en toutes lettres, année toujours là)");
 
+  // Échappement : du code piégé dans les champs libres ne produit aucune balise dans le détail du jour
+  const trap = `"'><img src=x onerror=alert(1)><script>alert(2)</script>`;
+  const dx = T.dayDetailHtml({ date: "2026-09-12", migraine: true, intensity: 6, start: "14:00", duration: 2, zones: [trap], symptoms: [trap],
+    meds: [{ name: trap, time: "15:00", eff: "oui" }, { name: trap, time: "", eff: "" }], breakfast: trap, breakfastTime: "08:00", lunch: trap, lunchTime: "", dinner: trap, dinnerTime: "",
+    sleep: 7, water: 5, screen: 4, coffee: 1, glasses: "oui", stress: "2", period: "non", notes: trap, custom: {} });
+  ok(!/<img|<script/i.test(dx) && (dx.match(/&lt;img/g) || []).length >= 7 && dx.includes("&lt;script&gt;"),
+    "détail du jour : notes, repas, médicaments et zones piégés restent du texte échappé");
+
   // Bilan
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }
   catch (err) { ok(false, "bilan : " + err.message) }

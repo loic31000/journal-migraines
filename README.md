@@ -11,12 +11,12 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 ![Android](https://img.shields.io/badge/Android-5.1%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-49%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-51%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
 ![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
 ![HTML CSS JS](https://img.shields.io/badge/HTML%20·%20CSS%20·%20JavaScript-sans%20framework-f7df1e?logo=javascript&logoColor=black)
-![jsPDF](https://img.shields.io/badge/jsPDF-2.5.1-c2185b)
+![jsPDF](https://img.shields.io/badge/jsPDF-4.2.1-a92c49)
 ![Node](https://img.shields.io/badge/Node.js-build-339933?logo=nodedotjs&logoColor=white)
 ![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
 
@@ -138,7 +138,7 @@ L'APK n'est pas dans le dépôt : il se fabrique avec `npm run apk` (voir ci-des
 | Appli Android | [Capacitor](https://capacitorjs.com) 6.2 | Enveloppe la page dans une vraie appli Android |
 | Plugins natifs | `@capacitor/app`, `filesystem`, `share`, `local-notifications` | Bouton retour, fichiers, menu de partage, rappel du soir |
 | Stockage | `localStorage` de la WebView | Privé à l'appli, persistant |
-| PDF | jsPDF 2.5.1 + jsPDF-AutoTable 3.8.2 | Rapport pour le médecin, intégré à l'APK |
+| PDF | jsPDF 4.2.1 + jsPDF-AutoTable 5.0.8 | Rapport pour le médecin, intégré à l'APK |
 | Polices | Fraunces (titres, chiffres) et Manrope (texte), via Fontsource | Intégrées à l'APK, aucune requête réseau |
 | Icônes | `sharp` + `@capacitor/assets` | Icône adaptative et écrans de démarrage clair et sombre |
 | Compilation | Node.js, Java 17, SDK Android 34, Gradle | Fabrication de l'APK |
