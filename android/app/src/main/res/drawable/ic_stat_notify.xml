@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Petite icône de notification (silhouette blanche obligatoire sur Android) : un cœur -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,21s-7.5,-4.6 -9.6,-9.4A5.4,5.4 0,0 1,12 6.1a5.4,5.4 0,0 1,9.6 5.5C19.5,16.4 12,21 12,21z" />
+</vector>

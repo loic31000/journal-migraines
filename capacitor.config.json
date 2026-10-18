@@ -1,0 +1,14 @@
+{
+  "appId": "fr.journalmigraines.app",
+  "appName": "Mon Journal",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_notify",
+      "iconColor": "#D81B66"
+    }
+  }
+}
