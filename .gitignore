@@ -1,3 +1,8 @@
 node_modules/
 www/vendor/
 *.apk
+
+# Clé de signature et ses mots de passe : jamais dans le dépôt
+android/keystore.properties
+*.jks
+*.keystore

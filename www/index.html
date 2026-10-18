@@ -1,137 +1,195 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'"></head><body>
 <title>Mon Journal Migraines</title>
 <script>document.documentElement.lang="fr"</script>
 <link rel="stylesheet" href="vendor/fonts.css">
 <style>
-/* Layout : carnet rose une colonne, bulles douces et petites étincelles · titres ronds, texte rond · barre d'onglets flottante en verre dépoli */
+/* Identité « Ciel intérieur » : la tête comme un ciel - aube douce les jours calmes, orage les jours de crise.
+   Papier crème et encre aubergine · titres Fraunces (serif douce, italique pour les chiffres) · texte Manrope
+   Aurore animée en fond, grain de papier, dock d'onglets sombre avec pastille qui glisse, perles dans le calendrier. */
 :root{
-  --bg:#fff2f6; --surface:#ffffff; --surface-2:#ffe9f1; --ink:#3a1530; --ink-2:#7b5170;
-  --line:#f6d9e5;          /* séparation des cartes (décor) */
-  --line-strong:#b07391;   /* contour des éléments à toucher : ≥ 3:1 */
-  --btn-1:#d92567; --btn-2:#c2185b;
-  --accent:#c2185b; --accent-bg:#d81b66; --accent-hi:#f06292; --on-accent:#ffffff; --accent-soft:#ffe0ec;
-  --lilac:#7d4ccc; --lilac-soft:#f1e8ff; --glow-1:#ffc6dc; --glow-2:#e6d4ff; --glow-3:#ffe1cf;
-  --p-none:#e9dcfb; --p-low:#ffc1d6; --p-mid:#f27aa5; --p-high:#c2185b; --on-high:#ffffff;
-  --ok:#1f7a5c; --danger:#c62839; --glass:rgba(255,255,255,.8);
-  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
-  --body:"Nunito","Segoe UI",system-ui,-apple-system,sans-serif;
-  --r-md:16px; --r-lg:24px; --r-xl:30px;
-  --shadow:0 1px 2px rgba(140,20,70,.05),0 18px 38px -26px rgba(200,40,110,.45);
-  --shadow-btn:0 12px 24px -12px rgba(216,27,102,.7);
+  --bg:#f8f1ea; --surface:#fffaf5; --surface-2:#f5e8df; --ink:#2a1425; --ink-2:#6b4c60;
+  --line:#ecdcd2;          /* séparation des cartes (décor) */
+  --line-strong:#a07a8d;   /* contour des éléments à toucher : ≥ 3:1 */
+  --btn-1:#56324f; --btn-2:#3b2236;
+  --accent:#a92c49; --accent-bg:#b3304d; --accent-hi:#ff8a6b; --on-accent:#ffffff; --accent-soft:#fbe3db;
+  --lilac:#6a4cc0; --lilac-soft:#ece6fb;
+  --dawn-1:#ffc4a3; --dawn-2:#f6a3bb; --dawn-3:#c8b5f3;
+  --p-none:#e6defa; --p-low:#ffd5c4; --p-mid:#ec7d76; --p-high:#8c1d48; --on-high:#ffffff;
+  --ok:#1d7558; --danger:#b8283a; --glass:rgba(255,250,245,.78);
+  --dock:#3b2236; --dock-ink:#ead6e0; --dock-on:#2a1425; --dock-pill:#fff1e8; --seg-bg:#2a1425; --seg-ink:#fff1e8;
+  --grain:.07; --grain-blend:multiply;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Manrope","Segoe UI",system-ui,-apple-system,sans-serif;
+  --r-md:18px; --r-lg:24px; --r-xl:30px;
+  --shadow:0 1px 0 rgba(255,255,255,.7) inset,0 1px 2px rgba(80,20,50,.05),0 22px 44px -30px rgba(120,30,70,.45);
+  --shadow-btn:0 1px 0 rgba(255,255,255,.25) inset,0 14px 26px -14px rgba(59,34,54,.7);
+  --spring:cubic-bezier(.34,1.56,.64,1); --ease:cubic-bezier(.2,.8,.2,1);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#1d0f19; --surface:#2a1624; --surface-2:#361d2f; --ink:#ffeaf3; --ink-2:#d9aec6; --line:#4a2a40; --line-strong:#8f5f7c;
-  --btn-1:#ffa6cb; --btn-2:#ff7eb3;
-  --accent:#ff8fbd; --accent-bg:#ff7eb3; --accent-hi:#ffa6cb; --on-accent:#2d0618; --accent-soft:#45213a;
-  --lilac:#c9a8ff; --lilac-soft:#33244a; --glow-1:#4a1a37; --glow-2:#2c2046; --glow-3:#3a1c25;
-  --p-none:#3c2f55; --p-low:#7a3560; --p-mid:#a8346c; --p-high:#ff6fa8; --on-high:#2d0618;
-  --ok:#6fd6b0; --danger:#ff8a8a; --glass:rgba(42,22,36,.82);
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 38px -26px rgba(0,0,0,.9); --shadow-btn:0 12px 24px -12px rgba(255,80,160,.45); color-scheme:dark}}
+  --bg:#120a12; --surface:#1d1220; --surface-2:#28182b; --ink:#f7e9ef; --ink-2:#c9abbd; --line:#38243a; --line-strong:#8c6b82;
+  --btn-1:#ffab95; --btn-2:#ff8f7a;
+  --accent:#ff9f8a; --accent-bg:#ff8f7a; --accent-hi:#ffb48f; --on-accent:#2a0d14; --accent-soft:#3a1f2a;
+  --lilac:#bba6ff; --lilac-soft:#2a2240;
+  --dawn-1:#5c2638; --dawn-2:#3d1d4f; --dawn-3:#1c2756;
+  --p-none:#342a50; --p-low:#6b3a3e; --p-mid:#a8434c; --p-high:#ff8fa0; --on-high:#2a0d14;
+  --ok:#6fd6b0; --danger:#ff8a8a; --glass:rgba(29,18,32,.78);
+  --dock:#2b1b2e; --dock-ink:#cdb2c3; --dock-on:#2a0d14; --dock-pill:#ffb9a3; --seg-bg:#ffb9a3; --seg-ink:#2a0d14;
+  --grain:.09; --grain-blend:overlay;
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 1px 2px rgba(0,0,0,.4),0 22px 44px -28px rgba(0,0,0,.95);
+  --shadow-btn:0 1px 0 rgba(255,255,255,.3) inset,0 14px 26px -14px rgba(255,120,100,.5); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#1d0f19; --surface:#2a1624; --surface-2:#361d2f; --ink:#ffeaf3; --ink-2:#d9aec6; --line:#4a2a40; --line-strong:#8f5f7c;
-  --btn-1:#ffa6cb; --btn-2:#ff7eb3;
-  --accent:#ff8fbd; --accent-bg:#ff7eb3; --accent-hi:#ffa6cb; --on-accent:#2d0618; --accent-soft:#45213a;
-  --lilac:#c9a8ff; --lilac-soft:#33244a; --glow-1:#4a1a37; --glow-2:#2c2046; --glow-3:#3a1c25;
-  --p-none:#3c2f55; --p-low:#7a3560; --p-mid:#a8346c; --p-high:#ff6fa8; --on-high:#2d0618;
-  --ok:#6fd6b0; --danger:#ff8a8a; --glass:rgba(42,22,36,.82);
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 18px 38px -26px rgba(0,0,0,.9); --shadow-btn:0 12px 24px -12px rgba(255,80,160,.45); color-scheme:dark}
+  --bg:#120a12; --surface:#1d1220; --surface-2:#28182b; --ink:#f7e9ef; --ink-2:#c9abbd; --line:#38243a; --line-strong:#8c6b82;
+  --btn-1:#ffab95; --btn-2:#ff8f7a;
+  --accent:#ff9f8a; --accent-bg:#ff8f7a; --accent-hi:#ffb48f; --on-accent:#2a0d14; --accent-soft:#3a1f2a;
+  --lilac:#bba6ff; --lilac-soft:#2a2240;
+  --dawn-1:#5c2638; --dawn-2:#3d1d4f; --dawn-3:#1c2756;
+  --p-none:#342a50; --p-low:#6b3a3e; --p-mid:#a8434c; --p-high:#ff8fa0; --on-high:#2a0d14;
+  --ok:#6fd6b0; --danger:#ff8a8a; --glass:rgba(29,18,32,.78);
+  --dock:#2b1b2e; --dock-ink:#cdb2c3; --dock-on:#2a0d14; --dock-pill:#ffb9a3; --seg-bg:#ffb9a3; --seg-ink:#2a0d14;
+  --grain:.09; --grain-blend:overlay;
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 1px 2px rgba(0,0,0,.4),0 22px 44px -28px rgba(0,0,0,.95);
+  --shadow-btn:0 1px 0 rgba(255,255,255,.3) inset,0 14px 26px -14px rgba(255,120,100,.5); color-scheme:dark}
+/* Le ciel suit la journée : orage (crise notée), ciel clair (pas de mal), aube (rien de noté) */
+body[data-sky="storm"]{--dawn-1:#e58aa0;--dawn-2:#b06fc4;--dawn-3:#7f86d6}
+body[data-sky="calm"]{--dawn-1:#ffd9b0;--dawn-2:#d9c8ff;--dawn-3:#b8dcf5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) body[data-sky="storm"]{--dawn-1:#6e1f3e;--dawn-2:#45205e;--dawn-3:#22204f}
+  :root:not([data-theme="light"]) body[data-sky="calm"]{--dawn-1:#4a2f2a;--dawn-2:#2f2a55;--dawn-3:#173a4f}}
+:root[data-theme="dark"] body[data-sky="storm"]{--dawn-1:#6e1f3e;--dawn-2:#45205e;--dawn-3:#22204f}
+:root[data-theme="dark"] body[data-sky="calm"]{--dawn-1:#4a2f2a;--dawn-2:#2f2a55;--dawn-3:#173a4f}
 
 *{box-sizing:border-box}
-body{color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.5;-webkit-font-smoothing:antialiased;
-  background:
-    radial-gradient(60% 340px at 100% 0,var(--glow-2),transparent 70%) no-repeat,
-    radial-gradient(70% 380px at 0 0,var(--glow-1),transparent 70%) no-repeat,
-    radial-gradient(50% 300px at 50% 120px,var(--glow-3),transparent 70%) no-repeat,var(--bg);
+html{scroll-behavior:smooth}
+body{color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;background:var(--bg);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  padding-block:0 calc(118px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent}
+  padding-block:0 calc(122px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;font-feature-settings:"ss01","cv11"}
+/* Aurore : trois halos qui dérivent lentement derrière la page */
+body::before{content:"";position:fixed;inset:-25% -25% auto;height:95vh;z-index:-2;pointer-events:none;filter:blur(36px);opacity:.85;
+  background:
+    radial-gradient(38% 42% at 18% 30%,var(--dawn-1),transparent 70%),
+    radial-gradient(34% 40% at 82% 22%,var(--dawn-3),transparent 70%),
+    radial-gradient(42% 36% at 55% 58%,var(--dawn-2),transparent 72%);
+  transition:background .8s}
+/* Grain de papier : rend les aplats moins numériques */
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--grain);mix-blend-mode:var(--grain-blend);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 body.in-form{padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
 .wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:16px;width:100%}
-h1,h2{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance;line-height:1.15}
-h1{font-size:2.05rem}
-h2{font-size:1.3rem}
+h1,h2{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance;line-height:1.1;letter-spacing:-.015em}
+h1{font-size:2.3rem}
+h2{font-size:1.35rem}
 h3{font-family:var(--body);font-weight:800;font-size:.98rem;margin:0}
 p{margin:0}
 .muted{color:var(--ink-2)}
 .small{font-size:.9rem}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 :focus-visible{outline:3px solid var(--lilac);outline-offset:3px;border-radius:12px}
-/* Fondu en opacité seulement : une animation de transform figerait la barre fixe du formulaire dans la page */
-main.wrap:not([hidden]){animation:rise .35s ease-out}
-@keyframes rise{from{opacity:.4}to{opacity:1}}
+::selection{background:var(--accent-soft);color:var(--ink)}
+/* Fondu en opacité sur la vue (une animation de transform figerait la barre fixe du formulaire),
+   puis les cartes montent en cascade */
+main.wrap:not([hidden]){animation:fade .3s ease-out}
+main.wrap:not([hidden]) > :is(.top,.card,.hero,.notice,.seg,.pernav,.btn,.step,.formhead,.progress){animation:rise .55s var(--ease) both}
+main.wrap > :nth-child(2){animation-delay:.04s!important}main.wrap > :nth-child(3){animation-delay:.08s!important}
+main.wrap > :nth-child(4){animation-delay:.12s!important}main.wrap > :nth-child(5){animation-delay:.16s!important}
+main.wrap > :nth-child(6){animation-delay:.2s!important}main.wrap > :nth-child(n+7){animation-delay:.24s!important}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .rowhead{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .rowhead h2{min-width:0}
-#dayT{text-transform:capitalize}
+#dayT::first-letter{text-transform:uppercase}
 
 /* en-tête */
-.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-top:30px;padding-bottom:4px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;padding-top:34px;padding-bottom:6px}
 .top > div{min-width:0}
-.top .date{font-weight:800;color:var(--ink-2);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;margin-bottom:4px}
+#v-home .top{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;row-gap:10px}
+#v-home .top > div:first-child{display:contents}
+#v-home .top .date{grid-row:1;grid-column:1;margin:0}
+#v-home .topact{grid-row:1;grid-column:2}
+#v-home .hello{grid-row:2;grid-column:1/-1}
+.top .date{font-weight:800;color:var(--ink-2);font-size:.8125rem;text-transform:uppercase;letter-spacing:.16em;margin-bottom:6px}
+.hello{font-style:italic;font-weight:500;font-size:2.05rem;letter-spacing:-.02em}
 .hello .nw{white-space:nowrap}
-.hello svg{display:inline-block;width:.8em;height:.8em;margin-left:.25em;vertical-align:-.05em;color:var(--accent-hi);animation:beat 1.2s ease-in-out .3s 1}
-@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.15)}24%{transform:scale(1)}}
-.status{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;font-weight:800;padding:7px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.hello svg{display:inline-block;width:.62em;height:.62em;margin-left:.22em;vertical-align:.02em;color:var(--accent-hi);filter:drop-shadow(0 4px 10px color-mix(in srgb,var(--accent-hi) 60%,transparent));animation:beat 1.4s ease-in-out .4s 1}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.2)}24%{transform:scale(1)}36%{transform:scale(1.1)}48%{transform:scale(1)}}
+.status{display:inline-flex;align-items:center;gap:7px;font-size:.78rem;font-weight:800;padding:7px 12px;border-radius:999px;background:var(--glass);border:1px solid var(--line);color:var(--ink-2);white-space:nowrap;-webkit-backdrop-filter:blur(12px) saturate(1.4);backdrop-filter:blur(12px) saturate(1.4)}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--ink-2)}
 .status.cloud i{background:var(--ok);box-shadow:0 0 0 3px color-mix(in srgb,var(--ok) 22%,transparent)}
 /* pastille de douleur, aux couleurs de l'échelle */
-.pill{display:inline-flex;align-items:center;font-size:.85rem;font-weight:800;padding:6px 12px;border-radius:999px;white-space:nowrap;color:var(--ink)}
+.pill{display:inline-flex;align-items:center;font-size:.84rem;font-weight:800;padding:6px 13px;border-radius:999px;white-space:nowrap;color:var(--ink)}
 
 /* surfaces */
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:22px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow)}
-.hero{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--accent-soft) 0%,var(--surface) 45%,var(--lilac-soft) 100%);border:1px solid var(--line);border-radius:var(--r-xl);padding:26px 20px 20px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow)}
+.card{background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:var(--r-xl);padding:22px;display:flex;flex-direction:column;gap:16px;box-shadow:var(--shadow);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+/* Carte du jour : un ciel d'aube, avec un soleil qui se lève doucement */
+.hero{position:relative;overflow:hidden;isolation:isolate;border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:34px;padding:28px 20px 20px;display:flex;flex-direction:column;gap:20px;box-shadow:var(--shadow);
+  background:linear-gradient(165deg,color-mix(in srgb,var(--dawn-1) 55%,var(--surface)) 0%,color-mix(in srgb,var(--dawn-2) 35%,var(--surface)) 48%,color-mix(in srgb,var(--dawn-3) 45%,var(--surface)) 100%)}
+.hero::before{content:"";position:absolute;z-index:-1;width:220px;height:220px;right:-60px;top:-80px;border-radius:50%;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent-hi) 75%,#fff) 0%,color-mix(in srgb,var(--accent-hi) 30%,transparent) 38%,transparent 70%);animation:sunrise 1.6s var(--ease) both}
+@keyframes sunrise{from{transform:translateY(60px) scale(.7);opacity:0}to{transform:none;opacity:1}}
 .hero > *{position:relative}
-.hero h2{font-size:1.6rem;max-width:14ch}
-.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.spark{position:absolute!important;color:var(--accent-hi);pointer-events:none}
-.spark.s1{width:26px;height:26px;top:20px;right:22px;opacity:.9}
-.spark.s2{width:14px;height:14px;top:56px;right:58px;color:var(--lilac);opacity:.75}
+.hero h2{font-size:1.85rem;max-width:13ch;font-weight:500}
+.hero h2 em{font-style:italic}
+.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.spark{position:absolute!important;color:#fff8f2;pointer-events:none;filter:drop-shadow(0 2px 6px rgba(120,30,70,.25))}
+.spark.s1{width:24px;height:24px;top:22px;right:26px;animation:twinkle 2.4s ease-in-out 2}
+.spark.s2{width:13px;height:13px;top:60px;right:64px;color:var(--lilac);opacity:.8;animation:twinkle 3.5s ease-in-out 1.2s 1}
+@keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:1}50%{transform:scale(.6) rotate(45deg);opacity:.5}}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
 /* icônes */
-.ico{width:48px;height:48px;flex:none}
+.ico{width:46px;height:46px;flex:none}
 .ico-pain{color:var(--accent-bg)}
 .ico-ok{color:var(--lilac)}
 
-/* boutons */
-.btn{font:inherit;font-weight:800;font-size:1rem;border:0;border-radius:999px;padding:14px 22px;min-height:54px;cursor:pointer;
+/* boutons : relief léger, rebond au toucher */
+.btn{font:inherit;font-weight:800;font-size:1rem;letter-spacing:.005em;border:0;border-radius:999px;padding:14px 22px;min-height:54px;cursor:pointer;
   background:linear-gradient(180deg,var(--btn-1),var(--btn-2));color:var(--on-accent);box-shadow:var(--shadow-btn);
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;transition:transform .15s,box-shadow .15s}
-.btn:active{transform:scale(.97)}
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;text-align:center;transition:transform .4s var(--spring),box-shadow .2s,background-color .2s}
+.btn:active{transform:scale(.95);transition-duration:.08s}
 .btn.soft{background:var(--accent-soft);color:var(--accent);box-shadow:none}
-.btn.line{background:var(--surface);color:var(--accent);border:1.5px solid var(--line-strong);box-shadow:none}
+.btn.line{background:color-mix(in srgb,var(--surface) 80%,transparent);color:var(--accent);border:1.5px solid var(--line-strong);box-shadow:none}
 .btn.danger{background:transparent;color:var(--danger);border:1.5px solid var(--line-strong);box-shadow:none}
 .btn.danger.armed,.btn.solid-danger{background:var(--danger);color:var(--surface);border-color:var(--danger)}
 .btn.block{width:100%}
 .btn svg{width:20px;height:20px;flex:none}
 .btn:disabled{opacity:.5;cursor:default;transform:none}
-.bigchoice{font:inherit;border:1.5px solid var(--line-strong);border-radius:var(--r-lg);padding:18px 12px;min-height:140px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
-  font-weight:800;font-size:1rem;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);transition:transform .15s}
-.bigchoice:active{transform:scale(.97)}
+.bigchoice{position:relative;overflow:hidden;font:inherit;border:1px solid color-mix(in srgb,var(--line-strong) 55%,transparent);border-radius:26px;padding:20px 12px 18px;min-height:148px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  font-weight:800;font-size:1.02rem;background:color-mix(in srgb,var(--surface) 82%,transparent);color:var(--ink);box-shadow:var(--shadow);transition:transform .45s var(--spring),box-shadow .25s;
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.bigchoice .ico{padding:9px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--surface),color-mix(in srgb,currentColor 14%,var(--surface)));box-shadow:0 10px 22px -14px currentColor}
+.bigchoice:active{transform:scale(.95);transition-duration:.08s}
+.bigchoice[data-start="yes"]::after,.bigchoice[data-start="no"]::after{content:"";position:absolute;inset:auto -30% -60% -30%;height:80%;border-radius:50%;opacity:.35;z-index:-1;filter:blur(18px)}
+.bigchoice[data-start="yes"]::after{background:var(--accent-hi)}
+.bigchoice[data-start="no"]::after{background:var(--dawn-3)}
+.bigchoice{isolation:isolate}
 
 /* crise rapide (dans la carte du jour, ou seule une fois la journée notée) */
-.quickrow{display:flex;flex-direction:column;gap:10px;padding-top:4px;border-top:1px dashed var(--line-strong)}
-.quickrow p{font-weight:800;font-size:.95rem;padding-top:12px}
+.quickrow{display:flex;flex-direction:column;gap:10px;padding-top:4px;border-top:1px dashed color-mix(in srgb,var(--line-strong) 70%,transparent)}
+.quickrow p{font-weight:800;font-size:.98rem;padding-top:14px}
+.quickrow p span{display:block;font-size:.9rem}
 .quickrow p span{font-weight:600;color:var(--ink-2)}
 .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.quick button{font:inherit;font-weight:800;font-size:.95rem;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);border-radius:var(--r-md);min-height:56px;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s}
-.quick button:active{transform:scale(.96)}
-.quick .lvl{display:flex;gap:3px}
-.quick .lvl i{width:8px;height:8px;border-radius:50%;background:transparent;box-shadow:inset 0 0 0 1.5px var(--line-strong)}
-.quick [data-quick="3"] .lvl i:nth-child(-n+1),.quick [data-quick="6"] .lvl i:nth-child(-n+2){background:var(--p-mid);box-shadow:none}
-.quick [data-quick="9"] .lvl i{background:var(--p-high);box-shadow:none}
+.quick button{font:inherit;font-weight:800;font-size:.95rem;border:1.5px solid var(--line-strong);background:color-mix(in srgb,var(--surface) 85%,transparent);color:var(--ink);border-radius:var(--r-md);min-height:56px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .4s var(--spring)}
+.quick button:active{transform:scale(.93);transition-duration:.08s}
+.quick button{flex-direction:column;gap:4px;min-height:84px;padding:10px 6px}
+.quick .wx{width:40px;height:40px;color:var(--wx);transition:transform .45s var(--spring)}
+.quick button:active .wx{transform:scale(.85) rotate(-6deg)}
+.quick [data-quick="3"]{--wx:var(--accent-bg)}
+.quick [data-quick="6"]{--wx:var(--accent-bg)}
+.quick [data-quick="9"]{--wx:var(--p-high)}
 
 /* bandeaux */
-.notice{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 14px 14px 18px;box-shadow:var(--shadow)}
+.notice{display:flex;align-items:center;gap:14px;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:var(--r-lg);padding:14px 14px 14px 18px;box-shadow:var(--shadow)}
 .notice::before{content:"";width:9px;height:9px;border-radius:50%;flex:none;background:var(--accent-bg);box-shadow:0 0 0 5px var(--accent-soft)}
 .notice.warn::before{background:var(--danger);box-shadow:0 0 0 5px color-mix(in srgb,var(--danger) 16%,transparent)}
 .notice div{flex:1;min-width:0}
-.notice strong{display:block;font-family:var(--display);font-weight:600;font-size:1.05rem}
+.notice strong{display:block;font-family:var(--display);font-weight:600;font-size:1.08rem}
 .notice .btn{min-height:44px;padding:8px 16px}
 
 /* semaine */
-.week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
-.wd{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.78rem;font-weight:800;color:var(--ink-2);background:none;border:0;font-family:inherit;cursor:pointer;padding:4px 0;border-radius:14px;min-height:72px}
-.wd span.c{position:relative;width:100%;max-width:42px;aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.92rem;font-weight:600;color:var(--ink-2);border:2px dashed var(--line-strong);font-variant-numeric:tabular-nums}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0}
+.wd{display:flex;flex-direction:column;align-items:center;gap:8px;font-size:.74rem;font-weight:800;letter-spacing:.04em;color:var(--ink-2);background:none;border:0;font-family:inherit;cursor:pointer;padding:4px 0;border-radius:14px;min-height:72px;transition:transform .4s var(--spring)}
+.wd:active{transform:scale(.9);transition-duration:.08s}
+.wd span.c{position:relative;width:100%;max-width:42px;aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.92rem;font-weight:700;color:var(--ink-2);border:2px dashed var(--line-strong);font-variant-numeric:tabular-nums}
 .wd:disabled{opacity:.45;cursor:default}
 
 /* couleurs douleur */
@@ -140,37 +198,43 @@ main.wrap:not([hidden]){animation:rise .35s ease-out}
 .pl{background:var(--p-low);border-style:solid!important;border-color:var(--accent-bg)!important}
 .pm{background:var(--p-mid);border-style:solid!important;border-color:var(--accent-bg)!important}
 .ph{background:var(--p-high);color:var(--on-high)!important;border-style:solid!important;border-color:var(--p-high)!important}
-/* Petit point sous le chiffre : repère « noté » qui ne dépend pas de la couleur */
-/* Jauge : le rond se remplit selon la force (léger 1/3, moyen 2/3, fort plein) — lisible sans les couleurs */
+/* Jauge : la perle se remplit selon la force (léger 1/3, moyen 2/3, fort plein) - lisible sans les couleurs */
 :is(.cal button,.wd span.c):is(.pn,.pl,.pm,.ph){color:var(--ink);font-weight:800}
 :is(.cal button,.wd span.c,.legend i).pl{background:linear-gradient(to top,var(--p-mid) 34%,var(--surface) 34%)}
 :is(.cal button,.wd span.c,.legend i).pm{background:linear-gradient(to top,var(--p-mid) 67%,var(--surface) 67%)}
 :is(.cal button,.wd span.c,.legend i).ph{background:var(--p-high)}
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.84rem;color:var(--ink-2);font-weight:700}
+/* Reflet de perle sur les jours notés */
+:is(.cal button,.wd span.c):is(.pn,.pl,.pm,.ph)::after{content:"";position:absolute;inset:2px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 32% 24%,rgba(255,255,255,.7),rgba(255,255,255,0) 42%);mix-blend-mode:soft-light}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.82rem;color:var(--ink-2);font-weight:700}
 .legend span{display:inline-flex;align-items:center;gap:7px}
 .legend i{width:18px;height:18px;border-radius:50%;display:inline-block;border:2px solid transparent;flex:none}
 .legend i.none{border:2px dashed var(--line-strong)}
 
 /* résumé du jour */
 .facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fact{background:var(--surface-2);border-radius:var(--r-md);padding:11px 13px;min-width:0}
-.fact b{display:block;font-size:.76rem;color:var(--ink-2);font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.fact{background:var(--surface-2);border-radius:var(--r-md);padding:12px 14px;min-width:0;border:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.fact b{display:block;font-size:.8125rem;color:var(--ink-2);font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
 .fact span{font-weight:700;overflow-wrap:anywhere}
 .fact.wide{grid-column:1/-1}
 
 /* formulaire pas à pas */
-.formhead{display:flex;align-items:center;gap:12px;padding-top:24px}
+.formhead{display:flex;align-items:center;gap:12px;padding-top:26px}
 .formhead .t{flex:1;min-width:0}
-.formhead .fdate{font-family:var(--body);font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-2)}
-.iconbtn{font:inherit;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--glass);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.formhead .fdate{font-family:var(--body);font-weight:800;font-size:.74rem;text-transform:uppercase;letter-spacing:.16em;color:var(--ink-2)}
+.iconbtn{font:inherit;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--glass);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:transform .4s var(--spring)}
+.iconbtn:active{transform:scale(.88);transition-duration:.08s}
 .iconbtn svg{width:20px;height:20px}
 .iconbtn:disabled{opacity:.35;cursor:default}
-.progress{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-.progress div{height:100%;background:linear-gradient(90deg,var(--accent-hi),var(--accent-bg));border-radius:99px;transition:width .35s}
+.progress{height:6px;border-radius:99px;background:var(--surface-2);overflow:visible}
+.progress div{position:relative;height:100%;background:linear-gradient(90deg,var(--accent-hi),var(--accent-bg));border-radius:99px;transition:width .6s var(--spring);box-shadow:0 0 14px color-mix(in srgb,var(--accent-hi) 70%,transparent)}
+.progress div::after{content:"";position:absolute;right:-3px;top:50%;width:12px;height:12px;border-radius:50%;transform:translateY(-50%);background:var(--surface);border:3px solid var(--accent-bg)}
 .step{display:flex;flex-direction:column;gap:22px}
-.step > h2{font-size:1.85rem;padding-top:6px}
+.step > h2{font-size:2.1rem;padding-top:8px;font-weight:500;font-style:italic}
 .dayline{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--surface-2);border-radius:var(--r-md);padding:8px 8px 8px 16px}
-.dayline span{font-weight:700;min-width:0;text-transform:capitalize}
+.dayline span{font-weight:700;min-width:0}
+.dayline span::first-letter{text-transform:uppercase}
 .dayline .btn{min-height:44px;padding:8px 16px;font-size:.92rem}
 fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;min-width:0}
 legend,.flabel{font-weight:800;font-size:1rem;padding:0;margin-bottom:4px}
@@ -179,123 +243,172 @@ legend,.flabel{font-weight:800;font-size:1rem;padding:0;margin-bottom:4px}
 .opts.cols{display:grid;grid-template-columns:1fr 1fr}
 .opt{position:relative;display:flex}
 .opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.opt span{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 18px;border-radius:999px;background:var(--surface);border:1.5px solid var(--line-strong);font-weight:700;text-align:center;cursor:pointer;transition:background-color .15s,border-color .15s,color .15s}
+.opt span{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;min-height:48px;padding:10px 18px;border-radius:999px;background:color-mix(in srgb,var(--surface) 88%,transparent);border:1.5px solid var(--line-strong);font-weight:700;text-align:center;cursor:pointer;
+  transition:background-color .2s,border-color .2s,color .2s,transform .4s var(--spring)}
+.opt input:active + span{transform:scale(.94);transition-duration:.08s}
 .opts.cols .opt span{border-radius:var(--r-md)}
-.opt input:checked + span{background:var(--accent-bg);border-color:var(--accent-bg);color:var(--on-accent)}
+.opt input:checked + span{background:linear-gradient(180deg,var(--btn-1),var(--btn-2));border-color:var(--btn-2);color:var(--on-accent);box-shadow:0 10px 20px -14px var(--btn-2);animation:pop .45s var(--spring)}
+@keyframes pop{0%{transform:scale(.92)}100%{transform:scale(1)}}
 .opt input:checked + span::before{content:"";width:14px;height:8px;border-left:2.5px solid currentColor;border-bottom:2.5px solid currentColor;transform:rotate(-45deg) translate(1px,-2px)}
 .opt input:focus-visible + span{outline:3px solid var(--lilac);outline-offset:2px}
 .opt.big span{min-height:132px;flex-direction:column;gap:12px;border-radius:var(--r-lg);font-size:1rem}
 .opt.big input:checked + span::before{content:none}
 .opt.big input:checked + span .ico{color:var(--on-accent)}
-input[type=text],input[type=time],input[type=date],select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1.5px solid var(--line-strong);border-radius:var(--r-md);padding:13px 15px;width:100%;min-height:54px;min-width:0;transition:border-color .15s,box-shadow .15s}
+input[type=text],input[type=time],input[type=date],input[type=number],select,textarea{font:inherit;color:var(--ink);background:color-mix(in srgb,var(--surface) 92%,transparent);border:1.5px solid var(--line-strong);border-radius:var(--r-md);padding:13px 15px;width:100%;min-height:54px;min-width:0;transition:border-color .2s,box-shadow .2s}
 textarea{min-height:120px;resize:vertical}
+/* Menus déroulants : chevron dessiné, bien placé (18 px du bord, centré), couleurs du thème */
+select{-webkit-appearance:none;appearance:none;padding-right:48px;cursor:pointer;
+  background-image:linear-gradient(45deg,transparent 50%,var(--ink-2) 50%),linear-gradient(135deg,var(--ink-2) 50%,transparent 50%);
+  background-position:calc(100% - 26px) 50%,calc(100% - 20px) 50%;background-size:6px 6px;background-repeat:no-repeat}
+select:focus{background-image:linear-gradient(45deg,transparent 50%,var(--accent) 50%),linear-gradient(135deg,var(--accent) 50%,transparent 50%)}
 input::placeholder,textarea::placeholder{color:var(--ink-2);opacity:1}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent-bg);box-shadow:0 0 0 4px var(--accent-soft)}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
+/* Médicaments : une ligne par prise, séparées par un trait */
+.medrows{display:flex;flex-direction:column;gap:18px}
+.medrow{display:flex;flex-direction:column;gap:14px}
+.medrow + .medrow{border-top:1.5px dashed var(--line-strong);padding-top:18px}
+.medrow:last-child:not(:first-child){animation:rise .45s var(--ease)}
+.medline{display:flex;gap:8px;align-items:center}
+.withtime{display:grid;grid-template-columns:minmax(0,1fr) 128px;gap:8px;align-items:end}
+.medtime{max-width:180px}
+/* Détail d'un jour : la journée heure par heure (fil du temps), puis tout le reste par thème */
+.daysec{display:flex;flex-direction:column;gap:10px}
+.daysec h3{font-size:.8125rem;font-weight:800;color:var(--ink-2);text-transform:uppercase;letter-spacing:.14em}
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;position:relative}
+.timeline li{position:relative;display:grid;grid-template-columns:54px minmax(0,1fr);gap:34px;align-items:baseline;padding:9px 4px}
+/* Rond de 14 px centré sur x = 75 px ; trait de 2 px centré sur la même verticale, d'un rond au suivant */
+.timeline li::before{content:"";position:absolute;z-index:1;box-sizing:border-box;left:68px;top:15px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--accent-bg)}
+.timeline li:not(:last-child)::after{content:"";position:absolute;box-sizing:border-box;left:74px;top:22px;width:2px;height:calc(100% + 4px);background:linear-gradient(var(--accent-hi),var(--lilac))}
+.timeline time{font-family:var(--display);font-style:italic;font-weight:600;font-size:1.05rem;color:var(--accent);font-variant-numeric:tabular-nums;text-align:right}
+.timeline b{font-weight:800}
+.timeline span{overflow-wrap:anywhere}
 
 /* curseur intensité */
-.pain{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:20px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
+.pain{position:relative;overflow:hidden;background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);border-radius:var(--r-xl);padding:22px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow)}
 .pain .read{display:flex;align-items:baseline;gap:12px}
-.pain .num{font-family:var(--display);font-weight:600;font-size:3.3rem;line-height:1;font-variant-numeric:tabular-nums;color:var(--accent)}
-.pain .num::after{content:"/10";font-family:var(--body);font-size:1rem;font-weight:700;color:var(--ink-2);margin-left:4px}
-.pain .word{font-weight:800;font-size:1.05rem}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:99px;background:linear-gradient(90deg,var(--p-none),var(--p-low),var(--p-mid),var(--p-high));margin:16px 0 8px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:34px;height:34px;border-radius:50%;background:var(--surface);border:3px solid var(--accent-bg);box-shadow:0 4px 12px rgba(0,0,0,.22);cursor:pointer}
-input[type=range]::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:var(--surface);border:3px solid var(--accent-bg);cursor:pointer}
-.ticks{display:flex;justify-content:space-between;font-size:.8rem;font-weight:700;color:var(--ink-2)}
+.pain .num{font-family:var(--display);font-style:italic;font-weight:500;font-size:4.2rem;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--accent)}
+.pain .num::after{content:"/10";font-family:var(--body);font-style:normal;font-size:1rem;font-weight:700;letter-spacing:0;color:var(--ink-2);margin-left:4px}
+.pain .word{font-weight:800;font-size:1.08rem}
+/* Zone touchable de 44 px de haut, barre de 14 px dessinée dedans */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:44px;background:transparent;margin:8px 0 0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:14px;border-radius:99px;background:linear-gradient(90deg,var(--p-none),var(--p-low),var(--p-mid),var(--p-high));box-shadow:inset 0 1px 3px rgba(0,0,0,.15)}
+input[type=range]::-moz-range-track{height:14px;border-radius:99px;background:linear-gradient(90deg,var(--p-none),var(--p-low),var(--p-mid),var(--p-high))}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;margin-top:-12px;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,var(--surface));border:3px solid var(--accent-bg);box-shadow:0 6px 16px -4px rgba(0,0,0,.35),0 0 0 6px color-mix(in srgb,var(--accent-hi) 25%,transparent);cursor:pointer;transition:transform .3s var(--spring)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;background:var(--surface);border:3px solid var(--accent-bg);cursor:pointer}
+.ticks{display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;color:var(--ink-2)}
 
 /* compteurs */
 .counters{display:grid;grid-template-columns:1fr;gap:10px}
-.counter{display:flex;align-items:center;gap:10px;background:var(--surface);border-radius:var(--r-md);padding:8px 8px 8px 16px;border:1.5px solid var(--line-strong)}
+.counter{display:flex;align-items:center;gap:10px;background:color-mix(in srgb,var(--surface) 90%,transparent);border-radius:var(--r-md);padding:8px 8px 8px 16px;border:1.5px solid var(--line-strong)}
 .counter.tight{padding:4px;gap:4px;justify-content:space-between}
 .counter .lab{flex:1;min-width:0;font-weight:700}
 .counter .lab small{display:block;font-weight:600;color:var(--ink-2);font-size:.82rem}
-.counter output{min-width:60px;text-align:center;font-weight:800;font-size:1.08rem;font-variant-numeric:tabular-nums}
-.counter output.unset{color:var(--ink-2);font-weight:600}
-.counter button{font:inherit;width:44px;height:44px;border-radius:50%;border:0;background:var(--accent-soft);color:var(--accent);font-size:1.4rem;font-weight:800;cursor:pointer;flex:none;line-height:1;transition:transform .12s}
-.counter button:active{transform:scale(.9)}
+.counter output{min-width:60px;text-align:center;font-family:var(--display);font-style:italic;font-weight:600;font-size:1.3rem;font-variant-numeric:tabular-nums}
+.counter output.unset{color:var(--ink-2);font-weight:500}
+.counter button{font:inherit;width:44px;height:44px;border-radius:50%;border:0;background:var(--accent-soft);color:var(--accent);font-size:1.4rem;font-weight:800;cursor:pointer;flex:none;line-height:1;transition:transform .4s var(--spring)}
+.counter button:active{transform:scale(.82);transition-duration:.08s}
 
-.formbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--glass);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+.formbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--glass);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
   padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .formbar .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:10px;align-items:center}
 .formbar .quit{grid-template-columns:1fr 1fr}
 .formbar .quit p{grid-column:1/-1;font-weight:800;text-align:center}
 
-/* onglets : pilule flottante */
+/* onglets : dock sombre flottant, la pastille glisse vers l'onglet choisi (--i posé par show()) */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;pointer-events:none;
-  padding:0 max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
-nav.tabs .in{pointer-events:auto;max-width:440px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:6px;border-radius:30px;
-  background:var(--glass);border:1px solid var(--line);box-shadow:0 18px 40px -18px rgba(200,40,110,.45);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
-nav.tabs button{font:inherit;font-weight:800;font-size:.8rem;background:none;border:0;color:var(--ink-2);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 7px;min-height:58px;border-radius:24px;cursor:pointer;transition:background-color .2s,color .2s}
-nav.tabs button svg{width:22px;height:22px}
-nav.tabs button[aria-current="page"]{color:var(--accent);background:var(--accent-soft)}
+  padding:0 max(14px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px))}
+nav.tabs .in{--i:0;position:relative;pointer-events:auto;max-width:420px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding:6px;border-radius:32px;
+  background:var(--dock);border:1px solid color-mix(in srgb,var(--dock-ink) 14%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 22px 40px -16px rgba(42,20,37,.6)}
+nav.tabs .in::before{content:"";position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px) / 4);border-radius:26px;background:var(--dock-pill);
+  transform:translateX(calc(var(--i) * 100%));transition:transform .55s var(--spring);box-shadow:0 8px 18px -8px rgba(0,0,0,.45)}
+nav.tabs button{position:relative;z-index:1;font:inherit;font-weight:800;font-size:.8125rem;letter-spacing:.01em;background:none;border:0;color:var(--dock-ink);display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 0 7px;min-height:58px;border-radius:26px;cursor:pointer;transition:color .3s}
+nav.tabs button svg{width:22px;height:22px;transition:transform .45s var(--spring)}
+/* Le libellé tient toujours sur une ligne : sous 400 px, marges resserrées et texte légèrement réduit */
+nav.tabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:400px){
+  nav.tabs{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  nav.tabs .in{padding:4px}
+  nav.tabs .in::before{top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4)}
+  nav.tabs button{font-size:clamp(.6875rem,3.3vw,.8125rem);letter-spacing:-.01em}
+}
+nav.tabs button:active svg{transform:scale(.8)}
+nav.tabs button[aria-current="page"]{color:var(--dock-on)}
+nav.tabs button[aria-current="page"] svg{transform:translateY(-1px) scale(1.06)}
+nav.tabs button:focus-visible{outline-color:var(--dock-pill);outline-offset:-3px}
 
 /* calendrier */
 .calhead,.pernav{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.calhead h2,.pernav h2{text-transform:capitalize;text-align:center;flex:1;font-size:1.25rem;min-width:0}
-.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
-.cal .dn{text-align:center;font-size:.78rem;font-weight:800;color:var(--ink-2);padding-bottom:4px}
-.cal button{position:relative;font:inherit;font-weight:600;aspect-ratio:1;border-radius:50%;border:2px dashed var(--line-strong);background:none;color:var(--ink-2);cursor:pointer;font-size:.95rem;padding:0;min-width:0;max-width:100%;font-variant-numeric:tabular-nums;transition:transform .12s}
-.cal button:active{transform:scale(.92)}
+.calhead h2,.pernav h2{text-align:center;flex:1;font-size:1.4rem;min-width:0;font-weight:600}
+.calhead h2::first-letter,.pernav h2::first-letter{text-transform:uppercase}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px;margin-inline:-6px}
+.cal .dn{text-align:center;font-size:.72rem;font-weight:800;letter-spacing:.06em;color:var(--ink-2);padding-bottom:4px}
+.cal button{position:relative;font:inherit;font-weight:700;aspect-ratio:1;border-radius:50%;border:2px dashed var(--line-strong);background:none;color:var(--ink-2);cursor:pointer;font-size:.95rem;padding:0;min-width:0;max-width:100%;font-variant-numeric:tabular-nums;transition:transform .4s var(--spring)}
+.cal button:active{transform:scale(.86);transition-duration:.08s}
+.cal button:is(.pn,.pl,.pm,.ph){box-shadow:0 6px 12px -8px color-mix(in srgb,var(--ink) 60%,transparent)}
 .cal button.sel{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--lilac)}
 .cal button.future{opacity:.3;cursor:default}
 .cal button.today,.wd.today span.c{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--accent-bg)}
 .cal button.today.sel{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--lilac)}
 
 /* panneau du jour, qui monte du bas */
-.sheet-bg{position:fixed;inset:0;z-index:29;background:color-mix(in srgb,var(--ink) 35%,transparent);animation:fade .2s ease-out}
-.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:82vh;overflow:auto;border-radius:var(--r-xl) var(--r-xl) 0 0;border-bottom:0;
-  padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .28s cubic-bezier(.2,.8,.2,1)}
+.sheet-bg{position:fixed;inset:0;z-index:29;background:color-mix(in srgb,var(--ink) 38%,transparent);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:fade .25s ease-out}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:84vh;overflow:auto;border-radius:34px 34px 0 0;border-bottom:0;background:var(--surface);
+  padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .5s var(--spring)}
 .sheet > *{width:100%;max-width:520px;margin-inline:auto}
+.sheet > .pill{width:fit-content;margin-inline:0}
 .sheet .grab{width:44px;height:5px;border-radius:99px;background:var(--line-strong);opacity:.6}
-@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+@keyframes up{from{transform:translateY(60px);opacity:.3}to{transform:none;opacity:1}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
 /* bilan */
-.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
-.seg button{font:inherit;font-weight:800;border:0;background:none;color:var(--ink-2);min-height:44px;border-radius:999px;cursor:pointer;transition:background-color .2s,color .2s}
-.seg button[aria-pressed="true"]{background:var(--surface);color:var(--accent);box-shadow:var(--shadow)}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:color-mix(in srgb,var(--surface-2) 85%,transparent);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px}
+.seg button{font:inherit;font-weight:800;border:0;background:none;color:var(--ink-2);min-height:44px;border-radius:999px;cursor:pointer;transition:background-color .25s,color .25s,box-shadow .25s}
+.seg button[aria-pressed="true"]{background:var(--seg-bg);color:var(--seg-ink);box-shadow:0 8px 16px -10px rgba(42,20,37,.7)}
 .kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .kpi{background:var(--surface-2);border-radius:var(--r-md);padding:14px 16px}
-.kpi .v{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1.1;color:var(--accent);font-variant-numeric:tabular-nums}
-.kpi .v small{font-family:var(--body);font-size:.9rem;font-weight:700;color:var(--ink-2)}
+.kpi .v{font-family:var(--display);font-style:italic;font-weight:600;font-size:2.1rem;line-height:1.05;color:var(--accent);font-variant-numeric:tabular-nums}
+.kpi .v small{font-family:var(--body);font-style:normal;font-size:.9rem;font-weight:700;color:var(--ink-2)}
 .kpi .k{font-size:.85rem;font-weight:700;color:var(--ink-2)}
 .chart{display:flex;align-items:flex-end;gap:3px;height:160px;padding-top:22px;border-bottom:1.5px solid var(--line);background:repeating-linear-gradient(to top,transparent 0,transparent calc(25% - 1px),var(--line) calc(25% - 1px),var(--line) 25%)}
 .chart .col{flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center;position:relative;min-width:0}
-.chart .bar{width:100%;max-width:22px;border-radius:99px 99px 6px 6px;border:0!important}
-.chart .val{position:absolute;font-size:.78rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.chart .bar{width:100%;max-width:22px;border-radius:99px 99px 6px 6px;border:0!important;transform-origin:bottom;animation:grow .7s var(--spring) both}
+.chart .col:nth-child(3n) .bar{animation-delay:.05s}.chart .col:nth-child(3n+1) .bar{animation-delay:.1s}
+@keyframes grow{from{transform:scaleY(0)}to{transform:none}}
+.chart .val{position:absolute;font-size:.76rem;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink-2)}
 /* Bilan : anneau de synthèse, indicateurs, graphique jour par jour */
 .sum{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:center}
-.ring{position:relative;width:116px;height:116px;flex:none}
-.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
-.ring .trk{fill:none;stroke:var(--surface-2);stroke-width:11}
-.ring .arc{fill:none;stroke:var(--accent-bg);stroke-width:11;stroke-linecap:round;transition:stroke-dashoffset .6s ease-out}
-.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
-.ring .c b{font-family:var(--display);font-weight:600;font-size:2.2rem;color:var(--accent);font-variant-numeric:tabular-nums}
-.ring .c span{font-size:.76rem;font-weight:700;color:var(--ink-2)}
+.ring{position:relative;width:120px;height:120px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.ring .trk{fill:none;stroke:var(--surface-2);stroke-width:10}
+.ring .arc{fill:none;stroke:var(--accent-bg);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 1s var(--ease);filter:drop-shadow(0 0 6px color-mix(in srgb,var(--accent-hi) 60%,transparent))}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05}
+.ring .c b{font-family:var(--display);font-style:italic;font-weight:500;font-size:2.6rem;letter-spacing:-.03em;color:var(--accent);font-variant-numeric:tabular-nums}
+.ring .c span{font-size:.74rem;font-weight:700;color:var(--ink-2)}
 .sumtxt{display:flex;flex-direction:column;gap:6px;min-width:0}
-.sumtxt h2{font-size:1.25rem}
-.chip{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:5px 11px;border-radius:999px;font-weight:800;font-size:.82rem;background:var(--surface-2);color:var(--ink-2)}
+.sumtxt h2{font-size:1.4rem;font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:5px 11px;border-radius:999px;font-weight:800;font-size:.8rem;background:var(--surface-2);color:var(--ink-2)}
 .chip svg{width:14px;height:14px;flex:none}
 .chip.up{background:var(--accent-soft);color:var(--accent)}
 .chip.down{background:color-mix(in srgb,var(--ok) 14%,var(--surface));color:var(--ok)}
 .stats3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .st{background:var(--surface-2);border-radius:var(--r-md);padding:12px 12px 13px;display:flex;flex-direction:column;gap:2px;min-width:0}
-.st .v{font-family:var(--display);font-weight:600;font-size:1.5rem;line-height:1.15;color:var(--ink);font-variant-numeric:tabular-nums}
-.st .v small{font-family:var(--body);font-size:.82rem;font-weight:700;color:var(--ink-2);margin-left:2px}
-.st .k{font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.st .v{font-family:var(--display);font-style:italic;font-weight:600;font-size:1.6rem;line-height:1.1;color:var(--ink);font-variant-numeric:tabular-nums}
+.st .v small{font-family:var(--body);font-style:normal;font-size:.82rem;font-weight:700;color:var(--ink-2);margin-left:2px}
+.st .k{font-size:.76rem;font-weight:700;color:var(--ink-2)}
 .st.off .v{color:var(--ink-2);font-size:1.1rem;padding:5px 0 3px}
 .meter{display:flex;gap:2px;margin:5px 0 3px}
 .meter i{flex:1;height:5px;border-radius:3px;background:var(--line)}
 .meter i.on{background:var(--accent-bg)}
 .plot{position:relative;padding-left:24px}
-.plot .yax{position:absolute;left:0;top:22px;bottom:0;display:flex;flex-direction:column;justify-content:space-between;font-size:.72rem;font-weight:800;color:var(--ink-2);font-variant-numeric:tabular-nums;transform:translateY(-.55em)}
+.plot .yax{position:absolute;left:0;top:22px;bottom:0;display:flex;flex-direction:column;justify-content:space-between;font-size:.7rem;font-weight:800;color:var(--ink-2);font-variant-numeric:tabular-nums;transform:translateY(-.55em)}
 .plot .yax span:last-child{transform:translateY(.55em)}
 .chart .col.now{background:linear-gradient(to top,var(--accent-soft),transparent 85%);border-radius:10px 10px 0 0}
 .chart .dot{width:12px;height:12px;border-radius:50%;background:var(--p-none);border:2px solid var(--lilac);margin-bottom:3px}
 .chart .nil{width:10px;height:2.5px;border-radius:2px;background:var(--line-strong);margin-bottom:5px;opacity:.7}
 .chart .val{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:0 6px;line-height:1.5;color:var(--ink)}
-.xl span small{display:block;font-size:.7rem;font-weight:600;opacity:.8}
+.xl span small{display:block;font-size:.68rem;font-weight:600;opacity:.8}
 .xl span.now{color:var(--accent)}
 .legend.bars i{border-radius:5px}
 .legend.bars i.pl{background:var(--p-low)}
@@ -303,16 +416,81 @@ nav.tabs button[aria-current="page"]{color:var(--accent);background:var(--accent
 .legend.bars i.pn{border-radius:50%}
 .legend.bars i.none{border:0;height:3px;border-radius:2px;background:var(--line-strong)}
 .xl{display:flex;gap:3px}
-.xl span{flex:1;text-align:center;font-size:.76rem;font-weight:800;color:var(--ink-2);min-width:0}
-.insight{background:var(--surface-2);border-radius:var(--r-md);padding:13px 15px;font-weight:600}
+.xl span{flex:1;text-align:center;font-size:.74rem;font-weight:800;color:var(--ink-2);min-width:0}
+.insight{position:relative;background:var(--surface-2);border-radius:var(--r-md);padding:13px 15px 13px 18px;font-weight:600;overflow:hidden}
+.insight::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(var(--accent-hi),var(--accent-bg))}
 .insight b{color:var(--accent);font-weight:800}
+.tips{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tip{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;background:var(--surface-2);border-radius:var(--r-md);padding:13px 14px}
+.tip b{display:block;font-weight:800;line-height:1.35}
+.tip div span{display:block;margin-top:3px;font-size:.92rem;color:var(--ink-2)}
+.tico{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--accent)}
+.tico svg{width:22px;height:22px}
+.tip.warn{background:color-mix(in srgb,var(--danger) 12%,var(--surface))}
+.tip.warn .tico{color:var(--danger)}
 .cmp{display:flex;flex-direction:column;gap:8px}
-.cmprow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 48px;gap:10px;align-items:center;font-size:.93rem}
+.usual{display:flex;flex-direction:column;gap:6px}
+.notice.dose::before{background:var(--lilac);box-shadow:0 0 0 5px var(--lilac-soft)}
+.gaprow{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:10px;align-items:center;background:var(--surface-2);border-radius:var(--r-md);padding:8px 8px 8px 15px}
+.gaprow span{font-weight:700;overflow-wrap:anywhere}
+.gaprow select{min-height:48px}
+.midas{display:flex;flex-direction:column;gap:10px}
+.midas .score{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.midas .score b{font-family:var(--display);font-style:italic;font-weight:500;font-size:2.6rem;line-height:1;color:var(--accent)}
+.mhist{display:flex;align-items:flex-end;gap:6px;height:60px;border-bottom:1.5px solid var(--line)}
+.mhist i{flex:1;max-width:28px;border-radius:6px 6px 2px 2px;background:linear-gradient(var(--accent-hi),var(--accent-bg));min-height:3px}
+.mq{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:10px;align-items:center}
+.mq label{font-weight:600;font-size:.95rem}
+.mq input{text-align:center;font-variant-numeric:tabular-nums}
+/* Mode crise : noir profond, aucune animation, gros boutons, l'essentiel seulement */
+:root[data-crisis="on"]{--bg:#000;--surface:#0c070b;--surface-2:#150d13;--ink:#eadbe2;--ink-2:#b59db0;--line:#24171f;--line-strong:#7d6274;
+  --accent:#f0a090;--accent-bg:#e8907e;--accent-hi:#e8907e;--on-accent:#1a0a0e;--accent-soft:#2a141b;--btn-1:#e8907e;--btn-2:#d97c69;
+  --lilac:#b7a2f5;--lilac-soft:#1d1730;--glass:rgba(12,7,11,.9);--dock:#0c070b;--dock-ink:#c9b3c1;--dock-pill:#e8907e;--dock-on:#1a0a0e;
+  --p-none:#2a2240;--p-low:#5a2d33;--p-mid:#9a4049;--p-high:#e8907e;--on-high:#1a0a0e;--shadow:none;--shadow-btn:none;color-scheme:dark}
+:root[data-crisis="on"] body{font-size:19px}
+:root[data-crisis="on"] body::before,:root[data-crisis="on"] body::after,:root[data-crisis="on"] .spark,:root[data-crisis="on"] .hero::before{display:none}
+:root[data-crisis="on"] *,:root[data-crisis="on"] *::before,:root[data-crisis="on"] *::after{animation:none!important;transition:none!important}
+:root[data-crisis="on"] .btn{min-height:64px;font-size:1.1rem}
+:root[data-crisis="on"] .quick button{min-height:100px}
+:root[data-crisis="on"] .hero{background:var(--surface)}
+:root[data-crisis="on"] :is(#askCard,#notice,#medAlert,#otherDay,#v-home > section.card:not(#crisisCard):not(#todayCard)){display:none!important}
+.crisis p{color:var(--ink-2)}
+:root[data-crisis="on"] #endCrisis{display:none!important}
+:root[data-crisis="on"] .facts{grid-template-columns:1fr}
+.wait{display:flex;flex-direction:column;gap:8px;background:var(--surface-2);border-radius:var(--r-md);padding:13px 14px}
+.gauges{display:flex;flex-direction:column;gap:10px}
+.gauge{display:flex;flex-direction:column;gap:6px}
+.gl{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:.93rem;font-weight:600}
+.gl b{font-variant-numeric:tabular-nums}
+.fill.near{background:linear-gradient(90deg,var(--accent-hi),var(--accent-bg))}
+.fill.over{background:var(--danger)}
+.medl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.medl li{display:flex;flex-direction:column;gap:6px}
+.ml{display:flex;flex-direction:column}
+.ml span{font-size:.92rem;color:var(--ink-2)}
+.track.eff{display:flex}
+.track.eff .fill{border-radius:0;animation:none}
+.track.eff .fill:first-child{border-radius:99px 0 0 99px}
+.track.eff .fill.soft{background:color-mix(in srgb,var(--accent-hi) 45%,var(--surface-2))}
+button.col{font:inherit;border:0;background:none;padding:0;cursor:pointer;border-radius:8px}
+button.col:active .bar{filter:brightness(1.1)}
+.chart.dense{gap:1px}
+.chart.dense .bar{border-radius:3px 3px 1px 1px;max-width:none}
+.chart:not(.dense) .col .dot{width:min(12px,100%);height:auto;aspect-ratio:1}
+.chart.dense .dot{width:4px;height:4px;border-width:0;background:var(--lilac);opacity:.55}
+.chart.dense + .xl{gap:1px}
+.chart.dense + .xl span{overflow:visible;white-space:nowrap;text-align:left}
+details.more{display:flex;flex-direction:column;gap:14px}
+details.more summary{font-weight:800;color:var(--accent);cursor:pointer;min-height:48px;display:flex;align-items:center}
+details.more[open] summary{margin-bottom:6px}
+details.more > .cmp + .cmp{margin-top:14px}
+.cmprow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:.93rem}
 .track{height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent-hi),var(--accent-bg))}
-.pct{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent-hi),var(--accent-bg));transform-origin:left;animation:grow-x .8s var(--ease) both}
+@keyframes grow-x{from{transform:scaleX(0)}to{transform:none}}
+.pct{font-weight:800;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;min-width:3ch}
 .tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
-.tl li{display:flex;justify-content:space-between;gap:12px;background:var(--surface-2);border-radius:var(--r-md);padding:11px 15px;font-weight:600}
+.tl li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;background:var(--surface-2);border-radius:var(--r-md);padding:11px 15px;font-weight:600}
 .tl li span:first-child{min-width:0;overflow-wrap:anywhere}
 .tl li span:last-child{color:var(--accent);font-weight:800;white-space:nowrap}
 .empty{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;padding:18px 6px}
@@ -324,10 +502,11 @@ nav.tabs button[aria-current="page"]{color:var(--accent);background:var(--accent
 .qrow small{display:block;font-weight:600;color:var(--ink-2)}
 details.paste summary{font-weight:800;color:var(--accent);cursor:pointer;min-height:48px;display:flex;align-items:center}
 details.paste .field{margin:6px 0 12px}
-.toast{position:fixed;left:50%;bottom:calc(104px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);background:var(--ink);color:var(--bg);padding:13px 20px;border-radius:999px;font-weight:800;font-size:.95rem;z-index:40;opacity:0;transition:.28s cubic-bezier(.2,.7,.2,1);pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center;box-shadow:0 14px 30px -12px rgba(0,0,0,.45)}
-.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast{position:fixed;left:50%;bottom:calc(108px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px) scale(.96);background:var(--dock);color:var(--dock-pill);padding:13px 20px;border-radius:999px;font-weight:800;font-size:.95rem;z-index:40;opacity:0;
+  transition:opacity .25s,transform .5s var(--spring);pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center;box-shadow:0 18px 36px -14px rgba(0,0,0,.55)}
+.toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
 .toast.act{pointer-events:auto;display:flex;align-items:center;gap:14px;padding:8px 8px 8px 20px}
-.toast button{font:inherit;font-weight:800;border:0;border-radius:999px;background:var(--accent-bg);color:var(--on-accent);min-height:44px;padding:8px 16px;cursor:pointer}
+.toast button{font:inherit;font-weight:800;border:0;border-radius:999px;background:var(--dock-pill);color:var(--dock-on);min-height:44px;padding:8px 16px;cursor:pointer}
 label.btn{cursor:pointer}
 input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px}
 .btn.sm{min-height:44px;padding:8px 14px;font-size:.92rem}
@@ -335,15 +514,31 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
 .mt{margin-top:12px}
 .err{color:var(--danger);font-weight:700;font-size:.92rem;margin:0}
 .switch{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:48px;font-weight:700;cursor:pointer}
-.switch input{-webkit-appearance:none;appearance:none;order:2;flex:none;width:54px;height:32px;margin:0;border-radius:999px;background:var(--line-strong);position:relative;cursor:pointer;transition:background-color .2s}
-.switch input::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.switch input{-webkit-appearance:none;appearance:none;order:2;flex:none;width:54px;height:32px;margin:0;border-radius:999px;background:var(--line-strong);position:relative;cursor:pointer;transition:background-color .25s}
+.switch input::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .45s var(--spring)}
 .switch input:checked{background:var(--accent-bg)}
 .switch input:checked::after{transform:translateX(22px)}
 .switch input:focus-visible{outline:3px solid var(--lilac);outline-offset:3px}
 .start{align-self:flex-start}
 .topact{display:flex;align-items:center;gap:8px;flex:none}
-@media (prefers-reduced-motion:reduce){*,*::before{transition:none!important;animation:none!important}}
-@media (max-width:360px){.facts,.kpis{grid-template-columns:1fr}.opts.cols{grid-template-columns:1fr}h1{font-size:1.8rem}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+@media (max-width:360px){.facts,.kpis{grid-template-columns:1fr}.opts.cols{grid-template-columns:1fr}h1{font-size:2rem}.hello{font-size:1.75rem}
+  .sum{grid-template-columns:1fr;justify-items:start}.stats3{grid-template-columns:1fr 1fr}.chip{white-space:normal}}
+/* Très étroit (zoom 200 % sur téléphone) : onglets en icônes seules, le nom reste lu par le lecteur d'écran */
+@media (max-width:300px){
+  nav.tabs{padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
+  .card,.hero{padding:16px 12px}
+  .week{gap:1px}.wd{font-size:.7rem}.wd span.c{font-size:.78rem;border-width:1.5px}
+  nav.tabs .in{padding:4px}
+  nav.tabs .in::before{top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4)}
+  nav.tabs button{font-size:0;gap:0;min-height:52px}
+  nav.tabs button svg{width:24px;height:24px}
+  .hello{font-size:1.5rem}.hello .nw{white-space:normal}
+  .duo,.quick,.stats3{grid-template-columns:1fr}
+  .withtime{grid-template-columns:1fr}
+  .tl li span:last-child{white-space:normal}
+  .gaprow,.mq{grid-template-columns:1fr}
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -352,6 +547,10 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   <symbol id="i-storm" viewBox="0 0 48 48"><use href="#i-head"/><path d="M28 13.5 23 21h5.5l-4.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-calm" viewBox="0 0 48 48"><use href="#i-head"/><path d="M24.5 26.5s-5.2-2.9-5.2-6.3c0-1.7 1.3-3 3-3 1 0 1.8.5 2.2 1.2.4-.7 1.2-1.2 2.2-1.2 1.7 0 3 1.3 3 3 0 3.4-5.2 6.3-5.2 6.3z" fill="currentColor"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z" fill="currentColor"/></symbol>
+  <!-- Crise rapide : la même tête que les grandes tuiles, remplie comme les perles du calendrier (1/3, 2/3, pleine) -->
+  <symbol id="i-lv1" viewBox="0 0 48 48"><clipPath id="hc1"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="31.5" width="48" height="16.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc1)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lv2" viewBox="0 0 48 48"><clipPath id="hc2"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="20.5" width="48" height="27.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc2)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lv3" viewBox="0 0 48 48"><clipPath id="hc3"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="8" width="48" height="40" fill="currentColor" fill-opacity=".85" clip-path="url(#hc3)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.4A5.4 5.4 0 0 1 12 6.1a5.4 5.4 0 0 1 9.6 5.5C19.5 16.4 12 21 12 21z" fill="currentColor"/></symbol>
 </svg>
 <div class="wrap" id="app">
@@ -361,29 +560,39 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   <div class="top">
     <div><p class="date" id="homeDate"></p><h1 class="hello" id="hello">Bonjour</h1></div>
     <div class="topact">
-      <span class="status" id="status" role="status"><i></i><span>Chargement…</span></span>
       <button class="iconbtn" type="button" id="themeBtn" aria-pressed="false" aria-label="Mode nuit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path id="themeIco" d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg></button>
     </div>
   </div>
 
   <!-- L'alerte médicaments reste en haut : c'est la seule chose plus importante que la question du jour -->
+  <!-- Mode crise : écran très sombre, sans animation, l'essentiel seulement -->
+  <section class="card crisis" id="crisisCard" hidden aria-labelledby="crisisT">
+    <h2 id="crisisT">Mode crise</h2>
+    <p>Écran très sombre et calme. Repose-toi : ta crise est notée, tu compléteras plus tard.</p>
+    <button class="btn block" type="button" id="crisisEnd">Ma crise est finie</button>
+    <button class="btn line block" type="button" id="crisisOff">Quitter le mode crise</button>
+  </section>
+
+  <!-- Prochaine prise possible, d'après l'écart réglé pour chaque médicament -->
+  <div class="notice dose" id="nextDose" hidden role="note"><div><strong>Prochaine prise</strong><span class="small muted" id="nextDoseS"></span></div></div>
+
   <div class="notice" id="medAlert" hidden role="note">
     <div><strong id="medAlertT"></strong><span class="small muted" id="medAlertS"></span></div>
   </div>
 
   <section class="hero" id="askCard" aria-labelledby="askT">
     <svg class="spark s1" aria-hidden="true"><use href="#i-spark"/></svg><svg class="spark s2" aria-hidden="true"><use href="#i-spark"/></svg>
-    <div><p class="eyebrow">Ma journée</p><h2 id="askT">Comment va ta tête aujourd'hui ?</h2></div>
+    <div><p class="eyebrow">Ma journée</p><h2 id="askT">Comment va <em>ta tête</em> aujourd'hui ?</h2></div>
     <div class="duo">
       <button class="bigchoice" type="button" data-start="yes"><svg class="ico ico-pain" aria-hidden="true"><use href="#i-storm"/></svg>J'ai eu mal</button>
       <button class="bigchoice" type="button" data-start="no"><svg class="ico ico-ok" aria-hidden="true"><use href="#i-calm"/></svg>Pas de mal</button>
     </div>
     <div class="quickrow">
-      <p id="quickT1">Une crise en ce moment ? <span>Un toucher suffit.</span></p>
+      <p id="quickT1">Crise en cours ? <span>Un toucher la note avec l'heure, tu compléteras plus tard. Appui long sur « Forte » : mode crise.</span></p>
       <div class="quick" role="group" aria-labelledby="quickT1">
-        <button type="button" data-quick="3"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Légère</button>
-        <button type="button" data-quick="6"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Moyenne</button>
-        <button type="button" data-quick="9"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Forte</button>
+        <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
+        <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
+        <button type="button" data-quick="9"><svg class="wx" aria-hidden="true"><use href="#i-lv3"/></svg>Forte</button>
       </div>
     </div>
   </section>
@@ -394,7 +603,9 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
       <span class="pill" id="todayPill"></span>
     </div>
     <div class="facts" id="todayFacts"></div>
+    <button class="btn block" type="button" id="endCrisis" hidden>Ma crise est finie</button>
     <button class="btn soft block" type="button" id="editToday">Modifier ma journée</button>
+    <button class="btn line block" type="button" id="crisisOn" hidden>Passer en mode crise</button>
     <button class="btn line block" type="button" id="undoQuick" hidden>Retirer cette crise</button>
   </section>
 
@@ -402,9 +613,9 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   <section class="card" id="quickCard" hidden aria-labelledby="quickT">
     <div><h2 id="quickT">Une crise en ce moment ?</h2><p class="hint">Un toucher la note avec l'heure. Tu compléteras plus tard.</p></div>
     <div class="quick" role="group" aria-labelledby="quickT">
-      <button type="button" data-quick="3"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Légère</button>
-      <button type="button" data-quick="6"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Moyenne</button>
-      <button type="button" data-quick="9"><span class="lvl" aria-hidden="true"><i></i><i></i><i></i></span>Forte</button>
+      <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
+      <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
+      <button type="button" data-quick="9"><svg class="wx" aria-hidden="true"><use href="#i-lv3"/></svg>Forte</button>
     </div>
   </section>
 
@@ -462,22 +673,21 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
       </div>
       <fieldset><legend>Où as-tu mal ?</legend><p class="hint">Plusieurs choix possibles.</p><div class="opts" id="zones"></div></fieldset>
       <fieldset><legend>Autres signes</legend><div class="opts" id="symptoms"></div></fieldset>
-      <div class="field"><label class="flabel" for="f-med">Médicament pris</label><input type="text" id="f-med" list="medList" placeholder="Rien, ou par ex. Doliprane 1 g" autocomplete="off"><datalist id="medList"></datalist></div>
-      <fieldset><legend>Est-ce qu'il a soulagé ?</legend>
-        <div class="opts">
-          <label class="opt"><input type="radio" name="medEff" value="oui"><span>Oui</span></label>
-          <label class="opt"><input type="radio" name="medEff" value="un peu"><span>Un peu</span></label>
-          <label class="opt"><input type="radio" name="medEff" value="non"><span>Non</span></label>
-        </div></fieldset>
+      <div class="medrows" id="medRows"></div><datalist id="medList"></datalist>
+      <button class="btn line block" type="button" id="addMed">+ Ajouter un autre médicament</button>
     </section>
 
     <!-- 3 -->
     <section class="step" data-step="meals" hidden>
       <h2 tabindex="-1">Tes repas</h2>
+      <div class="usual"><button class="btn soft block" type="button" id="usualBtn">Comme d'habitude</button><p class="hint">Remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après tes 14 derniers jours. Tu corriges ensuite.</p></div>
       <p class="hint">Sépare les aliments par des virgules : le bilan repère ceux qui reviennent les jours de mal.</p>
-      <div class="field"><label class="flabel" for="f-breakfast">Petit-déjeuner</label><input type="text" id="f-breakfast" placeholder="café, tartines"></div>
-      <div class="field"><label class="flabel" for="f-lunch">À midi</label><input type="text" id="f-lunch" placeholder="pâtes, fromage, chocolat"></div>
-      <div class="field"><label class="flabel" for="f-dinner">Le soir</label><input type="text" id="f-dinner" placeholder="soupe, pain"></div>
+      <div class="withtime"><div class="field"><label class="flabel" for="f-breakfast">Petit-déjeuner</label><input type="text" id="f-breakfast" placeholder="café, tartines"></div>
+        <div class="field"><label class="flabel" for="f-breakfastTime">Heure</label><input type="time" id="f-breakfastTime"></div></div>
+      <div class="withtime"><div class="field"><label class="flabel" for="f-lunch">À midi</label><input type="text" id="f-lunch" placeholder="pâtes, fromage, chocolat"></div>
+        <div class="field"><label class="flabel" for="f-lunchTime">Heure</label><input type="time" id="f-lunchTime"></div></div>
+      <div class="withtime"><div class="field"><label class="flabel" for="f-dinner">Le soir</label><input type="text" id="f-dinner" placeholder="soupe, pain"></div>
+        <div class="field"><label class="flabel" for="f-dinnerTime">Heure</label><input type="time" id="f-dinnerTime"></div></div>
       <div class="counters">
         <div class="counter" role="group" aria-labelledby="cofL" data-counter="coffee" data-step="1" data-max="15" data-def="1" data-unit=""><span class="lab" id="cofL">Cafés ou thés</span></div>
         <div class="counter" role="group" aria-labelledby="watL" data-counter="water" data-step="1" data-max="20" data-def="5" data-unit=""><span class="lab" id="watL">Verres d'eau</span></div>
@@ -501,8 +711,8 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
         <div class="opts cols">
           <label class="opt"><input type="radio" name="stress" value="1"><span>Zen</span></label>
           <label class="opt"><input type="radio" name="stress" value="2"><span>Un peu</span></label>
-          <label class="opt"><input type="radio" name="stress" value="3"><span>Stressée</span></label>
-          <label class="opt"><input type="radio" name="stress" value="4"><span>Très stressée</span></label>
+          <label class="opt"><input type="radio" name="stress" value="3"><span>Stress</span></label>
+          <label class="opt"><input type="radio" name="stress" value="4"><span>Fort stress</span></label>
         </div></fieldset>
       <fieldset><legend>Ton cycle</legend>
         <div class="opts">
@@ -552,13 +762,22 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
 <!-- ================= BILAN ================= -->
 <main id="v-stats" class="wrap" hidden>
   <div class="top"><h1>Mon bilan</h1></div>
-  <div class="seg" role="group" aria-label="Période du bilan"><button type="button" id="m-week" aria-pressed="true">Semaine</button><button type="button" id="m-month" aria-pressed="false">Mois</button></div>
+  <div class="seg" role="group" aria-label="Période du bilan"><button type="button" id="m-week" aria-pressed="true">Semaine</button><button type="button" id="m-month" aria-pressed="false">Mois</button><button type="button" id="m-quarter" aria-pressed="false">3 mois</button></div>
   <div class="pernav">
     <button class="iconbtn" type="button" id="pPrev" aria-label="Période précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
     <h2 id="pTitle" aria-live="polite"></h2>
     <button class="iconbtn" type="button" id="pNext" aria-label="Période suivante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
   </div>
   <div id="statsBody" class="wrap"></div>
+  <div class="sheet-bg" id="midasBg" hidden></div>
+  <section class="card sheet" id="midasCard" hidden role="dialog" aria-modal="true" aria-labelledby="midasT">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="rowhead"><h2 id="midasT">Questionnaire MIDAS</h2><button class="iconbtn" type="button" id="midasX" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <p class="hint">5 questions sur les <b>3 derniers mois</b>, pour mesurer la gêne causée par tes maux de tête. Réponds en nombre de jours (0 si aucun).</p>
+    <form id="midasForm" class="stack" novalidate></form>
+    <p class="err" id="midasErr" hidden>Indique un nombre de jours entre 0 et 92 pour chaque question.</p>
+    <div class="duo"><button class="btn soft" type="button" id="midasCancel">Annuler</button><button class="btn" type="button" id="midasSave">Enregistrer</button></div>
+  </section>
 </main>
 
 <!-- ================= MES DONNÉES ================= -->
@@ -597,8 +816,14 @@ input.sr:focus-visible + label{outline:3px solid var(--lilac);outline-offset:3px
   </section>
 
   <section class="card" aria-labelledby="whereT">
-    <h2 id="whereT">Où sont mes notes ?</h2>
+    <div class="rowhead"><h2 id="whereT">Où sont mes notes ?</h2><span class="status" id="status" role="status"><i></i><span>Chargement…</span></span></div>
     <p id="whereText"></p>
+  </section>
+
+  <section class="card" aria-labelledby="gapT">
+    <h2 id="gapT">Écart entre deux prises</h2>
+    <p class="hint">Pour chaque médicament, l'écart minimum indiqué par la notice ou ton médecin. L'accueil te dit quand une nouvelle prise est possible, et une notification te prévient.</p>
+    <div class="stack" id="gapList"></div>
   </section>
 
   <section class="card" aria-labelledby="qT">
@@ -648,11 +873,12 @@ const mondayOf=d=>addDays(d,-((d.getDay()+6)%7));
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const DAYS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
 const DS=["Lu","Ma","Me","Je","Ve","Sa","Di"];
+const MONTHS_S=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
 const MONTHS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 const ZONES=["Front","Tempes","Côté gauche","Côté droit","Derrière les yeux","Nuque","Tout le crâne"];
-const SYMPT=["Nausées","Gênée par la lumière","Gênée par le bruit","Troubles de la vue","Vertiges","Grande fatigue"];
+const SYMPT=["Nausées","Sensible à la lumière","Sensible au bruit","Troubles de la vue","Vertiges","Grande fatigue"];
 const GL={oui:"Toute la journée",partiel:"Un moment",non:"Pas du tout"};
-const ST={"1":"Zen","2":"Un peu","3":"Stressée","4":"Très stressée"};
+const ST={"1":"Zen","2":"Un peu","3":"Stress","4":"Fort stress"};
 const PE={oui:"Règles",avant:"Juste avant",non:"Non"};
 const dayLong=s=>{const d=parse(s);return `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`};
 const dayFull=s=>{const d=parse(s);return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`};
@@ -666,13 +892,50 @@ const todayStr=()=>ymd(new Date());
 // utilisée par la restauration pour ne jamais remplacer un jour plus récent.
 const CACHE="jm-cache-v2";
 const S={entries:{},settings:{custom:[],name:""}};
+// Toute donnée qui entre (stockage, sauvegarde restaurée, texte collé) est remise au propre :
+// champs connus seulement, types et longueurs vérifiés. Une sauvegarde piégée ne peut donc rien injecter dans la page.
+const TXT=(v,max)=>typeof v==="string"?v.slice(0,max):"";
+const HM=v=>typeof v==="string"&&/^([01]\d|2[0-3]):[0-5]\d$/.test(v)?v:"";
+const NUM=(v,max)=>{if(v===""||v==null)return"";const n=Number(v);return Number.isFinite(n)?Math.min(Math.max(n,0),max):""};
+const ONE=(v,list)=>list.includes(v)?v:"";
+const ID_RE=/^[A-Za-z0-9_-]{1,40}$/;
+const STRS=(a,max,len)=>Array.isArray(a)?a.filter(x=>typeof x==="string"&&x.trim()).slice(0,max).map(x=>x.slice(0,len)):[];
+function cleanEntry(e,deep){
+  if(!e||typeof e!=="object"||!/^\d{4}-\d{2}-\d{2}$/.test(e.date))return null;
+  const o={date:e.date,migraine:e.migraine===true?true:e.migraine===false?false:null,
+    intensity:Math.round(NUM(e.intensity,10)||0),start:HM(e.start),duration:NUM(e.duration,72),
+    zones:STRS(e.zones,20,60),symptoms:STRS(e.symptoms,20,60),
+    meds:Array.isArray(e.meds)?e.meds.filter(m=>m&&typeof m.name==="string"&&m.name.trim()).slice(0,20)
+      .map(m=>({name:m.name.slice(0,80),time:HM(m.time),eff:ONE(m.eff,["oui","un peu","non"])})):[],
+    glasses:ONE(e.glasses,["oui","partiel","non"]),
+    breakfast:TXT(e.breakfast,300),lunch:TXT(e.lunch,300),dinner:TXT(e.dinner,300),
+    breakfastTime:HM(e.breakfastTime),lunchTime:HM(e.lunchTime),dinnerTime:HM(e.dinnerTime),
+    sleep:NUM(e.sleep,24),water:NUM(e.water,40),screen:NUM(e.screen,24),coffee:NUM(e.coffee,30),
+    stress:ONE(e.stress,["1","2","3","4"]),period:ONE(e.period,["oui","avant","non"]),notes:TXT(e.notes,2000),custom:{},
+    updatedAt:Number.isFinite(e.updatedAt)?e.updatedAt:0};
+  if(typeof e.med==="string"&&e.med.trim()){o.med=e.med.slice(0,80);o.medEff=ONE(e.medEff,["oui","un peu","non"])}
+  if(e.custom&&typeof e.custom==="object")Object.keys(e.custom).forEach(k=>{if(ID_RE.test(k)&&typeof e.custom[k]==="string")o.custom[k]=e.custom[k].slice(0,300)});
+  if(e.quick===true){o.quick=true;if(deep&&e.quickPrev){const q=cleanEntry(e.quickPrev,false);if(q)o.quickPrev=q}}
+  return o;
+}
+function cleanQuestion(q){return q&&typeof q==="object"&&ID_RE.test(q.id)&&typeof q.label==="string"&&q.label.trim()
+  ?{id:q.id,label:q.label.slice(0,80),type:q.type==="bool"?"bool":"text"}:null}
+function cleanSettings(st){
+  const o=Object.assign({},st&&typeof st==="object"?st:{});
+  o.custom=(Array.isArray(o.custom)?o.custom:[]).map(cleanQuestion).filter(Boolean);
+  o.name=TXT(o.name,80);
+  const mg={};if(o.medGaps&&typeof o.medGaps==="object")Object.keys(o.medGaps).slice(0,40).forEach(k=>{const v=Number(o.medGaps[k]);if(typeof k==="string"&&k.length<=80&&[4,6,8,12,24].includes(v))mg[k]=v});o.medGaps=mg;
+  o.midas=(Array.isArray(o.midas)?o.midas:[]).filter(m=>m&&/^\d{4}-\d{2}-\d{2}$/.test(m.date)&&Array.isArray(m.a)&&m.a.length===5&&m.a.every(v=>Number.isInteger(v)&&v>=0&&v<=92))
+    .slice(-40).map(m=>({date:m.date,a:m.a.slice(),score:midasScore(m.a)}));
+  return o;
+}
 function readCache(){
-  try{const c=JSON.parse(localStorage.getItem(CACHE)||"null");if(c){S.entries=c.entries||{};S.settings=Object.assign({custom:[],name:""},c.settings||{})}}catch(e){}
+  try{const c=JSON.parse(localStorage.getItem(CACHE)||"null");if(c){S.entries={};Object.values(c.entries||{}).forEach(e=>{const x=cleanEntry(e,true);if(x)S.entries[x.date]=x});S.settings=cleanSettings(c.settings)}}catch(e){}
   // Ancienne version : reprise une seule fois, puis la clé est effacée pour ne pas faire revenir des jours supprimés
   try{const old=JSON.parse(localStorage.getItem("journal-migraines-v1")||"null");
     if(old){
-      if(old.entries)Object.values(old.entries).forEach(e=>{if(e&&e.date&&!e.demo&&!S.entries[e.date])S.entries[e.date]=e});
-      if(old.custom&&!S.settings.custom.length)S.settings.custom=old.custom;
+      if(old.entries)Object.values(old.entries).forEach(e=>{{const x=e&&!e.demo&&cleanEntry(e,false);if(x&&!S.entries[x.date])S.entries[x.date]=x}});
+      if(old.custom&&!S.settings.custom.length)S.settings.custom=cleanSettings({custom:old.custom}).custom;
       if(writeCache())localStorage.removeItem("journal-migraines-v1");
     }}catch(e){}
 }
@@ -712,13 +975,89 @@ async function scheduleReminders(){
   if(list.length)try{await ln.schedule({notifications:list})}catch(e){}
 }
 
+/* =============== MODE CRISE, FIN DE CRISE, PRISES =============== */
+const CRISIS_KEY="jm-crisis",CRISIS_NOTIF=300,DOSE_BASE=400,DOSE_MAX=20;
+const isCrisis=()=>document.documentElement.dataset.crisis==="on";
+function setCrisis(on){
+  if(on)document.documentElement.dataset.crisis="on";else delete document.documentElement.dataset.crisis;
+  try{on?localStorage.setItem(CRISIS_KEY,"1"):localStorage.removeItem(CRISIS_KEY)}catch(e){}
+  if(tab==="home")renderHome();
+}
+try{if(localStorage.getItem(CRISIS_KEY)==="1")document.documentElement.dataset.crisis="on"}catch(e){}
+// Durée d'une crise d'après son heure de début et l'heure actuelle, arrondie à la demi-heure (au moins 30 min)
+function crisisDuration(start,nowMin){const st=toMin(start);if(st==null)return"";let d=nowMin-st;if(d<0)d+=1440;return Math.max(.5,Math.round(d/30)/2)}
+async function endCrisis(date){
+  const e=S.entries[date||todayStr()];if(!e||!e.migraine||!e.start)return false;
+  const n=new Date(),x=JSON.parse(JSON.stringify(e));x.duration=crisisDuration(e.start,n.getHours()*60+n.getMinutes());
+  await putEntry(x);await cancelCrisisCheck();setCrisis(false);renderHome();
+  toast(`Crise de ${f1(x.duration)} h notée. Repose-toi.`);return true;
+}
+// Notification « Ta crise est-elle finie ? » 2 h après une crise rapide (puis 1 h après « Pas encore »)
+let lnActions=false;
+async function crisisCheckIn(hours){
+  const ln=LN();if(!ln)return;
+  try{let pm=await ln.checkPermissions();if(pm.display==="prompt")pm=await ln.requestPermissions();if(pm.display!=="granted")return}catch(e){return}
+  if(!lnActions&&ln.registerActionTypes){lnActions=true;try{await ln.registerActionTypes({types:[{id:"CRISIS_END",actions:[{id:"done",title:"Oui, c'est fini"},{id:"later",title:"Pas encore"}]}]})}catch(e){}}
+  try{await ln.cancel({notifications:[{id:CRISIS_NOTIF}]})}catch(e){}
+  try{await ln.schedule({notifications:[{id:CRISIS_NOTIF,title:"Mon Journal",body:"Ta crise est-elle finie ? Un toucher sur « Oui, c'est fini » note sa durée.",actionTypeId:"CRISIS_END",
+    schedule:{at:new Date(Date.now()+hours*3600e3),allowWhileIdle:true}}]})}catch(e){}
+}
+async function cancelCrisisCheck(){const ln=LN();if(ln)try{await ln.cancel({notifications:[{id:CRISIS_NOTIF}]})}catch(e){}}
+// Prochaine prise possible : dernière prise de chaque médicament (aujourd'hui ou hier) + écart réglé
+const medKey=n=>String(n||"").trim().toLowerCase();
+function nextDoses(entries,gaps,now){
+  const out={},t=ymd(now),y=ymd(addDays(now,-1));
+  [y,t].forEach(d=>{const e=entries[d];if(!e)return;medsOf(e).forEach(m=>{const g=gaps&&gaps[medKey(m.name)],tm=toMin(m.time);if(!g||tm==null)return;
+    const taken=new Date(parse(d).getTime()+tm*6e4),next=new Date(taken.getTime()+g*3600e3);
+    const k=medKey(m.name);if(!out[k]||taken>out[k].taken)out[k]={name:m.name,taken,next}})});
+  return Object.values(out).filter(x=>x.next>now).sort((a,b)=>a.next-b.next);
+}
+const hhmm=d=>`${pad(d.getHours())} h ${pad(d.getMinutes())}`;
+function renderNextDose(){
+  const l=nextDoses(S.entries,S.settings.medGaps,new Date());
+  $("nextDose").hidden=!l.length;
+  if(l.length)$("nextDoseS").textContent=" "+l.map(x=>`${x.name} pris à ${hhmm(x.taken)} : prochaine prise possible vers ${hhmm(x.next)}${ymd(x.next)!==todayStr()?" (demain)":""}.`).join(" ");
+}
+async function scheduleDoseReminders(){
+  const ln=LN();if(!ln)return;
+  try{await ln.cancel({notifications:Array.from({length:DOSE_MAX},(_,i)=>({id:DOSE_BASE+i}))})}catch(e){}
+  const l=nextDoses(S.entries,S.settings.medGaps,new Date()).slice(0,DOSE_MAX);if(!l.length)return;
+  try{const pm=await ln.checkPermissions();if(pm.display!=="granted")return}catch(e){return}
+  try{await ln.schedule({notifications:l.map((x,i)=>({id:DOSE_BASE+i,title:"Mon Journal",body:`Tu peux reprendre ${x.name} si besoin.`,schedule:{at:x.next,allowWhileIdle:true}}))})}catch(e){}
+}
+const GAP_OPTS=[[0,"Pas de rappel"],[4,"4 h"],[6,"6 h"],[8,"8 h"],[12,"12 h"],[24,"24 h"]];
+function renderGaps(){
+  const names=[...new Map(Object.values(S.entries).sort((a,b)=>b.date.localeCompare(a.date)).flatMap(e=>medsOf(e).map(m=>[medKey(m.name),m.name.trim()]))).values()].slice(0,12);
+  const g=S.settings.medGaps||{};
+  $("gapList").innerHTML=names.length?names.map((n,i)=>`<div class="gaprow"><label for="gap-${i}"><span>${esc(n)}</span></label><select id="gap-${i}" data-med="${esc(medKey(n))}">${GAP_OPTS.map(([v,l])=>`<option value="${v}"${(g[medKey(n)]||0)===v?" selected":""}>${l}</option>`).join("")}</select></div>`).join("")
+    :`<p class="muted small">Les médicaments que tu notes apparaîtront ici.</p>`;
+}
+// Journée type : ce qui revient le plus souvent sur les 14 derniers jours notés avant cette date
+function usualFrom(entries,date){
+  const past=Object.values(entries).filter(e=>e.date<date).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,14);
+  if(past.length<3)return null;
+  const med=k=>{const v=past.map(e=>e[k]).filter(x=>x!==""&&x!=null).map(Number).filter(Number.isFinite).sort((a,b)=>a-b);if(v.length<3)return"";const m=v[Math.floor((v.length-1)/2)];return k==="sleep"||k==="screen"?Math.round(m*2)/2:Math.round(m)};
+  const mode=(k,min)=>{const c={};past.forEach(e=>{const v=typeof e[k]==="string"?e[k].trim():"";if(v)c[v]=(c[v]||0)+1});const r=Object.entries(c).sort((a,b)=>b[1]-a[1]),b=r[0];return b&&b[1]>=min&&!(r[1]&&r[1][1]===b[1])?b[0]:""}; // égalité = pas d'habitude claire
+  const o={sleep:med("sleep"),water:med("water"),coffee:med("coffee"),screen:med("screen"),glasses:mode("glasses",3)};
+  ["breakfast","lunch","dinner","breakfastTime","lunchTime","dinnerTime"].forEach(k=>o[k]=mode(k,3));
+  return o;
+}
+// MIDAS (Migraine Disability Assessment) : 5 questions sur les 3 derniers mois, score = total des jours
+const MIDAS_Q=["Combien de jours as-tu manqué le travail ou l'école à cause de tes maux de tête ?",
+  "Combien de jours ton efficacité au travail ou à l'école a-t-elle été réduite de moitié ou plus (sans compter les jours de la question 1) ?",
+  "Combien de jours n'as-tu pas fait tes tâches à la maison à cause de tes maux de tête ?",
+  "Combien de jours ton efficacité pour les tâches à la maison a-t-elle été réduite de moitié ou plus (sans compter les jours de la question 3) ?",
+  "Combien de jours as-tu manqué des activités en famille, entre amis ou de loisirs ?"];
+const midasGrade=sc=>sc<=5?{g:"I",t:"peu ou pas de gêne"}:sc<=10?{g:"II",t:"gêne légère"}:sc<=20?{g:"III",t:"gêne modérée"}:{g:"IV",t:"gêne sévère"};
+const midasScore=a=>a.reduce((x,y)=>x+y,0);
+
 /* =============== NAVIGATION =============== */
 let tab="home";
 function show(t){
   tab=t;
   ["home","cal","stats","data","form"].forEach(v=>$("v-"+v).hidden=v!==t);
   $("tabs").hidden=t==="form";document.body.classList.toggle("in-form",t==="form");
-  document.querySelectorAll("#tabs button").forEach(b=>b.dataset.tab===t?b.setAttribute("aria-current","page"):b.removeAttribute("aria-current"));
+  document.querySelectorAll("#tabs button").forEach((b,i)=>{if(b.dataset.tab===t){b.setAttribute("aria-current","page");$("tabs").firstElementChild.style.setProperty("--i",i)}else b.removeAttribute("aria-current")});
   refresh();window.scrollTo(0,0);
 }
 document.querySelectorAll("#tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.tab)));
@@ -743,7 +1082,8 @@ function factsHtml(e){
     f.push(["Douleur",`${e.intensity}/10 · ${painWord(e.intensity)}`]);
     if(e.duration!=="")f.push(["Durée",`${f1(e.duration)} h`]);
     if(e.zones.length)f.push(["Où",e.zones.join(", "),1]);
-    if(e.med)f.push(["Médicament",e.med+(e.medEff?` · soulagée : ${e.medEff}`:""),1]);
+    const ms=medsOf(e);
+    ms.forEach((m,i)=>f.push([ms.length>1?`Médicament ${i+1}`:"Médicament",(m.time?`${m.time} · `:"")+m.name+(m.eff?` · efficace : ${m.eff}`:""),1]));
   }
   if(e.glasses)f.push(["Lunettes",GL[e.glasses]]);
   if(e.sleep!=="")f.push(["Sommeil",`${f1(e.sleep)} h`]);
@@ -754,22 +1094,61 @@ function factsHtml(e){
   if(e.notes)f.push(["Notes",e.notes,1]);
   return f.map(([k,v,w])=>`<div class="fact${w?" wide":""}"><b>${esc(k)}</b><span>${esc(v)}</span></div>`).join("");
 }
+// Heure de fin de crise à partir du début et de la durée (peut passer minuit)
+function endTime(start,dur){if(!start||dur===""||dur==null)return"";const[h,m]=start.split(":").map(Number),t=Math.round(h*60+m+(+dur)*60);
+  return{t:`${pad(Math.floor(t%1440/60))}:${pad(t%60)}`,next:t>=1440}}
+// Tout ce qui est noté pour un jour : d'abord la journée heure par heure, puis le reste par thème
+function dayDetailHtml(e){
+  const tl=[],sec={crise:[],repas:[],jour:[],perso:[]},effTxt=m=>m.eff?`efficace : ${m.eff}`:"";
+  const ms=e.migraine?medsOf(e):[];
+  if(e.migraine){
+    if(e.start)tl.push([e.start,"Début de la crise",`${e.intensity}/10${e.duration!==""?` · pendant ${f1(e.duration)} h`:""}`]);
+    const fin=endTime(e.start,e.duration);if(fin)tl.push([fin.next?"24:00":fin.t,"Fin de la crise",fin.next?`le lendemain à ${fin.t}`:""]);
+    if(e.duration!=="")sec.crise.push(["Durée",`${f1(e.duration)} h`]);
+    if(!e.start)sec.crise.push(["Début","Heure non notée"]);
+    if(e.zones.length)sec.crise.push(["Où",e.zones.join(", "),1]);
+    if((e.symptoms||[]).length)sec.crise.push(["Autres signes",e.symptoms.join(", "),1]);
+    ms.forEach((m,i)=>{const lab=ms.length>1?`Médicament ${i+1}`:"Médicament";
+      if(m.time)tl.push([m.time,m.name,effTxt(m)]);else sec.crise.push([lab,[m.name,effTxt(m)].filter(Boolean).join(" · "),1])});
+    if(!ms.length)sec.crise.push(["Médicament","Aucun",1]);
+  }
+  [["breakfast","Petit-déjeuner"],["lunch","À midi"],["dinner","Le soir"]].forEach(([k,lab])=>{
+    if(e[k+"Time"])tl.push([e[k+"Time"],lab,e[k]||""]);else if(e[k])sec.repas.push([lab,e[k],1])});
+  if(e.coffee!==""&&e.coffee!=null)sec.repas.push(["Cafés ou thés",String(e.coffee)]);
+  if(e.water!==""&&e.water!=null)sec.repas.push(["Eau",`${e.water} verres`]);
+  if(e.sleep!==""&&e.sleep!=null)sec.jour.push(["Sommeil",`${f1(e.sleep)} h`]);
+  if(e.screen!==""&&e.screen!=null)sec.jour.push(["Écrans",`${f1(e.screen)} h`]);
+  if(e.glasses)sec.jour.push(["Lunettes",GL[e.glasses]]);
+  if(e.stress)sec.jour.push(["Stress",ST[e.stress]]);
+  if(e.period)sec.jour.push(["Cycle",PE[e.period]]);
+  (S.settings.custom||[]).forEach(q=>{const v=e.custom&&e.custom[q.id];if(v)sec.perso.push([q.label,v==="oui"?"Oui":v==="non"?"Non":v,1])});
+  tl.sort((a,b)=>a[0].localeCompare(b[0]));
+  const facts=l=>`<div class="facts">${l.map(([k,v,w])=>`<div class="fact${w?" wide":""}">${k?`<b>${esc(k)}</b>`:""}<span>${esc(v)}</span></div>`).join("")}</div>`;
+  const block=(t,html)=>`<section class="daysec"><h3>${t}</h3>${html}</section>`;
+  return[tl.length?block("Heure par heure",`<ol class="timeline">${tl.map(([h,t,d])=>`<li><time>${h==="24:00"?"Après":esc(h)}</time><span><b>${esc(t)}</b>${d?` · ${esc(d)}`:""}</span></li>`).join("")}</ol>`):"",
+    sec.crise.length?block("La crise",facts(sec.crise)):"",sec.repas.length?block("Repas",facts(sec.repas)):"",
+    sec.jour.length?block("La journée",facts(sec.jour)):"",sec.perso.length?block("Mes questions",facts(sec.perso)):"",
+    e.notes?block("Notes",facts([["",e.notes,1]])):""].join("");
+}
 function renderHome(){
   const now=new Date(),h=now.getHours(),t=todayStr(),e=S.entries[t];
   $("homeDate").textContent=dayLong(t);
+  document.body.dataset.sky=!e?"dawn":e.migraine?"storm":"calm";
   const first=(S.settings.name||"").trim().split(/\s+/)[0],hi=h>=18||h<5?"Bonsoir":"Bonjour";
   // Le cœur est collé au dernier mot : il ne peut jamais partir seul à la ligne
   const words=(first?`${hi} ${first}`:hi).split(" "),last=words.pop();
   $("hello").innerHTML=`${words.length?esc(words.join(" "))+" ":""}<span class="nw">${esc(last)}<svg aria-hidden="true"><use href="#i-heart"/></svg></span>`;
-  // Une seule entrée tant que la journée n'est pas notée ; la crise rapide seule ensuite, si la journée est notée sans mal
-  $("askCard").hidden=!!e;$("todayCard").hidden=!e;$("quickCard").hidden=!(e&&!e.migraine);
+  // Une seule entrée tant que la journée n'est pas notée ; ensuite la semaine suffit (un toucher sur le jour le rouvre). La carte du jour ne reste qu'après une crise rapide, à compléter
+  $("askCard").hidden=!!e;$("todayCard").hidden=!(e&&e.quick);$("quickCard").hidden=!(e&&!e.migraine);
   if(e){
     $("todayPill").textContent=e.migraine?`Mal ${e.intensity}/10`:"Pas de mal";$("todayPill").className="pill "+pcls(e);
     $("todayT").textContent=e.quick?`Crise notée à ${e.start}`:"Aujourd'hui est noté";
     $("editToday").textContent=e.quick?"Compléter ma crise":"Modifier ma journée";$("undoQuick").hidden=!e.quick;
+    $("endCrisis").hidden=!(e.quick&&e.migraine&&e.start&&e.duration==="");$("crisisOn").hidden=!(e.quick&&e.migraine)||isCrisis();
     $("todayFacts").innerHTML=factsHtml(e);
   }
-  renderMedAlert();
+  renderMedAlert();renderNextDose();
+  $("crisisCard").hidden=!isCrisis();$("crisisEnd").hidden=!(e&&e.migraine&&e.start&&e.duration==="");
   const mon=mondayOf(now);let n=0,cnt=0;
   $("weekStrip").innerHTML=Array.from({length:7},(_,i)=>{const d=addDays(mon,i),k=ymd(d),en=S.entries[k];if(en){cnt++;if(en.migraine)n++}
     const fut=d>now&&k!==t;
@@ -782,28 +1161,43 @@ $("weekStrip").addEventListener("click",ev=>{const b=ev.target.closest("[data-da
 document.querySelectorAll("[data-start]").forEach(b=>b.addEventListener("click",()=>openForm(todayStr(),b.dataset.start)));
 $("editToday").addEventListener("click",()=>openForm(todayStr()));
 // Crise rapide : note la crise tout de suite avec l'heure, le reste se complète plus tard
-document.querySelectorAll("[data-quick]").forEach(b=>b.addEventListener("click",async()=>{
-  const t=todayStr(),now=new Date(),ex=S.entries[t],v=+b.dataset.quick;
+async function quickCrisis(v){
+  const t=todayStr(),now=new Date(),ex=S.entries[t];
   const e=ex?JSON.parse(JSON.stringify(ex)):blank(t);
   e.intensity=Math.max(v,ex&&ex.migraine?ex.intensity:0);e.migraine=true;
   if(!e.start)e.start=`${pad(now.getHours())}:${pad(now.getMinutes())}`;
   // On garde la journée d'avant (sans la crise) pour pouvoir la remettre telle quelle
   e.quickPrev=ex&&ex.quick?(ex.quickPrev||null):(ex?clean(ex):null);
   e.quick=true;
-  await putEntry(e);renderHome();
+  await putEntry(e);renderHome();crisisCheckIn(2);
   toast(`Crise notée à ${e.start}`,{label:"Annuler",run:()=>undoQuick(t)});
-}));
+}
+let longFired=false;
+document.querySelectorAll("[data-quick]").forEach(b=>{
+  let timer=null;
+  const stop=()=>{clearTimeout(timer);timer=null};
+  if(b.dataset.quick==="9"){
+    b.addEventListener("pointerdown",()=>{longFired=false;stop();timer=setTimeout(async()=>{longFired=true;await quickCrisis(9);setCrisis(true)},650)});
+    ["pointerup","pointerleave","pointercancel"].forEach(ev=>b.addEventListener(ev,stop));
+    b.addEventListener("contextmenu",ev=>ev.preventDefault());
+  }
+  b.addEventListener("click",()=>{if(longFired){longFired=false;return}quickCrisis(+b.dataset.quick)});
+});
+$("endCrisis").addEventListener("click",()=>endCrisis());
+$("crisisEnd").addEventListener("click",()=>endCrisis());
+$("crisisOff").addEventListener("click",()=>{setCrisis(false);$("hello").focus&&$("themeBtn").focus()});
+$("crisisOn").addEventListener("click",()=>{setCrisis(true);$("crisisOff").focus()});
 async function undoQuick(date){
   const e=S.entries[date];if(!e||!e.quick)return;
   if(e.quickPrev){const back=JSON.parse(JSON.stringify(e.quickPrev));delete back.quick;delete back.quickPrev;delete back._local;await putEntry(back)}
   else await removeEntry(date);
-  renderHome();toast("Crise retirée");
+  cancelCrisisCheck();setCrisis(false);renderHome();toast("Crise retirée");
 }
 $("undoQuick").addEventListener("click",()=>undoQuick(todayStr()));
 function renderMedAlert(){
   const from=ymd(addDays(new Date(),-29));
-  const ents=Object.values(S.entries).filter(e=>e.date>=from&&e.migraine&&e.med);
-  const w=medWarn(ents.length,ents.filter(e=>TRIPTAN.test(e.med)).length,"sur les 30 derniers jours");
+  const ents=Object.values(S.entries).filter(e=>e.date>=from&&e.migraine&&hasMed(e));
+  const w=medWarn(ents.length,ents.filter(hasTriptan).length,"sur les 30 derniers jours");
   $("medAlert").hidden=!w;
   if(w){$("medAlertT").textContent=w.t;$("medAlertS").textContent=" "+w.s;$("medAlert").classList.toggle("warn",w.lvl>1)}
 }
@@ -814,6 +1208,8 @@ function checkNotice(){
   if(!Object.keys(S.entries).length){$("notice").hidden=true;return}
   if(daysSince(S.settings.lastBackup)>=30){T=S.settings.lastBackup?"C'est l'heure de ta sauvegarde du mois":"Pense à faire ta première sauvegarde";
     Sx="Envoie-la sur ton Drive ou par mail : elle protège tes notes si le téléphone casse.";noticeAct=()=>"data"}
+  else if(Object.keys(S.entries).length>=28&&(!(S.settings.midas||[]).length||daysSince(S.settings.midas[S.settings.midas.length-1].date)>=90)){
+    T="Questionnaire de suivi";Sx="2 minutes pour mesurer la gêne de ces 3 derniers mois. Utile pour ton médecin.";noticeAct=()=>{sMode="quarter";sAnchor=t;setTimeout(openMidas,60)}}
   else if(t.getDate()<=3){T=`Ton bilan de ${MONTHS[(t.getMonth()+11)%12]} est prêt`;Sx="Tout le mois en un coup d'œil.";noticeAct=()=>{sMode="month";sAnchor=new Date(t.getFullYear(),t.getMonth()-1,1)}}
   else if(dow===0||dow===6){T="Ton bilan de la semaine est prêt";Sx="Regarde comment s'est passée ta semaine.";noticeAct=()=>{sMode="week";sAnchor=t}}
   else if(dow===1){T="Le bilan de la semaine dernière";Sx="Il est prêt à être consulté.";noticeAct=()=>{sMode="week";sAnchor=addDays(t,-7)}}
@@ -824,7 +1220,7 @@ $("noticeBtn").addEventListener("click",()=>{const to=noticeAct&&noticeAct();sho
 /* =============== FORMULAIRE =============== */
 let cur=null,stepIdx=0,returnTab="home";
 const STEPS=["head","crisis","meals","day","end"];
-const blank=d=>({date:d,migraine:null,intensity:5,start:"",duration:"",zones:[],symptoms:[],med:"",medEff:"",glasses:"",breakfast:"",lunch:"",dinner:"",sleep:"",water:"",screen:"",coffee:"",stress:"",period:"",notes:"",custom:{}});
+const blank=d=>({date:d,migraine:null,intensity:5,start:"",duration:"",zones:[],symptoms:[],meds:[],glasses:"",breakfast:"",lunch:"",dinner:"",breakfastTime:"",lunchTime:"",dinnerTime:"",sleep:"",water:"",screen:"",coffee:"",stress:"",period:"",notes:"",custom:{}});
 function chipGroup(id,name,list){$(id).innerHTML=list.map(v=>`<label class="opt"><input type="checkbox" name="${name}" value="${esc(v)}"><span>${esc(v)}</span></label>`).join("")}
 chipGroup("zones","zones",ZONES);chipGroup("symptoms","symptoms",SYMPT);
 document.querySelectorAll("[data-counter]").forEach(c=>{
@@ -839,6 +1235,25 @@ document.querySelectorAll("[data-counter]").forEach(c=>{
 function paintCounters(){document.querySelectorAll("[data-counter]").forEach(c=>{const v=cur[c.dataset.counter],o=c.querySelector("output"),unset=v==="";
   const val=(unset?f1(+c.dataset.def):f1(v))+c.dataset.unit;
   o.innerHTML=unset?`<span class="sr">Non renseigné, par défaut </span>${esc(val)}<span aria-hidden="true"> ?</span>`:esc(val);o.classList.toggle("unset",unset)})}
+// Plusieurs médicaments par jour : meds=[{name,eff}]. Les journées notées avant gardent med/medEff, lus ici sans conversion.
+// meds vide + med rempli = vieille journée passée par blank() (restauration) : on garde med.
+const medsOf=e=>{const l=Array.isArray(e.meds)?e.meds.filter(m=>m&&m.name):[];return l.length?l:e.med?[{name:e.med,eff:e.medEff||""}]:[]};
+const hasMed=e=>medsOf(e).length>0;
+const hasTriptan=e=>medsOf(e).some(m=>TRIPTAN.test(m.name));
+const EFF_OPTS=[["oui","Oui"],["un peu","Un peu"],["non","Non"]];
+function medRowHtml(m,i,total){
+  const n=total>1?` ${i+1}`:"";
+  return `<div class="medrow"><div class="field"><label class="flabel" for="f-med-${i}">Médicament pris${n}</label>
+    <div class="medline"><input type="text" id="f-med-${i}" list="medList" placeholder="${i?"Par ex. Ibuprofène 400 mg":"Rien, ou par ex. Doliprane 1 g"}" autocomplete="off" value="${esc(m.name)}">
+    ${total>1?`<button class="iconbtn" type="button" data-delmed="${i}" aria-label="Retirer le médicament${n}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>`:""}</div></div>
+    <div class="field medtime"><label class="flabel" for="f-medt-${i}">Pris à quelle heure ?</label><input type="time" id="f-medt-${i}" value="${esc(m.time||"")}"></div>
+    <fieldset><legend>Est-ce qu'il a soulagé ?</legend><div class="opts">${EFF_OPTS.map(([v,l])=>`<label class="opt"><input type="radio" name="medEff-${i}" value="${v}"${m.eff===v?" checked":""}><span>${l}</span></label>`).join("")}</div></fieldset></div>`;
+}
+function readMedRows(){return[...document.querySelectorAll("#medRows .medrow")].map((r,i)=>({name:$("f-med-"+i).value.trim(),time:$("f-medt-"+i).value,eff:getRadio("medEff-"+i)}))}
+function renderMedRows(list){const l=list.length?list:[{name:"",time:"",eff:""}];$("medRows").innerHTML=l.map((m,i)=>medRowHtml(m,i,l.length)).join("")}
+$("addMed").addEventListener("click",()=>{const l=readMedRows();l.push({name:"",time:"",eff:""});renderMedRows(l);formDirty=true;$("f-med-"+(l.length-1)).focus()});
+$("medRows").addEventListener("click",ev=>{const b=ev.target.closest("[data-delmed]");if(!b)return;
+  const l=readMedRows(),i=+b.dataset.delmed;l.splice(i,1);renderMedRows(l);formDirty=true;$("f-med-"+Math.max(0,i-1)).focus()});
 function setRadio(name,val){document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.checked=i.value===val)}
 function getRadio(name){const i=document.querySelector(`input[name="${name}"]:checked`);return i?i.value:""}
 function setChecks(name,arr){document.querySelectorAll(`input[name="${name}"]`).forEach(i=>i.checked=arr.includes(i.value))}
@@ -857,12 +1272,12 @@ function loadForm(date,preset){
   setRadio("migraine",cur.migraine===true?"yes":cur.migraine===false?"no":"");
   $("f-int").value=cur.intensity||5;paintPain();
   $("f-start").value=cur.start;setChecks("zones",cur.zones);setChecks("symptoms",cur.symptoms||[]);
-  $("f-med").value=cur.med;setRadio("medEff",cur.medEff);
-  ["breakfast","lunch","dinner","notes"].forEach(k=>$("f-"+k).value=cur[k]||"");
+  renderMedRows(medsOf(cur));
+  ["breakfast","lunch","dinner","notes","breakfastTime","lunchTime","dinnerTime"].forEach(k=>$("f-"+k).value=cur[k]||"");
   setRadio("glasses",cur.glasses);setRadio("stress",cur.stress);setRadio("period",cur.period);
   buildCustom();
   (S.settings.custom||[]).forEach(q=>{const v=cur.custom[q.id]||"";if(q.type==="bool")setRadio("cq-"+q.id,v);else{const i=$("cq-"+q.id);if(i)i.value=v}});
-  const meds=[...new Set(Object.values(S.entries).map(e=>e.med).filter(Boolean))];
+  const meds=[...new Set(Object.values(S.entries).flatMap(e=>medsOf(e).map(m=>m.name)))];
   $("medList").innerHTML=meds.map(m=>`<option value="${esc(m)}">`).join("");
   paintCounters();$("painBox").hidden=cur.migraine!==true;
 }
@@ -903,12 +1318,12 @@ function goStep(i,noFocus){
 function collect(){
   cur.date=$("f-date").value||cur.date;
   cur.start=$("f-start").value;cur.zones=getChecks("zones");cur.symptoms=getChecks("symptoms");
-  cur.med=$("f-med").value.trim();cur.medEff=getRadio("medEff");
-  ["breakfast","lunch","dinner","notes"].forEach(k=>cur[k]=$("f-"+k).value.trim());
+  cur.meds=readMedRows().filter(m=>m.name);delete cur.med;delete cur.medEff;
+  ["breakfast","lunch","dinner","notes","breakfastTime","lunchTime","dinnerTime"].forEach(k=>cur[k]=$("f-"+k).value.trim());
   cur.glasses=getRadio("glasses");cur.stress=getRadio("stress");cur.period=getRadio("period");
   (S.settings.custom||[]).forEach(q=>{cur.custom[q.id]=q.type==="bool"?getRadio("cq-"+q.id):(($("cq-"+q.id)||{}).value||"").trim()});
   delete cur.quick;delete cur.quickPrev;
-  if(!cur.migraine){cur.intensity=0;cur.zones=[];cur.symptoms=[];cur.start="";cur.duration="";cur.med="";cur.medEff=""}
+  if(!cur.migraine){cur.intensity=0;cur.zones=[];cur.symptoms=[];cur.start="";cur.duration="";cur.meds=[]}
 }
 $("nextStep").addEventListener("click",async()=>{
   const vs=visibleSteps();
@@ -916,12 +1331,24 @@ $("nextStep").addEventListener("click",async()=>{
   if(stepIdx<vs.length-1){goStep(stepIdx+1);return}
   collect();const b=$("nextStep");b.disabled=true;
   await putEntry(JSON.parse(JSON.stringify(cur)));
+  if(cur.date===todayStr()&&cur.duration!=="")cancelCrisisCheck();
+  scheduleDoseReminders();
   b.disabled=false;
   toast(cur.migraine?"C'est noté. Prends soin de toi.":"C'est noté. Belle journée !");
   if(returnTab==="cal")calSel=cur.date;
   show(returnTab==="form"?"home":returnTab);
 });
 $("prevStep").addEventListener("click",()=>{if(stepIdx===0)askLeave();else goStep(stepIdx-1)});
+$("usualBtn").addEventListener("click",()=>{
+  const u=usualFrom(S.entries,cur.date);
+  if(!u){toast("Note encore quelques jours pour utiliser « Comme d'habitude »");return}
+  let n=0;
+  ["breakfast","lunch","dinner","breakfastTime","lunchTime","dinnerTime"].forEach(k=>{const i=$("f-"+k);if(u[k]&&!i.value.trim()){i.value=u[k];n++}});
+  ["sleep","water","coffee","screen"].forEach(k=>{if(u[k]!==""&&cur[k]===""){cur[k]=u[k];n++}});
+  if(u.glasses&&!getRadio("glasses")){setRadio("glasses",u.glasses);n++}
+  paintCounters();formDirty=true;
+  toast(n?"Rempli d'après tes 14 derniers jours : corrige si besoin":"Tout était déjà rempli");
+});
 $("closeForm").addEventListener("click",askLeave);
 
 /* =============== CALENDRIER =============== */
@@ -947,8 +1374,8 @@ function renderDay(){
     <button class="iconbtn" type="button" data-act="close" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`;
   c.innerHTML=!e
     ?`${head}<p class="muted">Rien de noté ce jour-là.</p><button class="btn block" type="button" data-act="edit">Noter ce jour</button>`
-    :`${head}<span class="pill start ${pcls(e)}">${e.migraine?`Mal ${e.intensity}/10`:"Pas de mal"}</span>
-      <div class="facts">${factsHtml(e)}</div>
+    :`${head}<span class="pill start ${pcls(e)}">${e.migraine?`Mal ${esc(e.intensity)}/10 · ${painWord(e.intensity)}`:"Pas de mal"}</span>
+      ${dayDetailHtml(e)}
       <div class="duo"><button class="btn danger" type="button" data-act="del">Supprimer</button><button class="btn soft" type="button" data-act="edit">Modifier</button></div>`;
 }
 function closeDay(){const k=calSel;calSel=null;renderCal();const b=k&&document.querySelector(`#cal [data-k="${k}"]`);b&&b.focus()}
@@ -963,6 +1390,7 @@ document.addEventListener("keydown",ev=>{
       return}
     if(ev.key==="Escape"){ev.preventDefault();askLeave()}
     return}
+  if(!$("midasCard").hidden){if(ev.key==="Escape")closeMidas();return}
   if(!calSel||tab!=="cal")return;
   if(ev.key==="Escape"){closeDay();return}
   if(ev.key!=="Tab")return;
@@ -994,44 +1422,102 @@ const tokens=s=>String(s||"").toLowerCase().split(/[,;\n+\/]| et | avec /).map(t
 function compareGroups(ents,custom){
   const rate=g=>g.length?Math.round(g.filter(e=>e.migraine).length/g.length*100):0;
   const out=[];
-  const add=(title,defs)=>{const rows=defs.map(([lab,fn])=>{const g=ents.filter(fn);return{lab,n:g.length,r:rate(g)}}).filter(r=>r.n);if(rows.length===2)out.push({title,rows})};
-  add("Lunettes",[["Portées",e=>e.glasses==="oui"||e.glasses==="partiel"],["Pas portées",e=>e.glasses==="non"]]);
-  add("Sommeil",[["Moins de 7 h",e=>e.sleep!==""&&e.sleep<7],["7 h ou plus",e=>e.sleep!==""&&e.sleep>=7]]);
-  add("Stress",[["Zen ou un peu",e=>e.stress==="1"||e.stress==="2"],["Stressée",e=>e.stress==="3"||e.stress==="4"]]);
-  add("Eau",[["Moins de 5 verres",e=>e.water!==""&&e.water<5],["5 verres ou plus",e=>e.water!==""&&e.water>=5]]);
-  add("Écrans",[["Moins de 6 h",e=>e.screen!==""&&e.screen<6],["6 h ou plus",e=>e.screen!==""&&e.screen>=6]]);
-  add("Café / thé",[["2 ou moins",e=>e.coffee!==""&&e.coffee<=2],["3 ou plus",e=>e.coffee!==""&&e.coffee>=3]]);
-  add("Cycle",[["Règles ou juste avant",e=>e.period==="oui"||e.period==="avant"],["Hors règles",e=>e.period==="non"]]);
-  (custom||[]).filter(q=>q.type==="bool").forEach(q=>add(q.label,[["Oui",e=>e.custom&&e.custom[q.id]==="oui"],["Non",e=>e.custom&&e.custom[q.id]==="non"]]));
+  // [libellé court, filtre, « quand … » pour les phrases du bilan]
+  const add=(title,ico,defs)=>{const rows=defs.map(([lab,fn,when])=>{const g=ents.filter(fn);return{lab,when,n:g.length,m:g.filter(e=>e.migraine).length,r:rate(g)}}).filter(r=>r.n);if(rows.length===2)out.push({title,ico,rows})};
+  add("Lunettes","glasses",[["Portées",e=>e.glasses==="oui"||e.glasses==="partiel","tu portes tes lunettes"],["Pas portées",e=>e.glasses==="non","tu ne les portes pas"]]);
+  add("Sommeil","sleep",[["Moins de 7 h",e=>e.sleep!==""&&e.sleep<7,"tu dors moins de 7 h"],["7 h ou plus",e=>e.sleep!==""&&e.sleep>=7,"tu dors 7 h ou plus"]]);
+  add("Stress","stress",[["Zen ou un peu",e=>e.stress==="1"||e.stress==="2","ton stress est faible"],["Stress fort",e=>e.stress==="3"||e.stress==="4","ton stress est fort"]]);
+  add("Eau","water",[["Moins de 5 verres",e=>e.water!==""&&e.water<5,"tu bois moins de 5 verres d'eau"],["5 verres ou plus",e=>e.water!==""&&e.water>=5,"tu bois 5 verres d'eau ou plus"]]);
+  add("Écrans","screen",[["Moins de 6 h",e=>e.screen!==""&&e.screen<6,"tu passes moins de 6 h sur les écrans"],["6 h ou plus",e=>e.screen!==""&&e.screen>=6,"tu passes 6 h ou plus sur les écrans"]]);
+  add("Café / thé","cup",[["2 ou moins",e=>e.coffee!==""&&e.coffee<=2,"tu prends 2 cafés ou thés au plus"],["3 ou plus",e=>e.coffee!==""&&e.coffee>=3,"tu prends 3 cafés ou thés ou plus"]]);
+  add("Cycle","cycle",[["Règles ou juste avant",e=>e.period==="oui"||e.period==="avant","tu as tes règles ou juste avant"],["Hors règles",e=>e.period==="non","tu n'as pas tes règles"]]);
+  (custom||[]).filter(q=>q.type==="bool").forEach(q=>add(q.label,"ask",[["Oui",e=>e.custom&&e.custom[q.id]==="oui",`tu réponds « Oui » à « ${q.label} »`],["Non",e=>e.custom&&e.custom[q.id]==="non",`tu réponds « Non » à « ${q.label} »`]]));
   return out;
 }
+// Seuils de fiabilité : en dessous, une coïncidence passerait pour une piste
+const MIN_DAYS=10,MIN_SIDE=4;
+const toMin=t=>{if(!t)return null;const[h,m]=t.split(":").map(Number);return h*60+m};
+// Moment de début des crises
+const SLOTS=[["Nuit","0 - 5 h",0,300],["Matin","5 - 12 h",300,720],["Midi","12 - 14 h",720,840],["Après-midi","14 - 18 h",840,1080],["Soir","18 - 24 h",1080,1440]];
 function summarize(ents){
-  const mig=ents.filter(e=>e.migraine);
-  const meds={};mig.filter(e=>e.med).forEach(e=>{const k=e.med.trim();const o=meds[k]=meds[k]||{n:0,oui:0,"un peu":0,non:0};o.n++;if(e.medEff)o[e.medEff]++});
+  const mig=ents.filter(e=>e.migraine),calm=ents.filter(e=>e.migraine===false);
+  const meds={};mig.forEach(e=>medsOf(e).forEach(m=>{const k=m.name.trim();const o=meds[k]=meds[k]||{n:0,oui:0,"un peu":0,non:0};o.n++;if(m.eff)o[m.eff]++}));
   const count=(arr)=>{const c={};arr.forEach(x=>c[x]=(c[x]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1])};
+  // Aliments : fréquence les jours de mal comparée aux autres jours (un aliment mangé tous les jours ne ressort pas)
+  const dayFoods=e=>new Set(tokens(e.breakfast).concat(tokens(e.lunch),tokens(e.dinner)));
+  const fm={},fc={};mig.forEach(e=>dayFoods(e).forEach(t=>fm[t]=(fm[t]||0)+1));calm.forEach(e=>dayFoods(e).forEach(t=>fc[t]=(fc[t]||0)+1));
+  const M=mig.filter(e=>dayFoods(e).size).length,Cn=calm.filter(e=>dayFoods(e).size).length;
+  const foodsCmp=ents.length>=MIN_DAYS&&M>=MIN_SIDE&&Cn>=MIN_SIDE?Object.keys(fm).map(t=>({t,m:fm[t],M,o:fc[t]||0,O:Cn})).map(x=>Object.assign(x,{rm:x.m/x.M,ro:x.o/x.O}))
+    .filter(x=>x.m>=3&&x.rm-x.ro>=.25&&(x.ro===0||x.rm/x.ro>=1.5)).sort((a,b)=>(b.rm-b.ro)-(a.rm-a.ro)).slice(0,3):[];
+  // Heures de début et délai de prise du médicament
+  const starts=mig.map(e=>toMin(e.start)).filter(v=>v!=null);
+  const slots=SLOTS.map(([lab,range,a,b])=>({lab,range,n:starts.filter(v=>v>=a&&v<b).length}));
+  const delays=[];mig.forEach(e=>{const st=toMin(e.start);if(st==null)return;medsOf(e).forEach(m=>{const t=toMin(m.time);if(t==null)return;const d=t-st;if(d>=0&&d<=720)delays.push(d)})});
+  // Jour de la semaine
+  const wd=Array.from({length:7},(_,i)=>{const g=ents.filter(e=>parse(e.date).getDay()===i);return{i,n:g.length,m:g.filter(e=>e.migraine).length}});
   return{n:ents.length,mig,avgI:avg(mig.map(e=>e.intensity)),hours:mig.reduce((s,e)=>s+(+e.duration||0),0),
     durs:mig.filter(e=>e.duration!=="").map(e=>+e.duration),sleep:avg(ents.filter(e=>e.sleep!=="").map(e=>+e.sleep)),hasSleep:ents.some(e=>e.sleep!==""),
-    meds,medDays:mig.filter(e=>e.med).length,triDays:mig.filter(e=>e.med&&TRIPTAN.test(e.med)).length,zones:count(mig.flatMap(e=>e.zones)),symptoms:count(mig.flatMap(e=>e.symptoms||[])),
-    foods:count(mig.flatMap(e=>[...new Set(tokens(e.breakfast).concat(tokens(e.lunch),tokens(e.dinner)))])).slice(0,6),
+    meds,medDays:mig.filter(hasMed).length,triDays:mig.filter(hasTriptan).length,zones:count(mig.flatMap(e=>e.zones)),symptoms:count(mig.flatMap(e=>e.symptoms||[])),
+    foods:count(mig.flatMap(e=>[...dayFoods(e)])).slice(0,6),foodsCmp,starts,slots,delays,wd,
     groups:compareGroups(ents,S.settings.custom)};
 }
+// Pistes fiables : écart net et assez de jours de chaque côté
+function reliableFactors(s){
+  if(s.n<MIN_DAYS)return[];
+  return s.groups.map(g=>{const[a,b]=g.rows,hi=a.r>=b.r?a:b,lo=hi===a?b:a;return{g,hi,lo,gap:hi.r-lo.r}})
+    .filter(x=>x.gap>=25&&x.hi.n>=MIN_SIDE&&x.lo.n>=MIN_SIDE).sort((x,y)=>y.gap-x.gap);
+}
+const hmTxt=min=>{const h=Math.floor(min/60),m=Math.round(min%60);return h?`${h} h${m?" "+String(m).padStart(2,"0"):""}`:`${m} min`};
 
 /* =============== BILAN =============== */
 let sMode="week",sAnchor=new Date(),showExample=false;
 function exampleEntries(start,days){
   const out={},lunch=["pâtes, fromage","salade, poulet","pizza","sandwich, chocolat","riz, poisson","quiche","burger, frites"];
   for(let i=0;i<days;i++){const d=ymd(addDays(start,i));if(d>todayStr())break;const mig=[1,3,4,8,10,13,17,18,22,26].includes(i);
-    out[d]={date:d,migraine:mig,intensity:mig?[6,4,8,5,7,3,6,9,5,7][i%10]:0,duration:mig?[2,4,6,3][i%4]:"",zones:mig?["Tempes"].concat(i%2?["Front"]:[]):[],symptoms:mig?["Gênée par la lumière"]:[],
+    out[d]={date:d,migraine:mig,intensity:mig?[6,4,8,5,7,3,6,9,5,7][i%10]:0,duration:mig?[2,4,6,3][i%4]:"",zones:mig?["Tempes"].concat(i%2?["Front"]:[]):[],symptoms:mig?["Sensible à la lumière"]:[],
       med:mig?"Doliprane 1 g":"",medEff:mig?(i%2?"oui":"un peu"):"",glasses:mig?(i%3?"non":"partiel"):"oui",lunch:lunch[i%7]+(mig&&i%2?", chocolat":""),
       sleep:mig?5.5+(i%2):7.5,water:mig?3:6,screen:mig?8:4,coffee:mig?3:1,stress:mig?"3":"1",period:i>=20&&i<=24?"oui":"non",custom:{}}}
   return out;
 }
+// Icônes des pistes du bilan (24 px, trait)
+const TI=d=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+const TICO={
+  sleep:TI('<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'),
+  glasses:TI('<circle cx="6.5" cy="14" r="3.5"/><circle cx="17.5" cy="14" r="3.5"/><path d="M10 14h4M3 14l1.5-6M21 14l-1.5-6"/>'),
+  stress:TI('<path d="M3 12h3l2-5 4 10 2-5h7"/>'),
+  water:TI('<path d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/>'),
+  screen:TI('<rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M10 18.5h4"/>'),
+  cup:TI('<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c0 1 1 1.5 1 2.5M12 3.5c0 1 1 1.5 1 2.5"/>'),
+  cycle:TI('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16"/>'),
+  pill:TI('<rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="m9.2 8 5.6 8"/>'),
+  storm:TI('<path d="M7 16h10a4 4 0 0 0 .5-7.95A6 6 0 0 0 6.3 8.2 4 4 0 0 0 7 16z"/><path d="m12.5 13-2 4h3l-2 4"/>'),
+  clock:TI('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+  cal:TI('<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'),
+  food:TI('<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M16 21V3c-2 1.5-3 4-3 7h3"/>'),
+  ask:TI('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17.5h.01"/>')};
+// Période affichée : semaine, mois, ou 3 mois (ce que demandent les médecins)
+function statsPeriod(){
+  let start,end;
+  if(sMode==="week"){start=mondayOf(sAnchor);end=addDays(start,6)}
+  else if(sMode==="month"){start=new Date(sAnchor.getFullYear(),sAnchor.getMonth(),1);end=new Date(sAnchor.getFullYear(),sAnchor.getMonth()+1,0)}
+  else{start=new Date(sAnchor.getFullYear(),sAnchor.getMonth()-2,1);end=new Date(sAnchor.getFullYear(),sAnchor.getMonth()+1,0)}
+  const days=Math.round((end-start)/864e5)+1;
+  return{start,end,days,dates:Array.from({length:days},(_,i)=>ymd(addDays(start,i)))};
+}
+// Titre de période, même règle pour les trois vues : mois en toutes lettres, année toujours présente.
+// « 5 - 11 octobre 2026 » · « octobre 2026 » · « août - octobre 2026 ». Abréviations seulement si une semaine chevauche deux mois.
+function periodTitle(start,end,mode){
+  const M=d=>MONTHS[d.getMonth()],Y=d=>d.getFullYear(),sameY=Y(start)===Y(end);
+  if(mode==="month")return`${M(start)} ${Y(start)}`;
+  if(mode==="quarter")return sameY?`${M(start)} - ${M(end)} ${Y(end)}`:`${M(start)} ${Y(start)} - ${M(end)} ${Y(end)}`;
+  if(start.getMonth()===end.getMonth()&&sameY)return`${start.getDate()} - ${end.getDate()} ${M(end)} ${Y(end)}`;
+  const S=d=>MONTHS_S[d.getMonth()];
+  return sameY?`${start.getDate()} ${S(start)} - ${end.getDate()} ${S(end)} ${Y(end)}`:`${start.getDate()} ${S(start)} ${Y(start)} - ${end.getDate()} ${S(end)} ${Y(end)}`;
+}
 function renderStats(){
-  $("m-week").setAttribute("aria-pressed",sMode==="week");$("m-month").setAttribute("aria-pressed",sMode==="month");
-  let start,days;
-  if(sMode==="week"){start=mondayOf(sAnchor);days=7}else{start=new Date(sAnchor.getFullYear(),sAnchor.getMonth(),1);days=new Date(start.getFullYear(),start.getMonth()+1,0).getDate()}
-  const end=addDays(start,days-1),dates=Array.from({length:days},(_,i)=>ymd(addDays(start,i)));
-  $("pTitle").textContent=sMode==="week"?`${start.getDate()} ${MONTHS[start.getMonth()].slice(0,4)}. – ${end.getDate()} ${MONTHS[end.getMonth()].slice(0,4)}.`:`${MONTHS[start.getMonth()]} ${start.getFullYear()}`;
+  ["week","month","quarter"].forEach(m=>$("m-"+m).setAttribute("aria-pressed",sMode===m));
+  const{start,end,days,dates}=statsPeriod(),wk=sMode==="week",qt=sMode==="quarter";
+  $("pTitle").textContent=periodTitle(start,end,sMode);
   $("pNext").disabled=ymd(addDays(end,1))>todayStr();
   const real=Object.keys(S.entries).length>0;
   const src=(!real&&showExample)?exampleEntries(start,days):S.entries;
@@ -1046,19 +1532,18 @@ function renderStats(){
   }
   const s=summarize(ents);let h="";
   if(!real)h+=`<div class="examplebar"><span>Exemple avec des journées inventées</span><button class="btn soft sm" type="button" id="exOff">Masquer</button></div>`;
-  // Synthèse : anneau (part des jours notés avec mal), phrase, comparaison avec la période d'avant
-  const wk=sMode==="week",nm=s.mig.length,ratio=s.n?nm/s.n:0,C=2*Math.PI*46;
-  const mood=!nm?(wk?"Aucun mal de tête cette semaine":"Aucun mal de tête ce mois-ci")
-    :ratio<.3?(wk?"Une semaine plutôt calme":"Un mois plutôt calme")
-    :ratio<.6?(wk?"Une semaine un peu chargée":"Un mois un peu chargé"):(wk?"Une semaine difficile":"Un mois difficile");
-  const pStart=wk?addDays(start,-7):new Date(start.getFullYear(),start.getMonth()-1,1);
-  const pDays=wk?7:new Date(pStart.getFullYear(),pStart.getMonth()+1,0).getDate();
-  const prev=Array.from({length:pDays},(_,i)=>src[ymd(addDays(pStart,i))]).filter(Boolean);
-  const dm=nm-prev.filter(e=>e.migraine).length,per=wk?"la semaine d'avant":"le mois d'avant",pl=n=>n>1?"s":"";
+  const pl=n=>n>1?"s":"",nm=s.mig.length,ratio=s.n?nm/s.n:0,C=2*Math.PI*46;
+  // 1. Résumé : anneau, phrase, comparaison avec la période d'avant
+  const mood=!nm?(wk?"Aucun mal de tête cette semaine":qt?"Aucun mal de tête sur ces 3 mois":"Aucun mal de tête ce mois-ci")
+    :ratio<.3?(wk?"Une semaine plutôt calme":qt?"Trois mois plutôt calmes":"Un mois plutôt calme")
+    :ratio<.6?(wk?"Une semaine un peu chargée":qt?"Trois mois un peu chargés":"Un mois un peu chargé"):(wk?"Une semaine difficile":qt?"Trois mois difficiles":"Un mois difficile");
+  const pStart=wk?addDays(start,-7):new Date(start.getFullYear(),start.getMonth()-(qt?3:1),1);
+  const prev=[];for(let d=pStart;d<start;d=addDays(d,1)){const e=src[ymd(d)];if(e)prev.push(e)}
+  const dm=nm-prev.filter(e=>e.migraine).length,per=wk?"la semaine d'avant":qt?"les 3 mois d'avant":"le mois d'avant";
   const arrow=d=>`<svg viewBox="0 0 16 16" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
   const chip=!prev.length?"":dm>0?`<span class="chip up">${arrow("M8 13V3M3.5 7.5 8 3l4.5 4.5")}${dm} jour${pl(dm)} de plus que ${per}</span>`
     :dm<0?`<span class="chip down">${arrow("M8 3v10M3.5 8.5 8 13l4.5-4.5")}${-dm} jour${pl(-dm)} de moins que ${per}</span>`:`<span class="chip">Autant que ${per}</span>`;
-  const stat=(on,v,u,k,off,extra)=>on?`<div class="st"><div class="v">${v}<small>${u}</small></div>${extra||""}<div class="k">${k}</div></div>`:`<div class="st off"><div class="v">—</div><div class="k">${off}</div></div>`;
+  const stat=(on,v,u,k,off,extra)=>on?`<div class="st"><div class="v">${v}<small>${u}</small></div>${extra||""}<div class="k">${k}</div></div>`:`<div class="st off"><div class="v">-</div><div class="k">${off}</div></div>`;
   const meter=`<div class="meter" aria-hidden="true">${Array.from({length:10},(_,i)=>`<i${i<Math.round(s.avgI)?' class="on"':""}></i>`).join("")}</div>`;
   h+=`<section class="card" aria-label="Résumé de la période">
     <div class="sum">
@@ -1073,38 +1558,111 @@ function renderStats(){
       ${stat(s.durs.length,f1(s.hours)," h","de douleur","durée non notée")}
       ${stat(s.hasSleep,f1(s.sleep)," h","de sommeil / nuit","sommeil non noté")}
     </div></section>`;
-  // Graphique : repères 0 / 5 / 10, jour actuel mis en valeur, pastille « pas de mal », trait « pas noté »
-  const tday=todayStr();
+  // 2. En bref : la réponse d'abord, dite simplement
+  const tips=[],jours=(m,n)=>m===0?`aucun jour sur ${n}`:m===n?`tous les jours (${n} sur ${n})`:`${m} jour${pl(m)} sur ${n}`;
+  const mpm=qt?Math.round(s.medDays/3):s.medDays,tpm=qt?Math.round(s.triDays/3):s.triDays;
+  const mw=wk?null:medWarn(mpm,tpm,qt?"par mois en moyenne":"ce mois-ci");
+  if(mw)tips.push({ico:"pill",warn:mw.lvl>1,t:mw.t+".",d:mw.s});
+  else if(wk&&s.medDays>=3)tips.push({ico:"pill",t:`Tu as pris un médicament ${s.medDays} jours cette semaine.`,d:"Parles-en à ton médecin à ta prochaine visite."});
+  const fac=reliableFactors(s).slice(0,3);
+  fac.forEach(({g,hi,lo})=>tips.push({ico:g.ico,t:`Tu as plus souvent mal quand ${hi.when}.`,d:`Mal de tête ${jours(hi.m,hi.n)} dans ce cas, contre ${jours(lo.m,lo.n)} les autres jours.`}));
+  const timed=s.starts.length,topSlot=s.slots.reduce((a,b)=>b.n>a.n?b:a);
+  if(timed>=3&&topSlot.n/timed>=.5)tips.push({ico:"clock",t:`Tes crises commencent surtout ${topSlot.lab==="Nuit"?"la nuit":topSlot.lab==="Matin"?"le matin":topSlot.lab==="Midi"?"vers midi":topSlot.lab==="Soir"?"le soir":"l'après-midi"} (${topSlot.range}).`,d:`${topSlot.n} crise${pl(topSlot.n)} sur ${timed} dont l'heure est notée.`});
+  if(s.n>=21){const others=w=>s.wd.filter(x=>x.i!==w.i&&x.n),rate=x=>x.n?x.m/x.n:0;
+    const best=s.wd.filter(x=>x.n>=4&&x.m>=3).map(x=>{const o=others(x),om=o.reduce((a,y)=>a+y.m,0),on=o.reduce((a,y)=>a+y.n,0);return{x,gap:rate(x)-(on?om/on:0),om,on}}).filter(y=>y.gap>=.3).sort((a,b)=>b.gap-a.gap)[0];
+    if(best)tips.push({ico:"cal",t:`Tu as plus souvent mal le ${DAYS[best.x.i]}.`,d:`Mal de tête ${jours(best.x.m,best.x.n)} ce jour-là, contre ${jours(best.om,best.on)} les autres jours.`})}
+  if(s.mig.length){const w=s.mig.reduce((a,b)=>b.intensity>a.intensity?b:a);tips.push({ico:"storm",t:`Ta crise la plus forte : ${dayLong(w.date)}, ${w.intensity} sur 10.`,d:w.duration!==""?`Elle a duré ${f1(w.duration)} h.`:""})}
+  let wait="";
+  if(s.n<MIN_DAYS){const left=MIN_DAYS-s.n;wait=`<div class="wait"><p><b>Encore ${left} jour${pl(left)} à noter</b> sur cette période pour voir tes pistes.</p><div class="track" role="img" aria-label="${s.n} jours notés sur ${MIN_DAYS}"><div class="fill" style="width:${s.n/MIN_DAYS*100}%"></div></div></div>`}
+  else if(!fac.length)tips.push({ico:"ask",t:"Rien ne ressort encore de tes habitudes.",d:"Continue à noter sommeil, stress, eau et écrans : les pistes apparaîtront ici."});
+  h+=`<section class="card"><h2>En bref</h2>${tips.length?`<ul class="tips">${tips.map(x=>`<li class="tip${x.warn?" warn":""}"><span class="tico" aria-hidden="true">${TICO[x.ico]||TICO.ask}</span><div><b>${esc(x.t)}</b>${x.d?`<span>${esc(x.d)}</span>`:""}</div></li>`).join("")}</ul>`:""}${wait}
+    <p class="hint">Ce sont des pistes, pas un diagnostic. Plus tu notes de jours, plus elles sont fiables.</p></section>`;
+  // 3. Jour par jour : un toucher sur un jour l'ouvre dans le calendrier
+  // Hors semaine, les barres restent touchables mais sortent de la tabulation (le calendrier reste le chemin au clavier)
+  const tday=todayStr(),dense=days>31,ti=wk?"":' tabindex="-1"';
   h+=`<section class="card"><div class="rowhead"><h2>Jour par jour</h2><span class="small muted">force sur 10</span></div>
     <div class="plot"><div class="yax" aria-hidden="true"><span>10</span><span>5</span><span>0</span></div>
-    <div class="chart" role="img" aria-label="${esc(dates.map(k=>{const e=src[k];return e&&e.migraine?`${parse(k).getDate()} : ${e.intensity} sur 10`:null}).filter(Boolean).join(", ")||"aucun mal de tête")}">`
-    +dates.map(k=>{const e=src[k],now=k===tday?" now":"";if(!e)return`<div class="col${now}">${k<=tday?'<div class="nil"></div>':""}</div>`;if(!e.migraine)return`<div class="col${now}"><div class="dot"></div></div>`;
-      const hh=e.intensity*10;return`<div class="col${now}">${wk?`<span class="val" style="bottom:calc(${hh}% + 4px)">${e.intensity}</span>`:""}<div class="bar ${pcls(e)}" style="height:${hh}%"></div></div>`}).join("")
-    +`</div><div class="xl" aria-hidden="true">${dates.map((k,i)=>`<span${k===tday?' class="now"':""}>${wk?`${DS[i]}<small>${parse(k).getDate()}</small>`:((i===0||(i+1)%5===0)?i+1:"")}</span>`).join("")}</div></div>
+    <div class="chart${dense?" dense":""}" role="group" aria-label="Force du mal de tête jour par jour. Touche un jour pour le voir.">`
+    +dates.map(k=>{const e=src[k],now=k===tday?" now":"";if(!e)return`<div class="col${now}" aria-hidden="true">${k<=tday&&!dense?'<div class="nil"></div>':""}</div>`;
+      const lab=`${dayLong(k)} : ${e.migraine?`mal de tête ${e.intensity} sur 10`:"pas de mal"}`;
+      if(!e.migraine)return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}><div class="dot"></div></button>`;
+      const hh=e.intensity*10;return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}>${wk?`<span class="val" style="bottom:calc(${hh}% + 4px)">${e.intensity}</span>`:""}<div class="bar ${pcls(e)}" style="height:${hh}%"></div></button>`}).join("")
+    +`</div><div class="xl" aria-hidden="true">${dates.map((k,i)=>{const d=parse(k);return`<span${k===tday?' class="now"':""}>${wk?`${DS[i]}<small>${d.getDate()}</small>`:dense?(d.getDate()===1?MONTHS_S[d.getMonth()]:""):((i===0||(i+1)%5===0)?i+1:"")}</span>`}).join("")}</div></div>
     <div class="legend bars" aria-hidden="true"><span><i class="none"></i>pas noté</span><span><i class="pn"></i>pas de mal</span><span><i class="pl"></i>léger</span><span><i class="pm"></i>moyen</span><span><i class="ph"></i>fort</span></div></section>`;
-  const ins=[];
-  if(s.mig.length){const w=s.mig.reduce((a,b)=>b.intensity>a.intensity?b:a);ins.push(`Ta crise la plus forte : <b>${esc(dayLong(w.date))}</b>, ${w.intensity}/10.`)}
-  s.groups.forEach(g=>{const[a,b]=g.rows,hi=a.r>=b.r?a:b,lo=hi===a?b:a;if(hi.r-lo.r>=25&&hi.n>=2)ins.push(`${esc(g.title)} : mal de tête <b>${hi.r} %</b> des jours « ${esc(hi.lab.toLowerCase())} », contre ${lo.r} % sinon.`)});
-  const mw=sMode==="month"?medWarn(s.medDays,s.triDays,"ce mois-ci"):null;
-  if(mw)ins.push(`<b>${esc(mw.t)}</b>. ${esc(mw.s)}`);
-  else if(s.medDays>=(sMode==="week"?3:8))ins.push(`Médicament pris <b>${s.medDays} jours</b> sur cette période. À signaler à ton médecin.`);
-  if(ins.length)h+=`<section class="card"><h2>Ce que je remarque</h2>${ins.map(t=>`<p class="insight">${t}</p>`).join("")}<p class="hint">Ce sont des pistes, pas un diagnostic. Plus tu notes de jours, plus elles sont fiables.</p></section>`;
-  if(s.groups.length)h+=`<section class="card"><h2>Quand ai-je le plus mal ?</h2><p class="hint">Part des jours avec mal de tête dans chaque situation.</p>`+s.groups.map(g=>`<div class="cmp"><h3>${esc(g.title)}</h3>${g.rows.map(r=>`<div class="cmprow"><span>${esc(r.lab)} <span class="muted small">· ${r.n} j</span></span><div class="track" aria-hidden="true"><div class="fill" style="width:${r.r}%"></div></div><span class="pct">${r.r} %</span></div>`).join("")}</div>`).join("")+`</section>`;
+  // 4. Moment des crises
+  if(timed)h+=`<section class="card"><h2>Moment des crises</h2><p class="hint">Heure de début des crises dont l'heure est notée (${timed}).</p><div class="cmp">`
+    +s.slots.map(x=>`<div class="cmprow"><span>${x.lab} <span class="muted small">${x.range}</span></span><div class="track" aria-hidden="true"><div class="fill" style="width:${x.n/timed*100}%"></div></div><span class="pct">${x.n}</span></div>`).join("")+`</div></section>`;
+  // 5. Situation par situation (les situations sans écart net sont repliées)
+  const cmpHtml=g=>`<div class="cmp"><h3>${esc(g.title)}</h3>${g.rows.map(r=>`<div class="cmprow"><span>${esc(r.lab)}</span><div class="track" aria-hidden="true"><div class="fill" style="width:${r.r}%"></div></div><span class="pct">${r.m} sur ${r.n}</span></div>`).join("")}</div>`;
+  const clear=reliableFactors(s).map(x=>x.g),flat=s.groups.filter(g=>!clear.includes(g));
+  if(s.groups.length)h+=`<section class="card"><h2>Situation par situation</h2><p class="hint">Pour chaque situation : combien de jours avec mal de tête, sur les jours notés.</p>`
+    +(clear.length?clear.map(cmpHtml).join(""):`<p class="muted small">${s.n<MIN_DAYS?"Les pistes apparaîtront à partir de 10 jours notés.":"Aucune situation ne change nettement les choses pour l'instant."}</p>`)
+    +(flat.length?`<details class="more"><summary>Voir les autres situations (${flat.length})</summary>${flat.map(cmpHtml).join("")}</details>`:"")+`</section>`;
+  // 6. Aliments à surveiller : comparés aux autres jours
+  if(s.foods.length){
+    const fx=x=>x.o===0?`seulement les jours de mal`:`plus souvent les jours de mal`;
+    h+=`<section class="card"><h2>Aliments à surveiller</h2><p class="hint">Un aliment ressort s'il revient nettement plus souvent les jours de mal que les autres jours.</p>`
+      +(s.foodsCmp.length?`<ul class="tips">${s.foodsCmp.map(x=>`<li class="tip"><span class="tico" aria-hidden="true">${TICO.food}</span><div><b>${esc(x.t.charAt(0).toUpperCase()+x.t.slice(1))} : ${fx(x)}</b><span>${x.m} jour${pl(x.m)} de mal sur ${x.M}, contre ${x.o} jour${pl(x.o)} sur ${x.O} sans mal.</span></div></li>`).join("")}</ul>`
+        :`<p class="muted small">${s.n<MIN_DAYS?"Les aliments à surveiller apparaîtront à partir de 10 jours notés.":"Aucun aliment ne ressort pour l'instant."}</p>`)+`</section>`;
+  }
+  // 7. Où et comment
   const li=a=>a.map(([t,n])=>`<li><span>${esc(t)}</span><span>${n} fois</span></li>`).join("");
-  if(s.foods.length)h+=`<section class="card"><h2>Aliments les jours de mal</h2><p class="hint">Ce que tu as mangé le plus souvent les jours de mal de tête.</p><ul class="tl">${li(s.foods)}</ul></section>`;
   if(s.zones.length||s.symptoms.length)h+=`<section class="card"><h2>Où et comment</h2>${s.zones.length?`<h3>Zones</h3><ul class="tl">${li(s.zones)}</ul>`:""}${s.symptoms.length?`<h3>Autres signes</h3><ul class="tl">${li(s.symptoms)}</ul>`:""}</section>`;
-  const mk=Object.entries(s.meds);
-  if(mk.length)h+=`<section class="card"><h2>Médicaments</h2><ul class="tl">${mk.map(([k,v])=>`<li><span>${esc(k)}</span><span>${v.n} prise${v.n>1?"s":""} · ${v.oui} efficace${v.oui>1?"s":""}</span></li>`).join("")}</ul></section>`;
+  // 8. Médicaments : efficacité de chacun, jauge vers le seuil d'alerte, délai de prise
+  const mk=Object.entries(s.meds).sort((a,b)=>b[1].n-a[1].n);
+  if(mk.length){
+    const gauge=(v,max,lab)=>`<div class="gauge"><div class="gl"><span>${lab}</span><b>${v} / ${max} j</b></div><div class="track" role="img" aria-label="${esc(lab)} : ${v} jours, alerte à ${max}"><div class="fill${v>=max?" over":v>=max*.66?" near":""}" style="width:${Math.min(v/max,1)*100}%"></div></div></div>`;
+    h+=`<section class="card"><h2>Médicaments</h2>`
+      +(wk?"":`<div class="gauges">${gauge(mpm,15,qt?"Jours avec médicament, par mois":"Jours avec médicament ce mois-ci")}${s.triDays?gauge(tpm,10,qt?"Dont triptan, par mois":"Dont triptan ce mois-ci"):""}<p class="hint">Au-delà, les médicaments peuvent eux-mêmes entretenir les maux de tête.</p></div>`)
+      +`<ul class="medl">${mk.map(([k,v])=>{const u=v["un peu"];return`<li><div class="ml"><b>${esc(k)}</b><span>${v.n} prise${pl(v.n)} · a soulagé ${v.oui} fois sur ${v.n}${u?`, un peu ${u} fois`:""}</span></div><div class="track eff" aria-hidden="true"><div class="fill" style="width:${v.oui/v.n*100}%"></div><div class="fill soft" style="width:${u/v.n*100}%"></div></div></li>`}).join("")}</ul>`
+      +(s.delays.length>=2?`<p class="insight">En moyenne, tu prends ton médicament <b>${hmTxt(avg(s.delays))}</b> après le début de la crise.${avg(s.delays)>=120?" Un médicament pris tôt soulage souvent mieux : à voir avec ton médecin.":""}</p>`:"")+`</section>`;
+  }
+  // 9. Retentissement : questionnaire MIDAS tous les 3 mois
+  const ms=S.settings.midas||[],last=ms[ms.length-1];
+  h+=`<section class="card midas"><h2>Gêne au quotidien</h2>`
+    +(last?`<div class="score"><b>${last.score}</b><span><strong>${esc(midasGrade(last.score).t)}</strong> (grade ${midasGrade(last.score).g}) · ${esc(dayLong(last.date))}</span></div>`
+      +(ms.length>1?`<div class="mhist" role="img" aria-label="Scores MIDAS : ${ms.map(m=>`${dayFull(m.date)} ${m.score}`).join(", ")}">${ms.slice(-8).map(m=>`<i style="height:${Math.max(4,Math.min(m.score,40)/40*100)}%"></i>`).join("")}</div>`:"")
+      +`<p class="hint">${daysSince(last.date)>=90?"C'est le moment de refaire le questionnaire.":`Prochain questionnaire dans ${90-daysSince(last.date)} jours.`}</p>`
+      :`<p class="muted">Le questionnaire MIDAS mesure en 5 questions combien tes maux de tête t'ont gêné dans ta vie ces 3 derniers mois. Les médecins l'utilisent pour suivre l'évolution.</p>`)
+    +`<button class="btn soft block" type="button" id="midasBtn">${last?"Refaire le questionnaire":"Répondre au questionnaire (2 min)"}</button></section>`;
+  // 10. Vers le rapport pour le médecin
+  h+=`<button class="btn line block" type="button" id="rdvBtn">Préparer mon rendez-vous (rapport PDF)</button>`;
   body.innerHTML=h;
   const off=$("exOff");if(off)off.onclick=()=>{showExample=false;renderStats()};
+  $("midasBtn").onclick=openMidas;
+  $("rdvBtn").onclick=()=>{const r=$("r-range");if(r)r.value=qt?"3":"1";show("data");const b=$("pdfBtn");if(b){b.scrollIntoView({block:"center"});b.focus()}};
 }
+// Questionnaire MIDAS
+function openMidas(){
+  $("midasForm").innerHTML=MIDAS_Q.map((q,i)=>`<div class="mq"><label for="mq-${i}">${i+1}. ${esc(q)}</label><input type="number" id="mq-${i}" inputmode="numeric" min="0" max="92" step="1" placeholder="0"></div>`).join("");
+  $("midasErr").hidden=true;$("midasBg").hidden=false;$("midasCard").hidden=false;$("mq-0").focus();
+}
+function closeMidas(){$("midasBg").hidden=true;$("midasCard").hidden=true;const b=$("midasBtn");b&&b.focus()}
+$("midasX").addEventListener("click",closeMidas);$("midasCancel").addEventListener("click",closeMidas);$("midasBg").addEventListener("click",closeMidas);
+$("midasSave").addEventListener("click",async()=>{
+  const a=MIDAS_Q.map((_,i)=>{const v=$("mq-"+i).value.trim();return v===""?0:Number(v)});
+  if(!a.every(v=>Number.isInteger(v)&&v>=0&&v<=92)){$("midasErr").hidden=false;return}
+  const m={date:todayStr(),a,score:midasScore(a)};
+  S.settings.midas=(S.settings.midas||[]).filter(x=>x.date!==m.date).concat(m).sort((x,y)=>x.date.localeCompare(y.date));
+  await putSettings();closeMidas();renderStats();toast(`Score MIDAS : ${m.score} (${midasGrade(m.score).t})`);
+});
+// Un toucher sur un jour du graphique l'ouvre dans le calendrier
+$("statsBody").addEventListener("click",ev=>{const b=ev.target.closest("[data-openday]");if(!b||!real_())return;const k=b.dataset.openday,d=parse(k);
+  calM=new Date(d.getFullYear(),d.getMonth(),1);calSel=k;show("cal");const x=$("dayCard").querySelector('[data-act="close"]');x&&x.focus()});
+const real_=()=>Object.keys(S.entries).length>0;
+const stepMonths=n=>new Date(sAnchor.getFullYear(),sAnchor.getMonth()+n,1);
 $("m-week").addEventListener("click",()=>{sMode="week";renderStats()});
 $("m-month").addEventListener("click",()=>{sMode="month";renderStats()});
-$("pPrev").addEventListener("click",()=>{sAnchor=sMode==="week"?addDays(sAnchor,-7):new Date(sAnchor.getFullYear(),sAnchor.getMonth()-1,1);renderStats()});
-$("pNext").addEventListener("click",()=>{sAnchor=sMode==="week"?addDays(sAnchor,7):new Date(sAnchor.getFullYear(),sAnchor.getMonth()+1,1);renderStats()});
+$("m-quarter").addEventListener("click",()=>{sMode="quarter";renderStats()});
+$("pPrev").addEventListener("click",()=>{sAnchor=sMode==="week"?addDays(sAnchor,-7):stepMonths(sMode==="quarter"?-3:-1);renderStats()});
+$("pNext").addEventListener("click",()=>{sAnchor=sMode==="week"?addDays(sAnchor,7):stepMonths(sMode==="quarter"?3:1);renderStats()});
 
 /* =============== MES DONNÉES =============== */
+$("gapList").addEventListener("change",async ev=>{const sel=ev.target.closest("select[data-med]");if(!sel)return;
+  const g=Object.assign({},S.settings.medGaps||{}),v=+sel.value;if(v)g[sel.dataset.med]=v;else delete g[sel.dataset.med];
+  S.settings.medGaps=g;await putSettings();scheduleDoseReminders();toast(v?"Rappel de prise enregistré":"Rappel de prise retiré")});
 function renderData(){
+  renderGaps();
   renderStatus();
   if(document.activeElement!==$("r-name"))$("r-name").value=S.settings.name||"";
   const rm=S.settings.reminder||{};$("rmOn").checked=!!rm.on;$("rmTime").value=rm.time||"21:00";$("rmTimeF").hidden=!rm.on;
@@ -1161,7 +1719,7 @@ async function saveFile(filename,data){
     setTimeout(()=>URL.revokeObjectURL(url),5000);toast("Fichier téléchargé");return true;
   }catch(e){toast("Le fichier n'a pas pu être enregistré");return false}
 }
-const L1=s=>String(s??"").replace(/[‘’]/g,"'").replace(/[^\x20-\x7E\xA0-\xFFŒœ€]/g,"").trim();
+const L1=s=>String(s??"").replace(/[‘’]/g,"'").replace(/[--]/g,"-").replace(/[^\x20-\x7E\xA0-\xFFŒœ€]/g,"").trim();
 $("pdfBtn").addEventListener("click",async()=>{
   const{from,to,ents}=periodEntries();
   if(!ents.length){toast("Aucune journée notée sur cette période");return}
@@ -1169,16 +1727,21 @@ $("pdfBtn").addEventListener("click",async()=>{
   const b=$("pdfBtn");b.disabled=true;
   try{
     const{jsPDF}=window.jspdf,doc=new jsPDF({unit:"mm",format:"a4"}),s=summarize(ents);
-    const rose=[184,23,90],W=doc.internal.pageSize.getWidth();
-    doc.setFillColor(251,231,239);doc.rect(0,0,W,30,"F");
-    doc.setFont("helvetica","bold");doc.setFontSize(18);doc.setTextColor(...rose);doc.text("Journal des maux de tête",14,15);
-    doc.setFont("helvetica","normal");doc.setFontSize(10);doc.setTextColor(70,40,55);
+    const ink=[59,34,54],berry=[169,44,73],coral=[236,125,118],paper=[248,241,234],lineC=[232,214,205],W=doc.internal.pageSize.getWidth();
+    doc.setFillColor(...ink);doc.rect(0,0,W,30,"F");doc.setFillColor(...coral);doc.rect(0,30,W,1.2,"F");
+    doc.setFont("helvetica","bold");doc.setFontSize(18);doc.setTextColor(255,241,232);doc.text("Journal des maux de tête",14,15);
+    doc.setFont("helvetica","normal");doc.setFontSize(10);doc.setTextColor(234,214,224);
     doc.text(L1(`${S.settings.name?S.settings.name+"   ·   ":""}Période : du ${dayFull(from)} au ${dayFull(to)}   ·   Édité le ${dayFull(todayStr())}`),14,23);
     let y=38;
-    const title=t=>{if(y>260){doc.addPage();y=18}doc.setFont("helvetica","bold");doc.setFontSize(12);doc.setTextColor(...rose);doc.text(L1(t),14,y);y+=3};
+    const title=(t,need)=>{if(y>(need?287-need:260)){doc.addPage();y=18}doc.setFont("helvetica","bold");doc.setFontSize(12);doc.setTextColor(...berry);doc.text(L1(t),14,y);y+=3};
     const table=(head,body,opts)=>{doc.autoTable(Object.assign({startY:y,head:[head.map(L1)],body:body.map(r=>r.map(L1)),theme:"grid",
-      styles:{font:"helvetica",fontSize:9,cellPadding:2,textColor:[50,30,40],lineColor:[239,207,220]},headStyles:{fillColor:rose,textColor:255},
-      alternateRowStyles:{fillColor:[253,242,245]},margin:{left:14,right:14}},opts||{}));y=doc.lastAutoTable.finalY+9};
+      styles:{font:"helvetica",fontSize:9,cellPadding:2,textColor:[42,20,37],lineColor:lineC},headStyles:{fillColor:ink,textColor:[255,241,232]},
+      alternateRowStyles:{fillColor:paper},margin:{left:14,right:14}},opts||{}));y=doc.lastAutoTable.finalY+9};
+    const note=t=>{doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor(107,76,96);const l=doc.splitTextToSize(L1(t),W-28);doc.text(l,14,y+3);y+=l.length*4.2+6};
+    // Jauge : valeur sur l'échelle 0 → max, seuil marqué
+    const gauge=(lab,v,max)=>{const x=14,w=W-28,h=5;doc.setFont("helvetica","bold");doc.setFontSize(9);doc.setTextColor(42,20,37);doc.text(L1(lab),x,y+4);
+      doc.text(L1(`${f1(v)} j / mois (seuil ${max})`),x+w,y+4,{align:"right"});y+=6;doc.setFillColor(...paper);doc.roundedRect(x,y,w,h,2,2,"F");
+      const c=v>=max?[184,40,58]:v>=max*.66?coral:berry;doc.setFillColor(...c);if(v>0)doc.roundedRect(x,y,Math.max(2,Math.min(v/max,1)*w),h,2,2,"F");y+=h+5};
     const months=Math.max(1,(parse(to)-parse(from))/864e5/30.44);
     title("Résumé");
     table(["Indicateur","Valeur"],[
@@ -1192,23 +1755,39 @@ $("pdfBtn").addEventListener("click",async()=>{
       ["Sommeil moyen",s.hasSleep?`${f1(s.sleep)} h`:"-"]],{columnStyles:{0:{cellWidth:80,fontStyle:"bold"}}});
     const pw=medWarn(Math.round(s.medDays/months),Math.round(s.triDays/months),"par mois en moyenne");
     if(pw){title("Point d'attention");table(["Consommation de médicaments"],[[`${pw.t}. Seuils de surveillance de l'abus médicamenteux (ICHD-3) : 10 jours par mois pour les triptans, 15 jours par mois pour les antidouleurs simples.`]])}
-    const byM={};ents.forEach(e=>{const k=e.date.slice(0,7);const o=byM[k]=byM[k]||{n:0,m:0,i:[],med:0};o.n++;if(e.migraine){o.m++;o.i.push(e.intensity);if(e.med)o.med++}});
+    const byM={};ents.forEach(e=>{const k=e.date.slice(0,7);const o=byM[k]=byM[k]||{n:0,m:0,i:[],med:0};o.n++;if(e.migraine){o.m++;o.i.push(e.intensity);if(hasMed(e))o.med++}});
     if(Object.keys(byM).length>1){title("Mois par mois");table(["Mois","Jours notés","Jours avec mal","Intensité moy.","Jours avec médicament"],
       Object.entries(byM).map(([k,o])=>{const[yy,mm]=k.split("-");return[`${MONTHS[+mm-1]} ${yy}`,String(o.n),String(o.m),o.i.length?f1(avg(o.i)):"-",String(o.med)]}))}
-    const mk=Object.entries(s.meds);
-    if(mk.length){title("Médicaments");table(["Médicament","Prises","Efficace","Un peu","Pas efficace"],mk.map(([k,v])=>[k,String(v.n),String(v.oui),String(v["un peu"]),String(v.non)]))}
-    if(s.groups.length){title("Facteurs observés (part des jours avec mal de tête)");
-      table(["Facteur","Situation","Jours","Avec mal"],s.groups.flatMap(g=>g.rows.map((r,i)=>[i?"":g.title,r.lab,String(r.n),`${r.r} %`])))}
+    const mk=Object.entries(s.meds).sort((a,b)=>b[1].n-a[1].n);
+    if(mk.length){title("Médicaments",50);y+=3;gauge("Jours avec prise de médicament",s.medDays/months,15);if(s.triDays)gauge("dont jours avec triptan",s.triDays/months,10);
+      note("Seuils de surveillance de l'abus médicamenteux (ICHD-3) : 15 jours par mois pour les antidouleurs simples, 10 pour les triptans.");
+      table(["Médicament","Prises","Efficace","Un peu","Pas efficace"],mk.map(([k,v])=>[k,String(v.n),String(v.oui),String(v["un peu"]),String(v.non)]));
+      if(s.delays.length>=2){y-=4;note(`Délai moyen entre le début de la crise et la prise : ${hmTxt(avg(s.delays))} (sur ${s.delays.length} prises dont l'heure est notée).`)}}
+    if(s.starts.length){title("Moment des crises");table(["Début de la crise","Crises","Part"],s.slots.map(x=>[`${x.lab} (${x.range})`,String(x.n),`${Math.round(x.n/s.starts.length*100)} %`]),{columnStyles:{0:{cellWidth:80}}})}
+    if(s.groups.length){title("Facteurs observés (jours avec mal de tête sur jours notés)");
+      table(["Facteur","Situation","Jours avec mal"],s.groups.flatMap(g=>g.rows.map((r,i)=>[i?"":g.title,r.lab,`${r.m} sur ${r.n}`])));
+      if(s.n<MIN_DAYS){y-=4;note("Moins de 10 jours notés : ces chiffres sont encore trop peu nombreux pour en tirer une piste.")}}
+    if(s.foodsCmp.length){title("Aliments plus fréquents les jours de mal");table(["Aliment","Jours de mal","Jours sans mal"],s.foodsCmp.map(x=>[x.t,`${x.m} sur ${x.M}`,`${x.o} sur ${x.O}`]))}
+    const mids=(S.settings.midas||[]).filter(m=>m.date<=to);
+    if(mids.length){title("Retentissement (questionnaire MIDAS, 3 derniers mois)",40);
+      table(["Date","Score","Grade","Interprétation"],mids.slice(-8).map(m=>{const g=midasGrade(m.score);return[dayFull(m.date),String(m.score),g.g,g.t]}));
+      if(mids.length>1){// Courbe des scores
+        const pts=mids.slice(-8),x0=24,w=W-38,h=30,mx=Math.max(21,...pts.map(m=>m.score));if(y>240){doc.addPage();y=18}
+        doc.setDrawColor(...lineC);doc.setLineWidth(.3);[0,5,10,20].filter(v=>v<=mx).forEach(v=>{const yy=y+h-v/mx*h;doc.line(x0,yy,x0+w,yy);doc.setFontSize(7);doc.setTextColor(107,76,96);doc.text(String(v),x0-3,yy+1,{align:"right"})});
+        doc.setDrawColor(...berry);doc.setLineWidth(.8);const P=pts.map((m,i)=>[x0+(pts.length>1?i/(pts.length-1):0)*w,y+h-m.score/mx*h]);
+        for(let i=1;i<P.length;i++)doc.line(P[i-1][0],P[i-1][1],P[i][0],P[i][1]);doc.setFillColor(...berry);P.forEach(([px,py],i)=>{doc.circle(px,py,1.2,"F");doc.setFontSize(7);doc.setTextColor(42,20,37);doc.text(dayFull(pts[i].date).slice(0,5),px,y+h+5,{align:"center"})});
+        y+=h+11}
+      note("Grades MIDAS : I (0-5) peu ou pas de gêne, II (6-10) gêne légère, III (11-20) gêne modérée, IV (21 et plus) gêne sévère.")}
     if(s.zones.length||s.symptoms.length){title("Localisation et signes associés");
       table(["Type","Description","Nombre de crises"],s.zones.map(([t,n])=>["Zone",t,String(n)]).concat(s.symptoms.map(([t,n])=>["Signe",t,String(n)])))}
     if(s.mig.length){title("Détail des jours avec mal de tête");
       table(["Date","Int.","Début","Durée","Zones / signes","Médicament","Lun.","Somm.","Stress","Cycle","Repas de midi","Notes"],
         s.mig.map(e=>[dayFull(e.date),String(e.intensity),e.start||"",e.duration!==""?f1(e.duration)+" h":"",[e.zones.join(", "),(e.symptoms||[]).join(", ")].filter(Boolean).join(" ; "),
-          e.med?e.med+(e.medEff?` (${e.medEff})`:""):"",e.glasses?{oui:"oui",partiel:"partiel",non:"non"}[e.glasses]:"",e.sleep!==""?f1(e.sleep)+" h":"",ST[e.stress]||"",PE[e.period]||"",e.lunch||"",e.notes||""]),
-        {styles:{font:"helvetica",fontSize:7,cellPadding:1.5,textColor:[50,30,40],lineColor:[239,207,220]},columnStyles:{0:{cellWidth:17},1:{cellWidth:8},2:{cellWidth:10},3:{cellWidth:10}}})}
+          medsOf(e).map(m=>(m.time?m.time+" ":"")+m.name+(m.eff?` (${m.eff})`:"")).join(", "),e.glasses?{oui:"oui",partiel:"partiel",non:"non"}[e.glasses]:"",e.sleep!==""?f1(e.sleep)+" h":"",ST[e.stress]||"",PE[e.period]||"",(e.lunchTime&&e.lunch?e.lunchTime+" ":"")+(e.lunch||""),e.notes||""]),
+        {styles:{font:"helvetica",fontSize:7,cellPadding:1.5,textColor:[42,20,37],lineColor:lineC},columnStyles:{0:{cellWidth:17},1:{cellWidth:8},2:{cellWidth:10},3:{cellWidth:10}}})}
     const pages=doc.getNumberOfPages();
-    for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(140,100,120);
-      doc.text(L1(`Journal tenu par la patiente, à titre indicatif.   Page ${i} / ${pages}`),14,290)}
+    for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(107,76,96);
+      doc.text(L1(`Journal personnel, à titre indicatif.   Page ${i} / ${pages}`),14,290)}
     await saveFile(`rapport-migraines-${from}-au-${to}.pdf`,doc.output("blob"));
   }catch(e){toast("Le PDF n'a pas pu être créé")}
   b.disabled=false;
@@ -1217,8 +1796,8 @@ $("csvBtn").addEventListener("click",async()=>{
   const{from,to,ents}=periodEntries();if(!ents.length){toast("Aucune journée notée sur cette période");return}
   const cq=S.settings.custom||[];
   const head=["Date","Jour","Mal de tête","Intensité (0-10)","Début","Durée (h)","Zones","Signes","Médicament","Efficacité","Lunettes","Petit-déjeuner","Midi","Soir","Cafés/thés","Verres d'eau","Sommeil (h)","Écrans (h)","Stress","Cycle"].concat(cq.map(q=>q.label),["Notes"]);
-  const q=v=>`"${String(v??"").replace(/"/g,'""')}"`,n=v=>v===""||v==null?"":String(v).replace(".",",");
-  const rows=ents.map(e=>[dayFull(e.date),DAYS[parse(e.date).getDay()],e.migraine?"oui":"non",e.migraine?e.intensity:"",e.start,n(e.duration),e.zones.join(", "),(e.symptoms||[]).join(", "),e.med,e.medEff,GL[e.glasses]||"",e.breakfast,e.lunch,e.dinner,n(e.coffee),n(e.water),n(e.sleep),n(e.screen),ST[e.stress]||"",PE[e.period]||""].concat(cq.map(x=>(e.custom||{})[x.id]||""),[e.notes]));
+  const q=v=>{let t=String(v??"");if(/^[=+\-@\t\r]/.test(t))t="'"+t;return`"${t.replace(/"/g,'""')}"`},n=v=>v===""||v==null?"":String(v).replace(".",",");
+  const rows=ents.map(e=>[dayFull(e.date),DAYS[parse(e.date).getDay()],e.migraine?"oui":"non",e.migraine?e.intensity:"",e.start,n(e.duration),e.zones.join(", "),(e.symptoms||[]).join(", "),medsOf(e).map(m=>(m.time?m.time+" ":"")+m.name).join(", "),medsOf(e).length>1?medsOf(e).map(m=>m.eff||"?").join(", "):(medsOf(e)[0]||{}).eff||"",GL[e.glasses]||"",...["breakfast","lunch","dinner"].map(k=>(e[k+"Time"]&&e[k]?e[k+"Time"]+" ":"")+(e[k]||"")),n(e.coffee),n(e.water),n(e.sleep),n(e.screen),ST[e.stress]||"",PE[e.period]||""].concat(cq.map(x=>(e.custom||{})[x.id]||""),[e.notes]));
   const csv="﻿"+[head].concat(rows).map(r=>r.map(q).join(";")).join("\r\n");
   await saveFile(`journal-migraines-${from}-au-${to}.csv`,csv);
 });
@@ -1237,13 +1816,15 @@ async function restoreText(txt){
   const list=Object.values(o.entries).filter(e=>e&&e.date&&/^\d{4}-\d{2}-\d{2}$/.test(e.date)&&!e.demo);
   toast(`Restauration de ${list.length} journées…`);
   if(o.settings||o.custom){const st=o.settings||{custom:o.custom||[]};
-    const ids=new Set((S.settings.custom||[]).map(q=>q.id));(st.custom||[]).forEach(q=>{if(q&&q.id&&!ids.has(q.id))S.settings.custom.push(q)});
-    if(st.name&&!S.settings.name)S.settings.name=st.name;await putSettings()}
+    const ids=new Set((S.settings.custom||[]).map(q=>q.id));cleanSettings({custom:st.custom}).custom.forEach(q=>{if(!ids.has(q.id)){S.settings.custom.push(q);ids.add(q.id)}});
+    if(typeof st.name==="string"&&st.name.trim()&&!S.settings.name)S.settings.name=st.name.slice(0,80);
+    const cs=cleanSettings(st);S.settings.medGaps=Object.assign({},cs.medGaps,S.settings.medGaps||{});
+    const seen=new Set((S.settings.midas||[]).map(m=>m.date));S.settings.midas=(S.settings.midas||[]).concat(cs.midas.filter(m=>!seen.has(m.date))).sort((a,b)=>a.date.localeCompare(b.date));await putSettings()}
   let added=0,kept=0;
   for(const e of list){
     const ex=S.entries[e.date],ts=e.updatedAt||0;
     if(ex&&ts<=(ex.updatedAt||0)){kept++;continue}
-    const x=Object.assign(blank(e.date),e);delete x.demo;delete x._local;await putEntry(x);added++;
+    const x=cleanEntry(e,false);if(!x)continue;delete x.quick;await putEntry(x);added++;
   }
   toast(kept?`${added} journées remises · ${kept} plus récentes gardées`:`${added} journées remises en place`);renderData();
   return true;
@@ -1291,7 +1872,11 @@ if(CapApp)CapApp.addListener("backButton",()=>{
   CapApp.exitApp();
 });
 // Retour dans l'appli (après minuit, ou depuis une notification) : accueil à jour et rappels recalculés
-if(CapApp)CapApp.addListener("resume",()=>{scheduleReminders();refresh()});
+if(CapApp)CapApp.addListener("resume",()=>{scheduleReminders();scheduleDoseReminders();refresh()});
+// Réponse à « Ta crise est-elle finie ? »
+{const ln=LN();if(ln&&ln.addListener)ln.addListener("localNotificationActionPerformed",a=>{
+  if(!a||!a.notification||a.notification.id!==CRISIS_NOTIF)return;
+  if(a.actionId==="done")endCrisis();else if(a.actionId==="later")crisisCheckIn(1);else{show("home")}})}
 })();
 </script>
 
