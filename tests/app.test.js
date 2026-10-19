@@ -6,7 +6,7 @@ const path = require("path");
 const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
 const scriptStart = html.lastIndexOf("<script>") + "<script>".length;
 const app = html.slice(scriptStart, html.indexOf("</script>", scriptStart))
-  .replace(/\}\)\(\);\s*$/, "window.__t={S,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
+  .replace(/\}\)\(\);\s*$/, "window.__t={S,applyPreset,presetCount,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---
 const mk = () => {
@@ -188,7 +188,7 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   ok(bref.includes("En moyenne, tu prends ton médicament <b>54 min</b> après le début de la crise."), "délai moyen de prise du médicament : 54 min");
   ok(bref.includes("a soulagé 5 fois sur 5") && bref.includes("5 / 15 j"), "médicaments : efficacité et jauge vers le seuil d'alerte");
   T.setMode("quarter"); T.renderStats(); bref = String(els.statsBody.innerHTML || "");
-  ok(bref.includes("Jours avec médicament, par mois") && bref.includes("chart dense"), "période 3 mois : jauge par mois et graphique serré");
+  ok(bref.includes("Jours avec médicament, par mois") && bref.includes("dchart weeks") && bref.includes("Semaine par semaine"), "période 3 mois : jauge par mois et graphique semaine par semaine");
   T.setMode("month");
 
   // Fin de crise : durée d'après l'heure de début, arrondie à la demi-heure
@@ -351,6 +351,26 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   ok(await T.rdvDone() && T.S.settings.rdv.last === td && !T.S.settings.rdv.next && T.S.settings.docQ.length === 1, "rendez-vous passé : il devient le dernier, les questions cochées sont rangées");
   T = boot(true); await tk();
   ok(T.S.settings.rdv.last === td && T.S.settings.docQ.length === 1, "rendez-vous et questions gardés à la réouverture");
+
+
+  // Journée type : notée d'office avec « Ma tête va bien », sans jamais remplacer une réponse donnée
+  T.S.entries = {}; T.S.settings.custom = [{ id: "q1", label: "Cachet ?", type: "bool" }, { id: "q2", label: "Note", type: "text" }];
+  const cp = T.cleanSettings({ dayPreset: { glasses: "oui", sleep: "7.5", water: 6, coffee: "", stress: "9", breakfast: "café", custom: { q1: "non", q2: "x", "bad id": "oui" } }, presetAuto: "yes" });
+  ok(cp.dayPreset.glasses === "oui" && cp.dayPreset.sleep === 7.5 && cp.dayPreset.water === 6 && cp.dayPreset.coffee === "" && cp.dayPreset.stress === "" && cp.dayPreset.breakfast === "café"
+    && JSON.stringify(cp.dayPreset.custom) === '{"q1":"non"}' && cp.presetAuto === false, "journée type : valeurs nettoyées");
+  T.S.settings.dayPreset = cp.dayPreset; T.S.settings.presetAuto = false;
+  ok(T.presetCount() === 5, "journée type : lunettes, sommeil, eau, petit-déjeuner et la question Oui/Non comptés");
+  await T.noPainNow();
+  const pe = T.S.entries[td];
+  ok(pe.migraine === false && pe.glasses === "oui" && pe.sleep === 7.5 && pe.water === 6 && pe.breakfast === "café" && pe.custom.q1 === "non" && pe.coffee === "", "« Ma tête va bien » : la journée type est notée d'office");
+  const kept = { date: "2026-10-01", glasses: "non", sleep: 5, water: "", custom: { q1: "oui" } };
+  T.applyPreset(kept, false);
+  ok(kept.glasses === "non" && kept.sleep === 5 && kept.water === 6 && kept.custom.q1 === "oui", "journée type : ne remplace jamais une réponse déjà donnée");
+  T.S.settings.dayPreset = {}; T.S.settings.presetAuto = true; T.S.entries = {};
+  ["2026-10-14", "2026-10-15", "2026-10-16"].forEach(d => T.S.entries[d] = { date: d, migraine: false, sleep: 8, water: 4, coffee: 1, screen: 3, glasses: "partiel", custom: {} });
+  const ua = { date: "2026-10-17", custom: {} }; T.applyPreset(ua, true);
+  ok(ua.sleep === 8 && ua.water === 4 && ua.glasses === "partiel", "journée type : le reste complété d'après les 14 derniers jours si demandé");
+  T.S.settings.custom = []; T.S.settings.presetAuto = false;
 
   // Bilan
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }

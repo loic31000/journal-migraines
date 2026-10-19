@@ -548,6 +548,9 @@ details.fold[open] summary{margin-bottom:8px}
 #navBar:not(.three){grid-template-columns:54px minmax(0,1fr)}
 /* Réglages et onglet Médecin */
 .seg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.ptgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ptgrid .wide{grid-column:1/-1}
+@media (max-width:340px){.ptgrid{grid-template-columns:1fr}}
 .preview{display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);border-radius:var(--r-md);padding:12px 14px}
 .preview svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
 .preview b{display:block;font-size:.875rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
@@ -559,6 +562,46 @@ details.fold[open] summary{margin-bottom:8px}
 nav.tabs .in.nocur::before{opacity:0}
 .hello .heart{display:inline-block;width:.62em;height:.62em;margin-left:.22em;vertical-align:.02em;color:var(--accent-hi)}
 :root[data-crisis="on"] .medtake button{min-height:76px;font-size:1.15rem;background:var(--surface-2)}
+/* Bilan, jour par jour : bandes léger / moyen / fort, barre = force, rond = sans mal, capsule = médicament */
+.tally{display:flex;flex-wrap:wrap;gap:6px 14px;font-weight:700;font-size:.9375rem}
+.tally span{display:inline-flex;align-items:center;gap:6px}
+.tally i{width:12px;height:12px;border-radius:4px;flex:none}
+.tally i.cap{width:14px;height:6px;border-radius:3px}
+.sw1{background:color-mix(in srgb,var(--p-mid) 50%,var(--surface))}.sw2{background:var(--p-mid)}.sw3{background:var(--p-high)}
+.cap{display:block;width:12px;height:6px;border-radius:3px;background:var(--lilac)}
+.dchart{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:8px}
+.dchart .yl,.dchart .zones,.dchart .cols{grid-row:1;height:180px}
+.dchart .yl{grid-column:1;display:flex;flex-direction:column;font-size:.8125rem;font-weight:700;color:var(--ink-2)}
+.dchart .yl span{display:flex;align-items:center;justify-content:flex-end}
+.dchart .zones{grid-column:2;display:flex;flex-direction:column;border-radius:12px;overflow:hidden}
+.f4{flex:4}.f3{flex:3}
+.z3{background:color-mix(in srgb,var(--p-high) 9%,transparent)}
+.z2{background:color-mix(in srgb,var(--p-mid) 10%,transparent);border-block:1px dashed color-mix(in srgb,var(--line-strong) 50%,transparent)}
+.z1{background:color-mix(in srgb,var(--p-low) 18%,transparent)}
+.dchart .cols{grid-column:2;display:flex;align-items:flex-end;gap:3px;padding:0 3px}
+.dchart .cols > *{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;position:relative;background:none;border:0;padding:0;font:inherit;color:inherit;border-radius:8px}
+.dchart .cols > .now{box-shadow:inset 0 0 0 2px var(--accent-bg)}
+.dchart .b{width:100%;max-width:26px;border-radius:7px 7px 3px 3px;transform-origin:bottom;animation:grow .7s var(--spring) both}
+.b.lv1{background:color-mix(in srgb,var(--p-mid) 50%,var(--surface))}.b.lv2{background:var(--p-mid)}.b.lv3{background:var(--p-high)}
+.dchart .v{font-size:.8125rem;font-weight:800;font-variant-numeric:tabular-nums;margin-bottom:3px}
+.dchart .ok{width:min(12px,100%);aspect-ratio:1;border-radius:50%;background:var(--p-none);border:2px solid var(--lilac);margin-bottom:4px}
+.dchart .no{width:min(10px,100%);height:3px;border-radius:2px;background:var(--line-strong);opacity:.6;margin-bottom:6px}
+.dchart .xr,.dchart .mr{grid-column:2;display:flex;gap:3px;padding:0 3px}
+.dchart .xr{padding-top:6px}.dchart .mr{padding-top:6px;min-height:12px}
+.dchart .xr span,.dchart .mr span{flex:1;min-width:0;text-align:center;font-size:.8125rem;font-weight:700;color:var(--ink-2);white-space:nowrap;display:flex;flex-direction:column;align-items:center;line-height:1.25}
+.dchart .xr span.now{color:var(--accent)}
+.dchart .xr small{font-weight:600;font-size:.75rem}
+.dchart.dense .cols,.dchart.dense .xr,.dchart.dense .mr{gap:2px}
+.dchart.dense .b{border-radius:4px 4px 2px 2px}
+.dchart.dense .xr span{overflow:visible}
+.dchart .stk{width:100%;max-width:30px;display:flex;flex-direction:column-reverse;border-radius:7px 7px 3px 3px;overflow:hidden;transform-origin:bottom;animation:grow .7s var(--spring) both}
+.dchart .stk i{display:block}
+.dchart.weeks .zones{background:repeating-linear-gradient(to top,transparent 0,transparent calc(100%/7 - 1px),color-mix(in srgb,var(--line-strong) 25%,transparent) calc(100%/7 - 1px),color-mix(in srgb,var(--line-strong) 25%,transparent) calc(100%/7))}
+.dlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.875rem;color:var(--ink-2);font-weight:600}
+.dlegend span{display:inline-flex;align-items:center;gap:7px}
+.dlegend .ok{width:12px;height:12px;border-radius:50%;background:var(--p-none);border:2px solid var(--lilac)}
+.dlegend :is(.sw1,.sw2,.sw3){width:12px;height:12px;border-radius:4px}
+.dlegend .no{width:12px;height:3px;border-radius:2px;background:var(--line-strong)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
 @media (max-width:360px){.facts,.kpis{grid-template-columns:1fr}.opts.cols{grid-template-columns:1fr}h1{font-size:2rem}.hello{font-size:1.75rem}
   .sum{grid-template-columns:1fr;justify-items:start}.stats3{grid-template-columns:1fr 1fr}.chip{white-space:normal}}
@@ -623,10 +666,10 @@ nav.tabs .in.nocur::before{opacity:0}
   <section class="hero" id="askCard" aria-labelledby="askT">
     <svg class="spark s1" aria-hidden="true"><use href="#i-spark"/></svg><svg class="spark s2" aria-hidden="true"><use href="#i-spark"/></svg>
     <div><p class="eyebrow">Ma journée</p><h2 id="askT">Comment va <em>ta tête</em> aujourd'hui ?</h2></div>
-    <button class="nopain" type="button" id="noPain"><svg class="ico" aria-hidden="true"><use href="#i-calm"/></svg><span><b>Ma tête va bien</b><small>Un toucher et la journée est notée</small></span></button>
+    <button class="nopain" type="button" id="noPain"><svg class="ico" aria-hidden="true"><use href="#i-calm"/></svg><span><b>Ma tête va bien</b><small id="noPainSub">Un toucher et la journée est notée</small></span></button>
     <button class="btn line block" type="button" data-start="yes">J'ai eu mal, je raconte</button>
     <div class="quickrow">
-      <p id="quickT1">Une crise en ce moment ? <span>Touche sa force : elle est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</span></p>
+      <p id="quickT1">Une crise en ce moment ? <span>Touche l'icône qui correspond à ta douleur : la crise est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</span></p>
       <div class="quick" role="group" aria-labelledby="quickT1">
         <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
         <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
@@ -649,7 +692,7 @@ nav.tabs .in.nocur::before{opacity:0}
 
   <!-- Seulement quand la journée est notée sans mal : une crise peut arriver plus tard -->
   <section class="card" id="quickCard" hidden aria-labelledby="quickT">
-    <div><h2 id="quickT">Une crise en ce moment ?</h2><p class="hint">Touche sa force : elle est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</p></div>
+    <div><h2 id="quickT">Une crise en ce moment ?</h2><p class="hint">Touche l'icône qui correspond à ta douleur : la crise est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</p></div>
     <div class="quick" role="group" aria-labelledby="quickT">
       <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
       <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
@@ -722,7 +765,7 @@ nav.tabs .in.nocur::before{opacity:0}
     <!-- 3 -->
     <section class="step" data-step="meals" hidden>
       <h2 tabindex="-1">Tes repas</h2>
-      <div class="usual"><button class="btn soft block" type="button" id="usualBtn">Comme d'habitude</button><p class="hint">Remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après tes 14 derniers jours. Tu corriges ensuite.</p></div>
+      <div class="usual"><button class="btn soft block" type="button" id="usualBtn">Comme d'habitude</button><p class="hint">Remplit les cases vides avec ta journée type (Réglages), puis d'après tes 14 derniers jours. Tu corriges ensuite.</p></div>
       <p class="hint">Sépare les aliments par des virgules : le bilan repère ceux qui reviennent les jours de mal.</p>
       <div class="withtime"><div class="field"><label class="flabel" for="f-breakfast">Petit-déjeuner</label><input type="text" id="f-breakfast" placeholder="café, tartines"></div>
         <div class="field"><label class="flabel" for="f-breakfastTime">Heure</label><input type="time" id="f-breakfastTime"></div></div>
@@ -869,6 +912,14 @@ nav.tabs .in.nocur::before{opacity:0}
     <fieldset><legend>Le ton</legend>
       <div class="seg two" role="group" aria-label="Ton"><button type="button" data-tone="" aria-pressed="true">Sobre</button><button type="button" data-tone="tendre" aria-pressed="false">Tendre</button></div></fieldset>
     <div class="preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><div><b>Aperçu du rappel</b><span id="tonePreview"></span></div></div>
+  </section>
+
+  <section class="card" aria-labelledby="ptT" id="presetCard">
+    <h2 id="ptT">Ma journée type</h2>
+    <p class="muted">Quand tu touches « Ma tête va bien », ces réponses sont notées pour toi. Choisis « - » pour ce qui change d'un jour à l'autre.</p>
+    <div class="ptgrid" id="ptFields"></div>
+    <label class="switch"><input type="checkbox" id="ptAuto" role="switch"><span>Compléter le reste avec mes habitudes des 14 derniers jours</span></label>
+    <p class="hint" id="ptSum"></p>
   </section>
 
 
@@ -1033,6 +1084,11 @@ function cleanSettings(st){
   o.custom=(Array.isArray(o.custom)?o.custom:[]).map(cleanQuestion).filter(Boolean);
   o.name=TXT(o.name,80);o.pet=TXT(o.pet,40);o.gender=ONE(o.gender,["f","m"]);o.tone=ONE(o.tone,["tendre"]);
   const DT=v=>typeof v==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(v)?v:"",rd=o.rdv&&typeof o.rdv==="object"?o.rdv:{};o.rdv={next:DT(rd.next),last:DT(rd.last)};
+  const dp=o.dayPreset&&typeof o.dayPreset==="object"?o.dayPreset:{};
+  o.dayPreset={glasses:ONE(dp.glasses,["oui","partiel","non"]),sleep:NUM(dp.sleep,24),water:NUM(dp.water,40),coffee:NUM(dp.coffee,30),screen:NUM(dp.screen,24),
+    stress:ONE(dp.stress,["1","2","3","4"]),period:ONE(dp.period,["oui","avant","non"]),breakfast:TXT(dp.breakfast,300),lunch:TXT(dp.lunch,300),dinner:TXT(dp.dinner,300),custom:{}};
+  if(dp.custom&&typeof dp.custom==="object")Object.keys(dp.custom).forEach(k=>{if(ID_RE.test(k)&&["oui","non"].includes(dp.custom[k]))o.dayPreset.custom[k]=dp.custom[k]});
+  o.presetAuto=o.presetAuto===true;
   o.docQ=(Array.isArray(o.docQ)?o.docQ:[]).filter(q=>q&&ID_RE.test(q.id)&&typeof q.t==="string"&&q.t.trim()).slice(0,50).map(q=>({id:q.id,t:q.t.slice(0,200),done:q.done===true}));
   const mg={};if(o.medGaps&&typeof o.medGaps==="object")Object.keys(o.medGaps).slice(0,40).forEach(k=>{const v=Number(o.medGaps[k]);if(typeof k==="string"&&k.length<=80&&[4,6,8,12,24].includes(v))mg[k]=v});o.medGaps=mg;
   o.midas=(Array.isArray(o.midas)?o.midas:[]).filter(m=>m&&/^\d{4}-\d{2}-\d{2}$/.test(m.date)&&Array.isArray(m.a)&&m.a.length===5&&m.a.every(v=>Number.isInteger(v)&&v>=0&&v<=92))
@@ -1305,6 +1361,7 @@ function renderHome(){
   renderMedAlert();renderNextDose();
   $("crisisCard").hidden=!isCrisis();$("crisisEnd").hidden=!(e&&e.migraine&&e.start&&e.duration==="");
   renderCrisis(e);
+  $("noPainSub").textContent=presetCount()||S.settings.presetAuto?"Un toucher, avec ta journée type":"Un toucher et la journée est notée";
   const mon=mondayOf(now);let n=0,cnt=0;
   $("weekStrip").innerHTML=Array.from({length:7},(_,i)=>{const d=addDays(mon,i),k=ymd(d),en=S.entries[k];if(en){cnt++;if(en.migraine)n++}
     const fut=d>now&&k!==t;
@@ -1322,10 +1379,23 @@ $("missedDay").addEventListener("click",()=>{const d=$("missedDay").dataset.day;
 // Jours pas notés ces 6 derniers jours (jamais avant la toute première note), du plus récent au plus ancien
 function missedDays(entries,now){const keys=Object.keys(entries).sort();if(!keys.length)return[];const out=[];
   for(let i=1;i<=6;i++){const k=ymd(addDays(now,-i));if(k<keys[0])break;if(!entries[k])out.push(k)}return out}
-// « Pas de mal » : la journée est notée d'un toucher, sans formulaire. On complète ensuite si on veut.
+// Journée type (Réglages) : ce qui ne change pas d'un jour à l'autre, noté d'office. Ne remplace jamais une réponse déjà donnée.
+const PRESET_KEYS=["glasses","sleep","water","coffee","screen","stress","period","breakfast","lunch","dinner"];
+const USUAL_KEYS=["sleep","water","coffee","screen","glasses","breakfast","lunch","dinner","breakfastTime","lunchTime","dinnerTime"];
+const isSet=v=>v!==""&&v!=null;
+function presetCount(){const p=S.settings.dayPreset||{},bq=new Set((S.settings.custom||[]).filter(q=>q.type==="bool").map(q=>q.id));
+  return PRESET_KEYS.filter(k=>isSet(p[k])).length+Object.keys(p.custom||{}).filter(k=>bq.has(k)).length}
+function applyPreset(e,withUsual){
+  const p=S.settings.dayPreset||{};let n=0;e.custom=e.custom||{};
+  PRESET_KEYS.forEach(k=>{if(isSet(p[k])&&!isSet(e[k])){e[k]=p[k];n++}});
+  (S.settings.custom||[]).filter(q=>q.type==="bool").forEach(q=>{const v=(p.custom||{})[q.id];if(v&&!e.custom[q.id]){e.custom[q.id]=v;n++}});
+  if(withUsual&&S.settings.presetAuto){const u=usualFrom(S.entries,e.date);if(u)USUAL_KEYS.forEach(k=>{if(isSet(u[k])&&!isSet(e[k])){e[k]=u[k];n++}})}
+  return n;
+}
+// « Ma tête va bien » : la journée est notée d'un toucher, sans formulaire, avec la journée type. On complète ensuite si on veut.
 async function noPainNow(){const t=todayStr();if(S.entries[t])return false;
-  const e=blank(t);e.migraine=false;e.intensity=0;await putEntry(e);renderHome();
-  toast(T("savedCalm"),{label:"Compléter",run:()=>openForm(t)});return true}
+  const e=blank(t);e.migraine=false;e.intensity=0;const n=applyPreset(e,true);await putEntry(e);renderHome();
+  toast(n?`${T("savedCalm")} Journée type ajoutée.`:T("savedCalm"),{label:n?"Modifier":"Compléter",run:()=>openForm(t)});return true}
 $("noPain").addEventListener("click",()=>noPainNow());
 $("settingsBtn").addEventListener("click",()=>show("data"));
 $("editToday").addEventListener("click",()=>openForm(todayStr()));
@@ -1563,9 +1633,14 @@ async function saveForm(b){
 }
 $("prevStep").addEventListener("click",()=>{if(stepIdx===0)askLeave();else goStep(stepIdx-1)});
 $("usualBtn").addEventListener("click",()=>{
+  // D'abord la journée type (Réglages), puis les habitudes des 14 derniers jours
+  const p=S.settings.dayPreset||{};let n=0;
+  ["breakfast","lunch","dinner"].forEach(k=>{const i=$("f-"+k);if(isSet(p[k])&&!i.value.trim()){i.value=p[k];n++}});
+  ["sleep","water","coffee","screen"].forEach(k=>{if(isSet(p[k])&&cur[k]===""){cur[k]=p[k];n++}});
+  ["glasses","stress","period"].forEach(k=>{if(isSet(p[k])&&!getRadio(k)){setRadio(k,p[k]);n++}});
+  (S.settings.custom||[]).filter(q=>q.type==="bool").forEach(q=>{const v=(p.custom||{})[q.id];if(v&&!getRadio("cq-"+q.id)){setRadio("cq-"+q.id,v);n++}});
   const u=usualFrom(S.entries,cur.date);
-  if(!u){toast("Note encore quelques jours pour utiliser « Comme d'habitude »");return}
-  let n=0;
+  if(!u){paintCounters();if(n){formDirty=true;toast("Rempli avec ta journée type : corrige si besoin")}else toast("Note encore quelques jours, ou règle ta journée type dans les Réglages");return}
   ["breakfast","lunch","dinner","breakfastTime","lunchTime","dinnerTime"].forEach(k=>{const i=$("f-"+k);if(u[k]&&!i.value.trim()){i.value=u[k];n++}});
   ["sleep","water","coffee","screen"].forEach(k=>{if(u[k]!==""&&cur[k]===""){cur[k]=u[k];n++}});
   if(u.glasses&&!getRadio("glasses")){setRadio("glasses",u.glasses);n++}
@@ -1713,7 +1788,7 @@ const TICO={
   cup:TI('<path d="M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3.5c0 1 1 1.5 1 2.5M12 3.5c0 1 1 1.5 1 2.5"/>'),
   cycle:TI('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16"/>'),
   pill:TI('<rect x="2.5" y="8" width="19" height="8" rx="4" transform="rotate(-35 12 12)"/><path d="m9.2 8 5.6 8"/>'),
-  storm:TI('<path d="M7 16h10a4 4 0 0 0 .5-7.95A6 6 0 0 0 6.3 8.2 4 4 0 0 0 7 16z"/><path d="m12.5 13-2 4h3l-2 4"/>'),
+  storm:'<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#i-lv3"/></svg>',
   clock:TI('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
   cal:TI('<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'),
   food:TI('<path d="M7 3v8M5 3v4a2 2 0 0 0 4 0V3M7 11v10M16 21V3c-2 1.5-3 4-3 7h3"/>'),
@@ -1800,18 +1875,35 @@ function renderStats(){
   else if(!fac.length)tips.push({ico:"ask",t:"Rien ne ressort encore de tes habitudes.",d:"Continue à noter sommeil, stress, eau et écrans : les pistes apparaîtront ici."});
   h+=`<section class="card"><h2>En bref</h2>${tips.length?`<ul class="tips">${tips.map(x=>`<li class="tip${x.warn?" warn":""}"><span class="tico" aria-hidden="true">${TICO[x.ico]||TICO.ask}</span><div><b>${esc(x.t)}</b>${x.d?`<span>${esc(x.d)}</span>`:""}</div></li>`).join("")}</ul>`:""}${wait}
     <p class="hint">Ce sont des pistes, pas un diagnostic. Plus tu notes de jours, plus elles sont fiables.</p></section>`;
-  // 3. Jour par jour : un toucher sur un jour l'ouvre dans le calendrier
-  // Hors semaine, les barres restent touchables mais sortent de la tabulation (le calendrier reste le chemin au clavier)
-  const tday=todayStr(),dense=days>31,ti=wk?"":' tabindex="-1"';
-  h+=`<section class="card"><div class="rowhead"><h2>Jour par jour</h2><span class="small muted">force sur 10</span></div>
-    <div class="plot"><div class="yax" aria-hidden="true"><span>10</span><span>5</span><span>0</span></div>
-    <div class="chart${dense?" dense":""}" role="group" aria-label="Force du mal de tête jour par jour. Touche un jour pour le voir.">`
-    +dates.map(k=>{const e=src[k],now=k===tday?" now":"";if(!e)return`<div class="col${now}" aria-hidden="true">${k<=tday&&!dense?'<div class="nil"></div>':""}</div>`;
-      const lab=`${dayLong(k)} : ${e.migraine?`mal de tête ${e.intensity} sur 10`:"sans mal de tête"}`;
-      if(!e.migraine)return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}><div class="dot"></div></button>`;
-      const hh=e.intensity*10;return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}>${wk?`<span class="val" style="bottom:calc(${hh}% + 4px)">${e.intensity}</span>`:""}<div class="bar ${pcls(e)}" style="height:${hh}%"></div></button>`}).join("")
-    +`</div><div class="xl" aria-hidden="true">${dates.map((k,i)=>{const d=parse(k);return`<span${k===tday?' class="now"':""}>${wk?`${DS[i]}<small>${d.getDate()}</small>`:dense?(d.getDate()===1?MONTHS_S[d.getMonth()]:""):((i===0||(i+1)%5===0)?i+1:"")}</span>`}).join("")}</div></div>
-    <div class="legend bars" aria-hidden="true"><span><i class="none"></i>pas noté</span><span><i class="pn"></i>sans mal de tête</span><span><i class="pl"></i>léger</span><span><i class="pm"></i>moyen</span><span><i class="ph"></i>fort</span></div></section>`;
+  // 3. Jour par jour : la force de chaque crise dans sa bande (léger / moyen / fort), les médicaments en dessous.
+  // Sur 3 mois : une barre par semaine, le nombre de jours avec mal (fort en bas, puis moyen, puis léger).
+  const tday=todayStr(),lv=e=>e.intensity<=3?1:e.intensity<=6?2:3,ti=wk?"":' tabindex="-1"';
+  const cnt=[1,2,3].map(l=>s.mig.filter(e=>lv(e)===l).length);
+  const tally=`<div class="tally">${nm?`<span>${nm} jour${pl(nm)} avec mal :</span>`:"<span>Aucun jour avec mal</span>"}${[[3,"fort"],[2,"moyen"],[1,"léger"]].filter(([l])=>cnt[l-1]).map(([l,w])=>`<span><i class="sw${l}" aria-hidden="true"></i>${cnt[l-1]} ${w}${pl(cnt[l-1])}</span>`).join("")}${s.medDays?`<span><i class="cap" aria-hidden="true"></i>${s.medDays} avec médicament</span>`:""}</div>`;
+  if(qt){
+    const weeks=[];for(let d=mondayOf(start);d<=end;d=addDays(d,7)){const w=[];for(let k=0;k<7;k++){const x=addDays(d,k),kk=ymd(x);if(x>=start&&x<=end)w.push(src[kk]||null)}weeks.push({d,w})}
+    h+=`<section class="card"><div class="rowhead"><h2>Semaine par semaine</h2></div>${tally}
+      <div class="dchart weeks" role="group" aria-label="Jours avec mal de tête, semaine par semaine">
+      <div class="yl" aria-hidden="true"><span class="f3" style="align-items:flex-start">7 j</span><span class="f4"></span><span class="f3" style="align-items:flex-end">0</span></div><div class="zones" aria-hidden="true"></div>
+      <div class="cols">${weeks.map(({d,w})=>{const m=w.filter(e=>e&&e.migraine),c=[3,2,1].map(l=>m.filter(e=>lv(e)===l).length),n=w.filter(Boolean).length;
+        const lab=`Semaine du ${dayLong(ymd(d))} : ${m.length} jour${pl(m.length)} avec mal sur ${n} noté${pl(n)}`;
+        return`<div role="img" aria-label="${esc(lab)}">${m.length?`<span class="v">${m.length}</span>`:n?`<div class="ok"></div>`:`<div class="no"></div>`}${m.length?`<div class="stk" style="height:${m.length/7*100}%">${c.map((x,i)=>x?`<i class="b lv${3-i}" style="flex:${x}"></i>`:"").join("")}</div>`:""}</div>`}).join("")}</div>
+      <div class="xr" aria-hidden="true">${weeks.map(({d},i)=>`<span>${i%2?"":`${d.getDate()}<small>${MONTHS_S[d.getMonth()]}</small>`}</span>`).join("")}</div></div>
+      <div class="dlegend" aria-hidden="true"><span><i class="sw3"></i>fort</span><span><i class="sw2"></i>moyen</span><span><i class="sw1"></i>léger</span><span><i class="ok"></i>semaine sans mal</span><span><i class="no"></i>pas notée</span></div></section>`;
+  }else{
+    const dense=!wk;
+    h+=`<section class="card"><div class="rowhead"><h2>Jour par jour</h2></div>${tally}
+      <div class="dchart${dense?" dense":""}" role="group" aria-label="Force du mal de tête jour par jour. Touche un jour pour le voir.">
+      <div class="yl" aria-hidden="true"><span class="f4">fort</span><span class="f3">moyen</span><span class="f3">léger</span></div>
+      <div class="zones" aria-hidden="true"><i class="z3 f4"></i><i class="z2 f3"></i><i class="z1 f3"></i></div>
+      <div class="cols">${dates.map(k=>{const e=src[k],c=k===tday?" now":"";
+        if(!e)return`<div class="${c}" aria-hidden="true">${k<=tday?'<div class="no"></div>':""}</div>`;
+        const ms=medsOf(e),lab=`${dayLong(k)} : ${e.migraine?`mal de tête ${e.intensity} sur 10`:"sans mal de tête"}${ms.length?`, ${ms.map(m=>m.name).join(", ")}`:""}`;
+        return`<button type="button" class="${c}" data-openday="${k}" aria-label="${esc(lab)}"${ti}>${e.migraine?`${wk?`<span class="v">${e.intensity}</span>`:""}<div class="b lv${lv(e)}" style="height:${e.intensity*10}%"></div>`:`<div class="ok"></div>`}</button>`}).join("")}</div>
+      <div class="xr" aria-hidden="true">${dates.map((k,i)=>{const d=parse(k);return`<span${k===tday?' class="now"':""}>${wk?`${DS[i]}<small>${d.getDate()}</small>`:(d.getDay()===1||i===0)?d.getDate():""}</span>`}).join("")}</div>
+      <div class="mr" aria-hidden="true">${dates.map(k=>{const e=src[k];return`<span>${e&&e.migraine&&hasMed(e)?'<i class="cap"></i>':""}</span>`}).join("")}</div></div>
+      <div class="dlegend" aria-hidden="true"><span><i class="ok"></i>sans mal de tête</span><span><i class="no"></i>pas noté</span><span><i class="cap"></i>médicament pris</span>${wk?"":"<span>chiffres : les lundis</span>"}</div></section>`;
+  }
   // 4. Moment des crises
   if(timed)h+=`<section class="card"><h2>Moment des crises</h2><p class="hint">Heure de début des crises dont l'heure est notée (${timed}).</p><div class="cmp">`
     +s.slots.map(x=>`<div class="cmprow"><span>${x.lab} <span class="muted small">${x.range}</span></span><div class="track" aria-hidden="true"><div class="fill" style="width:${x.n/timed*100}%"></div></div><span class="pct">${x.n}</span></div>`).join("")+`</div></section>`;
@@ -1853,7 +1945,7 @@ function renderStats(){
   body.innerHTML=h;
   const off=$("exOff");if(off)off.onclick=()=>{showExample=false;renderStats()};
   $("midasBtn").onclick=openMidas;
-  $("rdvBtn").onclick=()=>{const r=$("r-range");if(r)r.value=qt?"3":"1";show("data");const b=$("pdfBtn");if(b){b.scrollIntoView({block:"center"});b.focus()}};
+  $("rdvBtn").onclick=()=>{const r=$("r-range");if(r){r.value=qt?"3":"1";rangeTouched=true}show("doc");const b=$("pdfBtn");if(b){b.scrollIntoView({block:"center"});b.focus()}};
 }
 // Questionnaire MIDAS
 function openMidas(){
@@ -1896,13 +1988,37 @@ function renderProfile(){
   $("genderEx").textContent=`Par exemple : « ${stLabel("4")} », « ${symLabel("Sensible à la lumière")} ».`;
   $("tonePreview").textContent=T("remind");
 }
-async function setProfile(k,v){S.settings[k]=v;await putSettings();renderProfile();applyWords();scheduleReminders()}
+async function setProfile(k,v){S.settings[k]=v;await putSettings();renderProfile();renderPreset();applyWords();scheduleReminders()}
 document.querySelectorAll("[data-gender]").forEach(b=>b.addEventListener("click",()=>setProfile("gender",b.dataset.gender)));
 document.querySelectorAll("[data-tone]").forEach(b=>b.addEventListener("click",()=>setProfile("tone",b.dataset.tone)));
 let petT;$("s-pet").addEventListener("input",()=>{clearTimeout(petT);petT=setTimeout(()=>setProfile("pet",$("s-pet").value.trim().slice(0,40)),600)});
 $("settingsBack").addEventListener("click",()=>show("home"));
+function renderPreset(){
+  const p=S.settings.dayPreset||{},o=(v,l)=>({v:String(v),l}),num=(a,b,st,u)=>{const r=[];for(let x=a;x<=b+1e-9;x+=st)r.push(o(x,f1(x)+u));return r};
+  const F=[["glasses","Lunettes",[o("oui","Toute la journée"),o("partiel","Un moment"),o("non","Pas du tout")]],
+    ["sleep","Sommeil",num(4,11,.5," h")],["water","Verres d'eau",num(0,15,1,"")],["coffee","Cafés ou thés",num(0,10,1,"")],
+    ["screen","Écrans",num(0,14,1," h")],["stress","Stress",["1","2","3","4"].map(v=>o(v,stLabel(v)))],["period","Cycle",[o("non","Hors règles"),o("avant","Juste avant"),o("oui","Règles")]]];
+  const sel=(id,lab,opts,val,wide)=>`<div class="field${wide?" wide":""}"><label class="flabel" for="${id}">${esc(lab)}</label><select id="${id}"><option value="">-</option>${opts.map(x=>`<option value="${esc(x.v)}"${String(val??"")===x.v?" selected":""}>${esc(x.l)}</option>`).join("")}</select></div>`;
+  let h=F.map(([k,l,opts])=>sel("pt-"+k,l,opts,p[k],k==="glasses"||k==="period")).join("");
+  h+=(S.settings.custom||[]).filter(q=>q.type==="bool").map(q=>sel("ptq-"+q.id,q.label,[o("oui","Oui"),o("non","Non")],(p.custom||{})[q.id],true)).join("");
+  h+=[["breakfast","Petit-déjeuner"],["lunch","À midi"],["dinner","Le soir"]].map(([k,l])=>`<div class="field wide"><label class="flabel" for="pt-${k}">${l}</label><input type="text" id="pt-${k}" maxlength="300" placeholder="- (change d'un jour à l'autre)" value="${esc(p[k]||"")}"></div>`).join("");
+  if(!$("presetCard").contains(document.activeElement))$("ptFields").innerHTML=h;
+  $("ptAuto").checked=!!S.settings.presetAuto;
+  const n=presetCount();$("ptSum").textContent=n?`${n} réponse${n>1?"s":""} notée${n>1?"s":""} d'office avec « Ma tête va bien ».`:"Aucune réponse notée d'office pour l'instant.";
+}
+let ptT;
+async function savePreset(){
+  const p={custom:{}};
+  PRESET_KEYS.forEach(k=>{const i=$("pt-"+k);const v=i?i.value.trim():"";p[k]=["sleep","water","coffee","screen"].includes(k)&&v!==""?Number(v):v});
+  (S.settings.custom||[]).filter(q=>q.type==="bool").forEach(q=>{const i=$("ptq-"+q.id);if(i&&i.value)p.custom[q.id]=i.value});
+  S.settings.dayPreset=cleanSettings({dayPreset:p}).dayPreset;await putSettings();
+  const n=presetCount();$("ptSum").textContent=n?`${n} réponse${n>1?"s":""} notée${n>1?"s":""} d'office avec « Ma tête va bien ».`:"Aucune réponse notée d'office pour l'instant.";
+}
+$("ptFields").addEventListener("change",()=>savePreset().then(()=>toast("Journée type enregistrée")));
+$("ptFields").addEventListener("input",ev=>{if(ev.target.tagName==="INPUT"){clearTimeout(ptT);ptT=setTimeout(savePreset,700)}});
+$("ptAuto").addEventListener("change",async()=>{S.settings.presetAuto=$("ptAuto").checked;await putSettings();renderPreset()});
 function renderData(){
-  renderGaps();renderProfile();
+  renderGaps();renderProfile();renderPreset();
   renderStatus();
   if(document.activeElement!==$("r-name"))$("r-name").value=S.settings.name||"";
   const rm=S.settings.reminder||{};$("rmOn").checked=!!rm.on;$("rmTime").value=rm.time||"21:00";$("rmTimeF").hidden=!rm.on;
@@ -2113,6 +2229,7 @@ async function mergeBackup(o){
     if(typeof st.name==="string"&&st.name.trim()&&!S.settings.name)S.settings.name=st.name.slice(0,80);
     const cs=cleanSettings(st);
     ["pet","gender","tone"].forEach(k=>{if(cs[k]&&!S.settings[k])S.settings[k]=cs[k]});
+    if(!presetCount()&&!S.settings.presetAuto){S.settings.dayPreset=cs.dayPreset;S.settings.presetAuto=cs.presetAuto}
     const rd=S.settings.rdv||{};S.settings.rdv={next:rd.next||cs.rdv.next,last:rd.last||cs.rdv.last};
     const dqIds=new Set((S.settings.docQ||[]).map(q=>q.id));S.settings.docQ=(S.settings.docQ||[]).concat(cs.docQ.filter(q=>!dqIds.has(q.id)));S.settings.medGaps=Object.assign({},cs.medGaps,S.settings.medGaps||{});
     const seen=new Set((S.settings.midas||[]).map(m=>m.date));S.settings.midas=(S.settings.midas||[]).concat(cs.midas.filter(m=>!seen.has(m.date))).sort((a,b)=>a.date.localeCompare(b.date));await putSettings()}
