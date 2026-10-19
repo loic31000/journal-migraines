@@ -6,7 +6,7 @@ const path = require("path");
 const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
 const scriptStart = html.lastIndexOf("<script>") + "<script>".length;
 const app = html.slice(scriptStart, html.indexOf("</script>", scriptStart))
-  .replace(/\}\)\(\);\s*$/, "window.__t={S,applyPreset,presetCount,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
+  .replace(/\}\)\(\);\s*$/, "window.__t={S,monthCounts,chronicFlag,ichd,periodStarts,menstrual,recurrences,set2h,medsAwaiting2h,isWeak,applyPreset,presetCount,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---
 const mk = () => {
@@ -177,7 +177,7 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
     start: ["15:00", "16:00", "15:30", "09:00", "14:30", ""][i], meds: i < 5 ? [{ name: "Doliprane", time: ["16:00", "17:00", "16:30", "09:30", "15:30", ""][i], eff: "oui" }] : [] }) });
   ["10", "11", "12", "13", "14", "15"].forEach(n => { const d = "2025-03-" + n; T.S.entries[d] = mkDay(d, { sleep: 8, lunch: "pâtes, salade" }) });
   T.renderStats(); bref = String(els.statsBody.innerHTML || "");
-  ok(bref.includes("Tu as plus souvent mal quand tu dors moins de 7 h.") && bref.includes("Mal de tête 5 jours sur 6 dans ce cas, contre aucun jour sur 6 les autres jours."),
+  ok(bref.includes("Tu as plus souvent mal quand tu dors moins de 7 h.") && bref.includes("Mal de tête 5 jours sur 6 dans ce cas, contre aucun jour sur 6 les autres jours.") && bref.includes("Piste encore faible"),
     "bilan : la piste du sommeil dite en phrase simple, avec « 5 jours sur 6 »");
   ok(!/\d+ %/.test(bref), "bilan : plus de pourcentages, des « x sur y »");
   const sm2 = T.summarize(Object.values(T.S.entries));
@@ -371,6 +371,68 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   const ua = { date: "2026-10-17", custom: {} }; T.applyPreset(ua, true);
   ok(ua.sleep === 8 && ua.water === 4 && ua.glasses === "partiel", "journée type : le reste complété d'après les 14 derniers jours si demandé");
   T.S.settings.custom = []; T.S.settings.presetAuto = false;
+
+
+  // --- v2.4 : bilan plus précis ---
+  T.S.entries = {};
+  // Jours de mal par mois et seuil de 15 jours, 3 mois terminés de suite
+  const fill = (y, m, n, noted) => { for (let d = 1; d <= noted; d++) { const k = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`; T.S.entries[k] = { date: k, migraine: d <= n, intensity: d <= n ? 6 : 0, zones: [], symptoms: [], meds: [] } } };
+  fill(2026, 7, 16, 28); fill(2026, 8, 15, 30); fill(2026, 9, 18, 30); fill(2026, 10, 3, 10);
+  const mcs = T.monthCounts(T.S.entries, new Date(2026, 9, 19), 4);
+  ok(mcs.map(x => x.mig).join() === "16,15,18,3" && mcs[1].noted === 30 && mcs[3].cur, "jours de mal par mois : comptés par mois civil, avec les jours notés");
+  ok(T.chronicFlag(T.S.entries, new Date(2026, 9, 19)) && T.chronicFlag(T.S.entries, new Date(2026, 9, 19)).length === 3, "15 jours ou plus 3 mois de suite : signalé");
+  fill(2026, 8, 14, 30);
+  ok(!T.chronicFlag(T.S.entries, new Date(2026, 9, 19)), "un mois à 14 jours : pas de signal");
+  T.S.entries = {};
+
+  // Critères ICHD-3 de la migraine
+  const base = { date: "2026-09-01", migraine: true, intensity: 7, duration: 6, zones: [], symptoms: [] };
+  ok(T.ichd(base).known === false, "crise sans signes notés : non classée");
+  ok(T.ichd(Object.assign({}, base, { symptoms: ["Douleur qui bat", "Nausées"] })).typical, "qui bat + forte + nausées, 6 h : signes de la migraine");
+  ok(!T.ichd(Object.assign({}, base, { intensity: 3, symptoms: ["Douleur qui bat", "Sensible à la lumière"] })).typical, "lumière sans bruit ni nausées, légère : pas les critères");
+  ok(T.ichd(Object.assign({}, base, { intensity: 3, zones: ["Côté gauche"], symptoms: ["Pire en bougeant", "Sensible à la lumière", "Sensible au bruit"] })).typical, "côté gauche + pire en bougeant + lumière et bruit : critères réunis");
+  ok(!T.ichd(Object.assign({}, base, { duration: 2, symptoms: ["Douleur qui bat", "Nausées"] })).typical && T.ichd(Object.assign({}, base, { duration: "", symptoms: ["Douleur qui bat", "Vomissements", "Aura avant la douleur"] })).aura,
+    "durée de 2 h hors critères ; aura repérée");
+
+  // Fenêtre des règles : J-2 à J+3 autour du 1er jour
+  const E = {}, put = (d, o) => E[d] = Object.assign({ date: d, migraine: false, intensity: 0, zones: [], symptoms: [], meds: [] }, o);
+  for (let d = 1; d <= 30; d++) put(`2026-09-${String(d).padStart(2, "0")}`, {});
+  for (let d = 1; d <= 19; d++) put(`2026-10-${String(d).padStart(2, "0")}`, {});
+  for (let d = 1; d <= 31; d++) put(`2026-08-${String(d).padStart(2, "0")}`, {});
+  put("2026-08-03", { period: "debut" }); put("2026-08-04", { period: "oui" }); put("2026-08-02", { migraine: true, intensity: 6 });
+  put("2026-08-31", { period: "oui" }); put("2026-09-01", { period: "oui", migraine: true, intensity: 7 }); put("2026-08-30", { period: "avant" });
+  put("2026-09-28", { period: "debut" }); put("2026-09-20", { migraine: true, intensity: 5 });
+  ok(T.periodStarts(E).join() === "2026-08-03,2026-08-31,2026-09-28", "1ers jours des règles : notés, ou déduits du début des jours « Règles »");
+  const mn = T.menstrual(E, "2026-10-19", 3);
+  ok(mn.cycles.length === 3 && mn.hits === 2 && mn.win.m === 2 && mn.win.n === 18 && mn.out.m === 1, "fenêtre des règles : 2 cycles sur 3 avec crise, jours avec mal dedans et dehors");
+
+  // Récurrence dans les 48 h après un médicament qui a marché
+  const R = {};
+  R["2026-09-10"] = { date: "2026-09-10", migraine: true, start: "14:00", meds: [{ name: "Sumatriptan", time: "14:30", at2h: "libre" }] };
+  R["2026-09-11"] = { date: "2026-09-11", migraine: true, start: "08:00", meds: [] };
+  R["2026-09-20"] = { date: "2026-09-20", migraine: true, start: "10:00", meds: [{ name: "Ibuprofène", time: "10:30", at2h: "pareil" }] };
+  R["2026-09-21"] = { date: "2026-09-21", migraine: true, start: "09:00", meds: [] };
+  R["2026-09-25"] = { date: "2026-09-25", migraine: true, start: "09:00", meds: [{ name: "Sumatriptan", time: "09:15", eff: "oui" }] };
+  R["2026-09-27"] = { date: "2026-09-27", migraine: true, start: "20:00", meds: [] };
+  const rr = T.recurrences(R, "2026-09-01", "2026-09-30");
+  ok(rr.length === 2 && rr.find(x => x.date === "2026-09-10").back === "2026-09-11" && !rr.some(x => x.date === "2026-09-20") && !rr.find(x => x.date === "2026-09-25").back,
+    "récurrence : revenue le lendemain comptée ; médicament sans effet ignoré ; reprise après 48 h non comptée");
+
+  // Efficacité 2 h après la prise
+  T.S.entries = {};
+  const now2 = new Date(), t2 = ymdL(now2), early = new Date(now2.getTime() - 3 * 3600e3), hhmm2 = `${String(early.getHours()).padStart(2, "0")}:${String(early.getMinutes()).padStart(2, "0")}`;
+  if (ymdL(early) === t2) {
+    T.S.entries[t2] = { date: t2, migraine: true, intensity: 7, start: hhmm2, duration: "", zones: [], symptoms: [], meds: [{ name: "Sumatriptan", time: hhmm2, eff: "" }] };
+    ok(T.medsAwaiting2h(T.S.entries, now2).length === 1, "prise d'il y a 3 h sans réponse : en attente de « 2 h après »");
+    ok(await T.set2h(t2, "Sumatriptan", hhmm2, "mieux") && T.S.entries[t2].meds[0].at2h === "mieux" && T.S.entries[t2].meds[0].eff === "un peu" && T.medsAwaiting2h(T.S.entries, now2).length === 0,
+      "réponse « Mieux » : enregistrée, l'ancienne question déduite, plus rien en attente");
+    ok(!(await T.set2h(t2, "Sumatriptan", hhmm2, "bof")), "réponse inconnue refusée");
+  } else console.log("(test « 2 h après » sauté : il est moins de 3 h du matin)");
+  ok(T.cleanEntry({ date: "2026-09-01", meds: [{ name: "A", time: "10:00", at2h: "libre" }, { name: "B", at2h: "<x>" }] }).meds.map(m => m.at2h || "-").join() === "libre,-", "« 2 h après » : valeur nettoyée");
+  const sm3 = T.summarize([{ date: "2026-09-01", migraine: true, intensity: 6, zones: [], symptoms: ["Douleur qui bat", "Nausées"], meds: [{ name: "Suma", at2h: "libre", eff: "oui" }, { name: "Suma", at2h: "pareil", eff: "non" }] }]);
+  ok(sm3.meds.Suma.libre === 1 && sm3.meds.Suma.pareil === 1 && sm3.meds.Suma.h2 === 2 && sm3.ichd.typical === 1, "bilan : réponses à 2 h et critères de la migraine comptés");
+  ok(T.isWeak(6, 20) && !T.isWeak(8, 9), "piste encore faible sous 8 jours d'un côté");
+  ok(T.cleanEntry({ date: "2026-09-01", period: "debut" }).period === "debut", "« 1er jour des règles » gardé");
 
   // Bilan
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }

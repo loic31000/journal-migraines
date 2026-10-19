@@ -9,11 +9,11 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 **[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
 
-![Version](https://img.shields.io/badge/version-2.3.0-a92c49)
+![Version](https://img.shields.io/badge/version-2.4.0-a92c49)
 ![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-87%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-110%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
 ![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
@@ -77,20 +77,26 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 - **Comme d'habitude** : remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après les 14 derniers jours.
 - **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression), avec **Enregistrer** à chaque étape : rien n'oblige à aller au bout.
   - la tête : mal ou pas, force de 1 à 10 sur un curseur ;
-  - la crise : d'abord les médicaments pris (les habituels s'ajoutent d'un toucher avec l'heure, autant que nécessaire, avec l'efficacité de chacun), puis heure de début, durée, zones douloureuses, et les signes associés repliés (nausées, lumière, bruit…) ;
+  - la crise : d'abord les médicaments pris (avec, pour chacun, **2 h après la prise : plus de douleur / mieux / pareil**) (les habituels s'ajoutent d'un toucher avec l'heure, autant que nécessaire, avec l'efficacité de chacun), puis heure de début, durée, zones douloureuses, **comment est la douleur** (d'un seul côté, qui bat, pire en bougeant, aura), et les autres signes repliés (nausées, vomissements, lumière, bruit…) ;
   - les repas : petit-déjeuner, midi, soir (avec l'heure si on veut), cafés ou thés, verres d'eau ;
-  - la journée : port des lunettes, sommeil, temps d'écran, stress, cycle ;
+  - la journée : port des lunettes, sommeil, temps d'écran, stress, cycle (avec le **1er jour des règles**) ;
   - pour finir : questions personnelles et notes libres.
 - **Écart entre deux prises** : pour chaque médicament, l'écart minimum (notice ou médecin). L'accueil affiche « prochaine prise possible vers 21 h » et une notification prévient à l'heure.
 - **Questions perso** : ajouter ses propres questions (*Sport aujourd'hui ?*), en Oui/Non ou réponse écrite. Les Oui/Non sont comparées dans le bilan.
 
 ### Voir et comprendre
+- **2 h après chaque prise** : une notification demande « Comment va ta tête ? » avec *Plus de douleur*, *Mieux* ou *Pareil* (c'est la mesure utilisée dans les essais sur la migraine). Si elle est manquée, la question attend sur l'accueil.
 - **Calendrier** coloré : chaque jour est une petite jauge qui se remplit selon la force de la douleur (léger 1/3, moyen 2/3, fort plein). Un toucher ouvre le détail complet du jour : la journée **heure par heure** (repas, début et fin de crise, chaque prise de médicament), puis toutes les autres infos par thème. À modifier ou supprimer.
 - **Bilan de la semaine et du mois** :
   - anneau de synthèse et phrase (*« Une semaine plutôt calme »*) ;
   - **tendance** par rapport à la période d'avant ;
   - force moyenne, durée de douleur, sommeil moyen ;
   - graphique jour par jour ;
+  - **jours de mal par mois** sur 6 mois, avec la ligne des 15 jours ; alerte si 15 jours ou plus par mois 3 mois de suite (seuil de la céphalée chronique, ICHD-3) ;
+  - **signes de la migraine** : combien de crises décrites réunissent les critères ICHD-3 (au moins 2 caractères de la douleur, plus nausées ou gêne à la lumière et au bruit, sur 4 à 72 h), et combien avec aura ;
+  - **autour des règles** : crise entre 2 jours avant et 3 jours après le 1er jour des règles, cycle par cycle, et jours avec mal dans cette fenêtre comparés au reste du cycle ;
+  - **médicaments** : efficacité 2 h après la prise, et **récurrence** (douleur revenue dans les 48 h après un médicament qui a marché) ;
+  - **piste encore faible** : affiché quand une piste repose sur moins de 8 jours d'un côté ;
   - **En bref** : les pistes les plus nettes dites en phrases simples (« Tu as plus souvent mal quand tu dors moins de 7 h », « 3 jours sur 4 ») ;
   - **situation par situation** : jours avec mal selon le sommeil, les lunettes, le stress, l'eau, les écrans, le café, le cycle et les questions perso ;
   - aliments les plus fréquents les jours de mal, zones, signes, médicaments.
@@ -99,7 +105,7 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 
 ### Pour le médecin et la sauvegarde
 - **Onglet Médecin** : dates du prochain et du dernier rendez-vous, résumé depuis le dernier rendez-vous (jours avec mal, force moyenne, jours de médicament), et **questions à poser** notées au fil des jours. *Le rendez-vous a eu lieu* range les questions cochées et fait repartir le résumé de cette date.
-- **Rapport PDF** depuis le dernier rendez-vous, sur 1, 3, 6, 12 mois ou tout l'historique, avec les questions pas encore cochées à la fin : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
+- **Rapport PDF** depuis le dernier rendez-vous, sur 1, 3, 6, 12 mois ou tout l'historique, avec les questions pas encore cochées à la fin. Il reprend les points d'attention (15 jours par mois, médicaments), les crises avec les signes de la migraine, l'efficacité à 2 h et les récurrences, la fenêtre des règles et la fiabilité de chaque facteur : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
 - **Tableau** (CSV, s'ouvre dans Excel ou Google Sheets).
 - **Sauvegarde automatique** : à chaque note, une copie complète (plus celle de la veille) est écrite dans le dossier privé de l'appli. Android l'envoie dans la sauvegarde Google du téléphone, sans que l'appli ait besoin d'Internet. Si l'appli perd ses notes (nouveau téléphone, données effacées), elle les retrouve toute seule au démarrage, sans jamais remplacer un jour plus récent.
 - **Sauvegarde sur Drive** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…), rappelée chaque semaine. **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
@@ -262,6 +268,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.4.0** | 11 | Bilan plus précis : jours de mal par mois et seuil des 15 jours, critères ICHD-3 de la migraine (nouveaux signes : d'un seul côté, qui bat, pire en bougeant, aura, vomissements), 1er jour des règles et fenêtre menstruelle, efficacité 2 h après la prise (notification et question sur l'accueil), récurrences dans les 48 h, pistes « encore faibles » signalées ; tout est repris dans le rapport PDF. Journée type, graphique du bilan par bandes de force. |
 | **2.3.0** | 10 | « Pas de mal » en un toucher, jour oublié signalé, *Forte* passe en mode crise, mode crise avec minuteur et *J'ai pris*, *Enregistrer* à chaque étape du formulaire, médicaments habituels en un toucher, onglet **Médecin** (rendez-vous, résumé, questions à poser), **Réglages** (prénom, petit nom, accords, ton), widget et raccourcis Android, action *J'ai pris…* dans la notification, libellés de 14 px minimum, APK de test via GitHub Actions. |
 | **2.2.3** | 9 | Salutation de l'accueil sans cœur, captures d'écran mises à jour. |
 | **2.2.2** | 8 | Version publique : licences des polices (OFL) jointes à l'APK, Android 7.0 minimum (la WebView d'Android 5 et 6 ne gère plus les couleurs de l'interface), lien de téléchargement dans le README. |

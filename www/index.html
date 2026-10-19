@@ -452,7 +452,7 @@ nav.tabs button:focus-visible{outline-color:var(--dock-pill);outline-offset:-3px
 :root[data-crisis="on"] .btn{min-height:64px;font-size:1.1rem}
 :root[data-crisis="on"] .quick button{min-height:100px}
 :root[data-crisis="on"] .hero{background:var(--surface)}
-:root[data-crisis="on"] :is(#askCard,#notice,#medAlert,#otherDay,#v-home > section.card:not(#crisisCard):not(#todayCard)){display:none!important}
+:root[data-crisis="on"] :is(#askCard,#notice,#medAlert,#otherDay,#v-home > section.card:not(#crisisCard):not(#todayCard):not(#m2hCard)){display:none!important}
 .crisis p{color:var(--ink-2)}
 :root[data-crisis="on"] #endCrisis{display:none!important}
 :root[data-crisis="on"] .facts{grid-template-columns:1fr}
@@ -550,6 +550,17 @@ details.fold[open] summary{margin-bottom:8px}
 .seg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 .ptgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .ptgrid .wide{grid-column:1/-1}
+#m2hBtns{grid-template-columns:repeat(3,minmax(0,1fr))}#m2hBtns .btn{padding:8px 6px;font-size:.95rem;line-height:1.2}
+.weak{display:inline-block;margin-top:6px;font-size:.8125rem;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--surface);color:var(--ink-2);border:1px dashed var(--line-strong)}
+.mbars{display:flex;align-items:flex-end;gap:8px;height:150px;position:relative;padding-top:8px;border-bottom:1.5px solid var(--line)}
+.mbars .mb{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.mbars .mb i{display:block;width:100%;max-width:34px;border-radius:7px 7px 3px 3px;background:var(--p-mid)}
+.mbars .mb i.hi{background:var(--p-high)}
+.mbars .mb b{font-size:.875rem;font-variant-numeric:tabular-nums}
+.mbars .line{position:absolute;left:0;right:0;border-top:2px dashed var(--danger);pointer-events:none}
+.mbars .line span{position:absolute;right:0;top:-1.5em;font-size:.8125rem;font-weight:800;color:var(--danger);background:var(--surface);padding:0 4px;border-radius:6px}
+.mxl{display:flex;gap:8px}.mxl span{flex:1;min-width:0;text-align:center;font-size:.8125rem;font-weight:700;color:var(--ink-2);display:flex;flex-direction:column;line-height:1.25}
+.mxl small{font-weight:600}.mxl b{font-size:.9375rem;color:var(--ink)}.mxl b.hi{color:var(--danger)}
 @media (max-width:340px){.ptgrid{grid-template-columns:1fr}}
 .preview{display:flex;gap:12px;align-items:flex-start;background:var(--surface-2);border-radius:var(--r-md);padding:12px 14px}
 .preview svg{width:22px;height:22px;flex:none;color:var(--accent);margin-top:2px}
@@ -700,6 +711,11 @@ nav.tabs .in.nocur::before{opacity:0}
     </div>
   </section>
 
+  <section class="card" id="m2hCard" hidden aria-labelledby="m2hT">
+    <div><h2 id="m2hT">2 h après ta prise</h2><p class="hint" id="m2hS"></p></div>
+    <div class="opts cols" role="group" aria-labelledby="m2hT" id="m2hBtns"></div>
+  </section>
+
   <div class="notice" id="notice" hidden>
     <div><strong id="noticeT"></strong><span class="small muted" id="noticeS"></span></div>
     <button class="btn soft" type="button" id="noticeBtn">Voir</button>
@@ -759,7 +775,8 @@ nav.tabs .in.nocur::before{opacity:0}
           <div class="counter tight" role="group" aria-labelledby="durL" data-counter="duration" data-step="0.5" data-max="72" data-def="2" data-unit=" h"></div></div>
       </div>
       <fieldset><legend>Où as-tu mal ?</legend><p class="hint">Plusieurs choix possibles.</p><div class="opts" id="zones"></div></fieldset>
-      <details class="fold" id="symFold"><summary>Autres signes (facultatif)</summary><fieldset><legend class="sr">Autres signes</legend><div class="opts" id="symptoms"></div></fieldset></details>
+      <fieldset><legend>Comment est la douleur ?</legend><p class="hint">Plusieurs choix possibles. Ce sont les signes que regarde le médecin.</p><div class="opts" id="painKind"></div></fieldset>
+      <details class="fold" id="symFold"><summary>Autres signes : nausées, lumière, bruit…</summary><fieldset><legend class="sr">Autres signes</legend><div class="opts" id="symptoms"></div></fieldset></details>
     </section>
 
     <!-- 3 -->
@@ -799,8 +816,9 @@ nav.tabs .in.nocur::before{opacity:0}
           <label class="opt"><input type="radio" name="stress" value="3"><span>Stress</span></label>
           <label class="opt"><input type="radio" name="stress" value="4"><span>Fort stress</span></label>
         </div></fieldset>
-      <fieldset><legend>Ton cycle</legend>
+      <fieldset><legend>Ton cycle</legend><p class="hint">Le 1er jour des règles permet de repérer les crises liées au cycle.</p>
         <div class="opts">
+          <label class="opt"><input type="radio" name="period" value="debut"><span>1er jour des règles</span></label>
           <label class="opt"><input type="radio" name="period" value="oui"><span>Règles</span></label>
           <label class="opt"><input type="radio" name="period" value="avant"><span>Juste avant</span></label>
           <label class="opt"><input type="radio" name="period" value="non"><span>Non</span></label>
@@ -1005,11 +1023,15 @@ const DS=["Lu","Ma","Me","Je","Ve","Sa","Di"];
 const MONTHS_S=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
 const MONTHS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
 const ZONES=["Front","Tempes","Côté gauche","Côté droit","Derrière les yeux","Nuque","Tout le crâne"];
-const SYMPT=["Nausées","Sensible à la lumière","Sensible au bruit","Troubles de la vue","Vertiges","Grande fatigue"];
+// Caractères de la douleur et signes associés retenus par la classification internationale des céphalées (ICHD-3)
+const PAINK=["D'un seul côté","Douleur qui bat","Pire en bougeant","Aura avant la douleur"];
+const SYMPT=["Nausées","Vomissements","Sensible à la lumière","Sensible au bruit","Troubles de la vue","Vertiges","Grande fatigue"];
+// Efficacité 2 h après la prise (critère des essais sur la migraine) ; « eff » (ancienne question) en est déduit
+const AT2H=[["libre","Plus de douleur"],["mieux","Mieux"],["pareil","Pareil"]],EFF_OF={libre:"oui",mieux:"un peu",pareil:"non"};
 const GL={oui:"Toute la journée",partiel:"Un moment",non:"Pas du tout"};
 // Mots qui s'accordent (réglage « Les mots pour toi ») : neutre par défaut. Ce qui est enregistré reste toujours la forme neutre.
 const stLabel=v=>({"1":"Zen","2":"Un peu","3":G("Stress","Stressée","Stressé"),"4":G("Fort stress","Très stressée","Très stressé")})[v]||"";
-const PE={oui:"Règles",avant:"Juste avant",non:"Non"};
+const PE={debut:"1er jour des règles",oui:"Règles",avant:"Juste avant",non:"Non"};
 const SYM_ALIAS={"Gênée par la lumière":"Sensible à la lumière","Gêné par la lumière":"Sensible à la lumière","Gênée par le bruit":"Sensible au bruit","Gêné par le bruit":"Sensible au bruit"};
 const symLabel=v=>v==="Sensible à la lumière"?G(v,"Gênée par la lumière","Gêné par la lumière"):v==="Sensible au bruit"?G(v,"Gênée par le bruit","Gêné par le bruit"):v;
 const G=(n,f,m)=>{const g=S.settings.gender;return g==="f"?f:g==="m"?m:n};
@@ -1028,7 +1050,8 @@ function T(k,a){
     full:"Espace plein : télécharge une sauvegarde puis efface de vieilles notes",
     found:`Notes retrouvées : ${v.n} journée${v.n>1?"s":""} remise${v.n>1?"s":""} en place`,
     rmText:"Une notification si tu n'as pas encore noté ta journée. Les jours sans mal comptent aussi : ce sont eux qui rendent le bilan fiable.",
-    notesPh:"Météo, bruit, odeurs, émotions, ce que tu veux…",where:"Tes notes restent dans ce téléphone."}[k];
+    notesPh:"Météo, bruit, odeurs, émotions, ce que tu veux…",where:"Tes notes restent dans ce téléphone.",
+    m2h:`${v.med} pris à ${v.h} : comment va ta tête, 2 h après ?`}[k];
   return{remind:`Coucou${n?" "+n:""}, tu as noté ta journée ? Même un jour sans mal compte.`,
     crisisAsk:lead("ta crise est passée ?"," Un toucher sur « Oui, c'est fini » et je note sa durée."),
     dose:lead(`tu peux reprendre ${v.med}`," si tu en as besoin."),
@@ -1037,7 +1060,8 @@ function T(k,a){
     full:lead("le téléphone est plein"," : fais une sauvegarde, puis efface de vieilles notes"),
     found:`J'ai retrouvé tes notes${n?", "+n:""} : ${v.n} journée${v.n>1?"s":""} remise${v.n>1?"s":""} en place`,
     rmText:"Je te fais signe le soir si tu n'as pas encore noté ta journée. Les jours sans mal comptent aussi : ce sont eux qui rendent le bilan fiable.",
-    notesPh:"Météo, bruit, odeurs, émotions, tout ce que tu veux me dire…",where:"Tes notes restent dans ce téléphone, rien qu'à toi."}[k];
+    notesPh:"Météo, bruit, odeurs, émotions, tout ce que tu veux me dire…",where:"Tes notes restent dans ce téléphone, rien qu'à toi.",
+    m2h:lead("comment va ta tête",` 2 h après ${v.med} (pris à ${v.h}) ?`)}[k];
 }
 const dayLong=s=>{const d=parse(s);return `${DAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`};
 const dayFull=s=>{const d=parse(s);return `${pad(d.getDate())}/${pad(d.getMonth()+1)}/${d.getFullYear()}`};
@@ -1065,12 +1089,12 @@ function cleanEntry(e,deep){
     intensity:Math.round(NUM(e.intensity,10)||0),start:HM(e.start),duration:NUM(e.duration,72),
     zones:STRS(e.zones,20,60),symptoms:STRS(e.symptoms,20,60).map(x=>SYM_ALIAS[x]||x),
     meds:Array.isArray(e.meds)?e.meds.filter(m=>m&&typeof m.name==="string"&&m.name.trim()).slice(0,20)
-      .map(m=>({name:m.name.slice(0,80),time:HM(m.time),eff:ONE(m.eff,["oui","un peu","non"])})):[],
+      .map(m=>Object.assign({name:m.name.slice(0,80),time:HM(m.time),eff:ONE(m.eff,["oui","un peu","non"])},ONE(m.at2h,["libre","mieux","pareil"])?{at2h:m.at2h}:{})):[],
     glasses:ONE(e.glasses,["oui","partiel","non"]),
     breakfast:TXT(e.breakfast,300),lunch:TXT(e.lunch,300),dinner:TXT(e.dinner,300),
     breakfastTime:HM(e.breakfastTime),lunchTime:HM(e.lunchTime),dinnerTime:HM(e.dinnerTime),
     sleep:NUM(e.sleep,24),water:NUM(e.water,40),screen:NUM(e.screen,24),coffee:NUM(e.coffee,30),
-    stress:ONE(e.stress,["1","2","3","4"]),period:ONE(e.period,["oui","avant","non"]),notes:TXT(e.notes,2000),custom:{},
+    stress:ONE(e.stress,["1","2","3","4"]),period:ONE(e.period,["debut","oui","avant","non"]),notes:TXT(e.notes,2000),custom:{},
     updatedAt:Number.isFinite(e.updatedAt)?e.updatedAt:0};
   if(typeof e.med==="string"&&e.med.trim()){o.med=e.med.slice(0,80);o.medEff=ONE(e.medEff,["oui","un peu","non"])}
   if(e.custom&&typeof e.custom==="object")Object.keys(e.custom).forEach(k=>{if(ID_RE.test(k)&&typeof e.custom[k]==="string")o.custom[k]=e.custom[k].slice(0,300)});
@@ -1206,10 +1230,34 @@ async function endCrisis(date){
 }
 // Notification « Ta crise est-elle finie ? » 2 h après une crise rapide (puis 1 h après « Pas encore »)
 let lnActions=false;
+async function registerActions(ln){if(lnActions||!ln.registerActionTypes)return;lnActions=true;
+  try{await ln.registerActionTypes({types:[{id:"CRISIS_END",actions:[{id:"done",title:"Oui, c'est fini"},{id:"later",title:"Pas encore"},{id:"med",title:"J'ai pris…"}]},
+    {id:"MED_2H",actions:AT2H.map(([id,title])=>({id,title}))}]})}catch(e){}}
+// 2 h après chaque prise notée avec son heure : « Comment va ta tête ? » (plus de douleur / mieux / pareil)
+const M2H_BASE=600,M2H_MAX=40;
+const at2hTime=(date,time)=>{const t=toMin(time);return t==null?null:new Date(parse(date).getTime()+t*6e4+2*3600e3)};
+function medsAwaiting2h(entries,now){const out=[];[ymd(addDays(now,-1)),ymd(now)].forEach(d=>{const e=entries[d];if(!e||!e.migraine)return;
+  medsOf(e).forEach(m=>{if(m.at2h)return;const at=at2hTime(d,m.time);if(at)out.push({date:d,name:m.name,time:m.time,at})})});return out}
+async function schedule2h(){
+  const ln=LN();if(!ln)return;
+  try{await ln.cancel({notifications:Array.from({length:M2H_MAX},(_,i)=>({id:M2H_BASE+i}))})}catch(e){}
+  const now=new Date(),l=medsAwaiting2h(S.entries,now).filter(x=>x.at>now).slice(0,M2H_MAX);if(!l.length)return;
+  try{const pm=await ln.checkPermissions();if(pm.display!=="granted")return}catch(e){return}
+  await registerActions(ln);
+  try{await ln.schedule({notifications:l.map((x,i)=>({id:M2H_BASE+i,title:"Mon Journal",body:T("m2h",{med:x.name,h:hm(x.time)}),actionTypeId:"MED_2H",
+    extra:{date:x.date,name:x.name,time:x.time},schedule:{at:x.at,allowWhileIdle:true}}))})}catch(e){}
+}
+async function set2h(date,name,time,v){
+  if(!EFF_OF[v])return false;const ex=S.entries[date];if(!ex)return false;
+  const e=JSON.parse(JSON.stringify(ex));let done=false;
+  e.meds=medsOf(e).map(m=>{if(!done&&m.name===name&&(m.time||"")===(time||"")){done=true;return Object.assign({},m,{at2h:v,eff:EFF_OF[v]})}return m});
+  if(!done)return false;delete e.med;delete e.medEff;await putEntry(e);schedule2h();if(tab==="home")renderHome();
+  toast(`Noté : ${AT2H.find(x=>x[0]===v)[1].toLowerCase()}, 2 h après ${name}`);return true;
+}
 async function crisisCheckIn(hours){
   const ln=LN();if(!ln)return;
   try{let pm=await ln.checkPermissions();if(pm.display==="prompt")pm=await ln.requestPermissions();if(pm.display!=="granted")return}catch(e){return}
-  if(!lnActions&&ln.registerActionTypes){lnActions=true;try{await ln.registerActionTypes({types:[{id:"CRISIS_END",actions:[{id:"done",title:"Oui, c'est fini"},{id:"later",title:"Pas encore"},{id:"med",title:"J'ai pris…"}]}]})}catch(e){}}
+  await registerActions(ln);
   try{await ln.cancel({notifications:[{id:CRISIS_NOTIF}]})}catch(e){}
   try{await ln.schedule({notifications:[{id:CRISIS_NOTIF,title:"Mon Journal",body:T("crisisAsk"),actionTypeId:"CRISIS_END",
     schedule:{at:new Date(Date.now()+hours*3600e3),allowWhileIdle:true}}]})}catch(e){}
@@ -1360,7 +1408,7 @@ function renderHome(){
   }
   renderMedAlert();renderNextDose();
   $("crisisCard").hidden=!isCrisis();$("crisisEnd").hidden=!(e&&e.migraine&&e.start&&e.duration==="");
-  renderCrisis(e);
+  renderCrisis(e);render2h(now);
   $("noPainSub").textContent=presetCount()||S.settings.presetAuto?"Un toucher, avec ta journée type":"Un toucher et la journée est notée";
   const mon=mondayOf(now);let n=0,cnt=0;
   $("weekStrip").innerHTML=Array.from({length:7},(_,i)=>{const d=addDays(mon,i),k=ymd(d),en=S.entries[k];if(en){cnt++;if(en.migraine)n++}
@@ -1442,8 +1490,8 @@ function medStatus(name,now){
 async function takeMed(name,now){
   now=now||new Date();const t=ymd(now),ex=S.entries[t];if(!ex||!ex.migraine||!String(name||"").trim())return false;
   const st=medStatus(name,now),time=`${pad(now.getHours())}:${pad(now.getMinutes())}`,e=JSON.parse(JSON.stringify(ex));
-  e.meds=medsOf(e).map(m=>({name:m.name,time:m.time||"",eff:m.eff||""})).concat({name:String(name).trim().slice(0,80),time,eff:""});delete e.med;delete e.medEff;
-  await putEntry(e);scheduleDoseReminders();if(tab==="home")renderHome();
+  e.meds=medsOf(e).map(m=>Object.assign({name:m.name,time:m.time||"",eff:m.eff||""},m.at2h?{at2h:m.at2h}:{})).concat({name:String(name).trim().slice(0,80),time,eff:""});delete e.med;delete e.medEff;
+  await putEntry(e);scheduleDoseReminders();schedule2h();if(tab==="home")renderHome();
   toast(`${name} noté à ${hm(time)}${st.wait?" · avant l'écart conseillé":""}`,{label:"Annuler",run:()=>untakeMed(t,name,time)});return true;
 }
 async function untakeMed(date,name,time){const ex=S.entries[date];if(!ex)return;const e=JSON.parse(JSON.stringify(ex)),l=medsOf(e);
@@ -1464,6 +1512,15 @@ function renderCrisis(e){
   if(ok)$("crisisMedList").innerHTML=l.map(n=>{const st=medStatus(n,now);return `<button type="button" data-take="${esc(n)}"><span>${esc(n)}</span>${st.txt?`<small class="${st.wait?"":"ok"}">${esc(st.txt)}</small>`:""}</button>`}).join("")
     +`<button type="button" data-take=""><span>${l.length?"Un autre médicament…":"Noter un médicament…"}</span></button>`;
 }
+// Prise de plus de 2 h (et de moins de 12 h) sans réponse : on demande sur l'accueil
+function render2h(now){
+  const w=medsAwaiting2h(S.entries,now).filter(x=>x.at<=now&&now-x.at<10*3600e3).pop();
+  $("m2hCard").hidden=!w;if(!w)return;
+  $("m2hS").textContent=`${w.name}, pris à ${hm(w.time)}${w.date!==ymd(now)?" hier":""} : comment va ta tête ?`;
+  $("m2hBtns").innerHTML=AT2H.map(([v,l])=>`<button class="btn soft" type="button" data-m2h="${v}">${l}</button>`).join("");
+  $("m2hBtns").dataset.k=JSON.stringify([w.date,w.name,w.time]);
+}
+$("m2hBtns").addEventListener("click",ev=>{const b=ev.target.closest("[data-m2h]");if(!b)return;const[d,n,t]=JSON.parse($("m2hBtns").dataset.k||"[]");set2h(d,n,t,b.dataset.m2h)});
 $("crisisMedList").addEventListener("click",ev=>{const b=ev.target.closest("[data-take]");if(!b)return;
   if(b.dataset.take)takeMed(b.dataset.take);else{openForm(todayStr());goStep(1)}});
 function renderMedAlert(){
@@ -1515,13 +1572,13 @@ const hasTriptan=e=>medsOf(e).some(m=>TRIPTAN.test(m.name));
 const EFF_OPTS=[["oui","Oui"],["un peu","Un peu"],["non","Non"]];
 function medRowHtml(m,i,total){
   const n=total>1?` ${i+1}`:"";
-  return `<div class="medrow"><div class="field"><label class="flabel" for="f-med-${i}">Médicament pris${n}</label>
+  return `<div class="medrow" data-eff="${m.at2h?"":esc(m.eff||"")}"><div class="field"><label class="flabel" for="f-med-${i}">Médicament pris${n}</label>
     <div class="medline"><input type="text" id="f-med-${i}" list="medList" placeholder="${i?"Par ex. Ibuprofène 400 mg":"Rien, ou par ex. Doliprane 1 g"}" autocomplete="off" value="${esc(m.name)}">
     ${total>1?`<button class="iconbtn" type="button" data-delmed="${i}" aria-label="Retirer le médicament${n}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>`:""}</div></div>
     <div class="field medtime"><label class="flabel" for="f-medt-${i}">Pris à quelle heure ?</label><input type="time" id="f-medt-${i}" value="${esc(m.time||"")}"></div>
-    <fieldset><legend>Est-ce qu'il a soulagé ?</legend><div class="opts">${EFF_OPTS.map(([v,l])=>`<label class="opt"><input type="radio" name="medEff-${i}" value="${v}"${m.eff===v?" checked":""}><span>${l}</span></label>`).join("")}</div></fieldset></div>`;
+    <fieldset><legend>2 h après la prise ?</legend>${!m.at2h&&m.eff?`<p class="hint">Noté avant : a soulagé « ${esc(m.eff)} ».</p>`:""}<div class="opts">${AT2H.map(([v,l])=>`<label class="opt"><input type="radio" name="medEff-${i}" value="${v}"${m.at2h===v?" checked":""}><span>${l}</span></label>`).join("")}</div></fieldset></div>`;
 }
-function readMedRows(){return[...document.querySelectorAll("#medRows .medrow")].map((r,i)=>({name:$("f-med-"+i).value.trim(),time:$("f-medt-"+i).value,eff:getRadio("medEff-"+i)}))}
+function readMedRows(){return[...document.querySelectorAll("#medRows .medrow")].map((r,i)=>{const a=getRadio("medEff-"+i),o={name:$("f-med-"+i).value.trim(),time:$("f-medt-"+i).value,eff:a?EFF_OF[a]:((r.dataset||{}).eff||"")};if(a)o.at2h=a;return o})}
 function renderMedRows(list){const l=list.length?list:[{name:"",time:"",eff:""}];$("medRows").innerHTML=l.map((m,i)=>medRowHtml(m,i,l.length)).join("")}
 // Les médicaments habituels s'ajoutent d'un toucher (avec l'heure actuelle si c'est aujourd'hui)
 function renderMedQuick(){
@@ -1555,8 +1612,8 @@ function loadForm(date,preset){
   $("dayText").textContent=date===todayStr()?`Aujourd'hui · ${dayLong(date)}`:dayLong(date);
   setRadio("migraine",cur.migraine===true?"yes":cur.migraine===false?"no":"");
   $("f-int").value=cur.intensity||5;paintPain();
-  chipGroup("symptoms","symptoms",SYMPT,symLabel);applyWords();
-  $("f-start").value=cur.start;setChecks("zones",cur.zones);setChecks("symptoms",cur.symptoms||[]);$("symFold").open=!!(cur.symptoms||[]).length;
+  chipGroup("painKind","symptoms",PAINK);chipGroup("symptoms","symptoms",SYMPT,symLabel);applyWords();
+  $("f-start").value=cur.start;setChecks("zones",cur.zones);setChecks("symptoms",cur.symptoms||[]);$("symFold").open=(cur.symptoms||[]).some(x=>SYMPT.includes(x));
   renderMedRows(medsOf(cur));renderMedQuick();
   ["breakfast","lunch","dinner","notes","breakfastTime","lunchTime","dinnerTime"].forEach(k=>$("f-"+k).value=cur[k]||"");
   setRadio("glasses",cur.glasses);setRadio("stress",cur.stress);setRadio("period",cur.period);
@@ -1625,7 +1682,7 @@ async function saveForm(b){
   collect();b.disabled=true;
   await putEntry(JSON.parse(JSON.stringify(cur)));
   if(cur.date===todayStr()&&cur.duration!=="")cancelCrisisCheck();
-  scheduleDoseReminders();
+  scheduleDoseReminders();schedule2h();
   b.disabled=false;
   toast(T(cur.migraine?"savedPain":"savedCalm"));
   if(returnTab==="cal")calSel=cur.date;
@@ -1732,14 +1789,59 @@ function compareGroups(ents,custom){
   (custom||[]).filter(q=>q.type==="bool").forEach(q=>add(q.label,"ask",[["Oui",e=>e.custom&&e.custom[q.id]==="oui",`tu réponds « Oui » à « ${q.label} »`],["Non",e=>e.custom&&e.custom[q.id]==="non",`tu réponds « Non » à « ${q.label} »`]]));
   return out;
 }
-// Seuils de fiabilité : en dessous, une coïncidence passerait pour une piste
-const MIN_DAYS=10,MIN_SIDE=4;
+// Seuils de fiabilité : en dessous, une coïncidence passerait pour une piste. Sous MIN_STRONG jours d'un côté, la piste est dite « encore faible ».
+const MIN_DAYS=10,MIN_SIDE=4,MIN_STRONG=8;
+const isWeak=(a,b)=>Math.min(a,b)<MIN_STRONG;
+const weakTag=`<span class="weak">Piste encore faible : moins de ${MIN_STRONG} jours d'un côté</span>`;
+// Jours avec mal de tête par mois civil. À 15 jours ou plus par mois pendant plus de 3 mois, on parle de céphalée chronique (ICHD-3).
+const CHRONIC_DAYS=15;
+function monthCounts(entries,now,n){const out=[];for(let i=n-1;i>=0;i--){const m0=new Date(now.getFullYear(),now.getMonth()-i,1),m1=new Date(now.getFullYear(),now.getMonth()-i+1,0),a=ymd(m0),b=ymd(m1);
+  const es=Object.values(entries).filter(e=>e.date>=a&&e.date<=b);out.push({y:m0.getFullYear(),m:m0.getMonth(),days:m1.getDate(),noted:es.length,mig:es.filter(e=>e.migraine).length,cur:i===0})}return out}
+// Les 3 derniers mois terminés à 15 jours ou plus : à signaler au médecin
+function chronicFlag(entries,now){const l=monthCounts(entries,now,4).filter(x=>!x.cur);return l.length===3&&l.every(x=>x.mig>=CHRONIC_DAYS)?l:null}
+// Critères ICHD-3 de la migraine (sans aura, B à D) pour une crise décrite : au moins 2 caractères de la douleur
+// (d'un seul côté, qui bat, moyenne à forte, pire en bougeant) ET nausées/vomissements ou gêne à la lumière ET au bruit, durée 4 à 72 h si notée.
+function ichd(e){
+  if(!e||!e.migraine)return null;const s=new Set(e.symptoms||[]),z=e.zones||[];
+  if(![...PAINK,...SYMPT].some(x=>s.has(x)))return{known:false};
+  const side=(z.includes("Côté gauche")!==z.includes("Côté droit"))&&!z.includes("Tout le crâne");
+  const C=[s.has(PAINK[0])||side,s.has(PAINK[1]),e.intensity>=4,s.has(PAINK[2])].filter(Boolean).length;
+  const D=s.has("Nausées")||s.has("Vomissements")||(s.has("Sensible à la lumière")&&s.has("Sensible au bruit"));
+  const dur=e.duration===""||e.duration==null?null:(+e.duration>=4&&+e.duration<=72);
+  return{known:true,C,D,dur,typical:C>=2&&D&&dur!==false,aura:s.has(PAINK[3])};
+}
+// Premier jour de chaque cycle : « 1er jour des règles » noté, sinon le début d'une suite de jours « Règles »
+function periodStarts(entries){
+  const keys=Object.keys(entries).sort(),deb=keys.filter(k=>entries[k].period==="debut"),out=[...deb];
+  keys.forEach(k=>{if(entries[k].period!=="oui")return;const y=entries[ymd(addDays(parse(k),-1))];
+    if(y&&(y.period==="oui"||y.period==="debut"))return;if(deb.some(d=>Math.abs(parse(d)-parse(k))<=5*864e5))return;out.push(k)});
+  return out.sort();
+}
+// Migraine menstruelle : crises du 2e jour avant au 3e jour après le 1er jour des règles, dans au moins 2 cycles sur 3 (ICHD-3).
+// On compare aussi la part de jours avec mal dans cette fenêtre et en dehors, sur la même période.
+function menstrual(entries,to,maxCycles,from){
+  const st=periodStarts(entries).filter(k=>k<=to&&(!from||k>=ymd(addDays(parse(from),-3)))).slice(-(maxCycles||3));if(!st.length)return null;
+  const win=new Set(),cycles=st.map(k=>{let hit=false;for(let i=-2;i<=3;i++){const d=ymd(addDays(parse(k),i));win.add(d);const e=entries[d];if(e&&e.migraine)hit=true}return{start:k,hit}});
+  const f0=ymd(addDays(parse(st[0]),-2)),ents=Object.values(entries).filter(e=>e.date>=f0&&e.date<=to);
+  const w=ents.filter(e=>win.has(e.date)),o=ents.filter(e=>!win.has(e.date));
+  return{cycles,hits:cycles.filter(c=>c.hit).length,win:{n:w.length,m:w.filter(e=>e.migraine).length},out:{n:o.length,m:o.filter(e=>e.migraine).length}};
+}
+// Récurrence : après un médicament qui a marché (plus de douleur ou mieux à 2 h ; à défaut « a soulagé »), la douleur revient dans les 48 h
+const medWorked=m=>m.at2h?m.at2h!=="pareil":m.eff==="oui"||m.eff==="un peu";
+function recurrences(entries,from,to){
+  const out=[];Object.values(entries).filter(e=>e.migraine&&e.date>=from&&e.date<=to).forEach(e=>{
+    const ok=medsOf(e).filter(medWorked);if(!ok.length)return;
+    const t0=parse(e.date).getTime()+((toMin(ok[0].time)??toMin(e.start))??720)*6e4;let back=null;
+    for(let i=1;i<=2&&!back;i++){const x=entries[ymd(addDays(parse(e.date),i))];if(x&&x.migraine&&parse(x.date).getTime()+(toMin(x.start)??0)*6e4-t0<=48*3600e3)back=x.date}
+    out.push({date:e.date,names:ok.map(m=>m.name.trim()),back});
+  });return out;
+}
 const toMin=t=>{if(!t)return null;const[h,m]=t.split(":").map(Number);return h*60+m};
 // Moment de début des crises
 const SLOTS=[["Nuit","0 - 5 h",0,300],["Matin","5 - 12 h",300,720],["Midi","12 - 14 h",720,840],["Après-midi","14 - 18 h",840,1080],["Soir","18 - 24 h",1080,1440]];
 function summarize(ents){
   const mig=ents.filter(e=>e.migraine),calm=ents.filter(e=>e.migraine===false);
-  const meds={};mig.forEach(e=>medsOf(e).forEach(m=>{const k=m.name.trim();const o=meds[k]=meds[k]||{n:0,oui:0,"un peu":0,non:0};o.n++;if(m.eff)o[m.eff]++}));
+  const meds={};mig.forEach(e=>medsOf(e).forEach(m=>{const k=m.name.trim();const o=meds[k]=meds[k]||{n:0,oui:0,"un peu":0,non:0,libre:0,mieux:0,pareil:0,h2:0};o.n++;if(m.eff)o[m.eff]++;if(m.at2h){o[m.at2h]++;o.h2++}}));
   const count=(arr)=>{const c={};arr.forEach(x=>c[x]=(c[x]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1])};
   // Aliments : fréquence les jours de mal comparée aux autres jours (un aliment mangé tous les jours ne ressort pas)
   const dayFoods=e=>new Set(tokens(e.breakfast).concat(tokens(e.lunch),tokens(e.dinner)));
@@ -1753,10 +1855,12 @@ function summarize(ents){
   const delays=[];mig.forEach(e=>{const st=toMin(e.start);if(st==null)return;medsOf(e).forEach(m=>{const t=toMin(m.time);if(t==null)return;const d=t-st;if(d>=0&&d<=720)delays.push(d)})});
   // Jour de la semaine
   const wd=Array.from({length:7},(_,i)=>{const g=ents.filter(e=>parse(e.date).getDay()===i);return{i,n:g.length,m:g.filter(e=>e.migraine).length}});
+  const ich=mig.map(ichd).filter(x=>x&&x.known);
   return{n:ents.length,mig,avgI:avg(mig.map(e=>e.intensity)),hours:mig.reduce((s,e)=>s+(+e.duration||0),0),
     durs:mig.filter(e=>e.duration!=="").map(e=>+e.duration),sleep:avg(ents.filter(e=>e.sleep!=="").map(e=>+e.sleep)),hasSleep:ents.some(e=>e.sleep!==""),
     meds,medDays:mig.filter(hasMed).length,triDays:mig.filter(hasTriptan).length,zones:count(mig.flatMap(e=>e.zones)),symptoms:count(mig.flatMap(e=>e.symptoms||[])),
     foods:count(mig.flatMap(e=>[...dayFoods(e)])).slice(0,6),foodsCmp,starts,slots,delays,wd,
+    ichd:{n:ich.length,typical:ich.filter(x=>x.typical).length,aura:ich.filter(x=>x.aura).length},
     groups:compareGroups(ents,S.settings.custom)};
 }
 // Pistes fiables : écart net et assez de jours de chaque côté
@@ -1862,8 +1966,15 @@ function renderStats(){
   const mw=wk?null:medWarn(mpm,tpm,qt?"par mois en moyenne":"ce mois-ci");
   if(mw)tips.push({ico:"pill",warn:mw.lvl>1,t:mw.t+".",d:mw.s});
   else if(wk&&s.medDays>=3)tips.push({ico:"pill",t:`Tu as pris un médicament ${s.medDays} jours cette semaine.`,d:"Parles-en à ton médecin à ta prochaine visite."});
+  // 15 jours ou plus par mois, 3 mois de suite : le premier chiffre que demande un neurologue
+  const cf=chronicFlag(src,new Date());
+  if(cf)tips.unshift({ico:"cal",warn:true,t:`${CHRONIC_DAYS} jours ou plus de mal de tête par mois, 3 mois de suite.`,d:`${cf.map(x=>`${MONTHS[x.m]} : ${x.mig} jours`).join(", ")}. C'est le seuil où un médecin parle de céphalée chronique : parles-en à ton prochain rendez-vous.`});
   const fac=reliableFactors(s).slice(0,3);
-  fac.forEach(({g,hi,lo})=>tips.push({ico:g.ico,t:`Tu as plus souvent mal quand ${hi.when}.`,d:`Mal de tête ${jours(hi.m,hi.n)} dans ce cas, contre ${jours(lo.m,lo.n)} les autres jours.`}));
+  fac.forEach(({g,hi,lo})=>tips.push({ico:g.ico,weak:isWeak(hi.n,lo.n),t:`Tu as plus souvent mal quand ${hi.when}.`,d:`Mal de tête ${jours(hi.m,hi.n)} dans ce cas, contre ${jours(lo.m,lo.n)} les autres jours.`}));
+  const mm=wk?null:menstrual(src,ymd(end),qt?6:3);
+  if(mm&&mm.cycles.length>=2&&mm.hits>=2&&mm.hits/mm.cycles.length>=2/3)tips.push({ico:"cycle",weak:mm.cycles.length<3||isWeak(mm.win.n,mm.out.n),t:"Tes crises tombent souvent autour des règles.",d:`Une crise entre 2 jours avant et 3 jours après le début des règles : ${mm.hits} cycle${pl(mm.hits)} sur ${mm.cycles.length}.`});
+  const rc=recurrences(src,ymd(start),ymd(end)),rcb=rc.filter(x=>x.back).length;
+  if(rcb>=2&&rcb/rc.length>=1/3)tips.push({ico:"pill",weak:rc.length<MIN_STRONG,t:"La douleur revient souvent après un médicament qui a marché.",d:`Revenue dans les 48 h ${rcb} fois sur ${rc.length}. À signaler au médecin : cela peut changer le traitement.`});
   const timed=s.starts.length,topSlot=s.slots.reduce((a,b)=>b.n>a.n?b:a);
   if(timed>=3&&topSlot.n/timed>=.5)tips.push({ico:"clock",t:`Tes crises commencent surtout ${topSlot.lab==="Nuit"?"la nuit":topSlot.lab==="Matin"?"le matin":topSlot.lab==="Midi"?"vers midi":topSlot.lab==="Soir"?"le soir":"l'après-midi"} (${topSlot.range}).`,d:`${topSlot.n} crise${pl(topSlot.n)} sur ${timed} dont l'heure est notée.`});
   if(s.n>=21){const others=w=>s.wd.filter(x=>x.i!==w.i&&x.n),rate=x=>x.n?x.m/x.n:0;
@@ -1873,7 +1984,7 @@ function renderStats(){
   let wait="";
   if(s.n<MIN_DAYS){const left=MIN_DAYS-s.n;wait=`<div class="wait"><p><b>Encore ${left} jour${pl(left)} à noter</b> sur cette période pour voir tes pistes.</p><div class="track" role="img" aria-label="${s.n} jours notés sur ${MIN_DAYS}"><div class="fill" style="width:${s.n/MIN_DAYS*100}%"></div></div></div>`}
   else if(!fac.length)tips.push({ico:"ask",t:"Rien ne ressort encore de tes habitudes.",d:"Continue à noter sommeil, stress, eau et écrans : les pistes apparaîtront ici."});
-  h+=`<section class="card"><h2>En bref</h2>${tips.length?`<ul class="tips">${tips.map(x=>`<li class="tip${x.warn?" warn":""}"><span class="tico" aria-hidden="true">${TICO[x.ico]||TICO.ask}</span><div><b>${esc(x.t)}</b>${x.d?`<span>${esc(x.d)}</span>`:""}</div></li>`).join("")}</ul>`:""}${wait}
+  h+=`<section class="card"><h2>En bref</h2>${tips.length?`<ul class="tips">${tips.map(x=>`<li class="tip${x.warn?" warn":""}"><span class="tico" aria-hidden="true">${TICO[x.ico]||TICO.ask}</span><div><b>${esc(x.t)}</b>${x.d?`<span>${esc(x.d)}</span>`:""}${x.weak?weakTag:""}</div></li>`).join("")}</ul>`:""}${wait}
     <p class="hint">Ce sont des pistes, pas un diagnostic. Plus tu notes de jours, plus elles sont fiables.</p></section>`;
   // 3. Jour par jour : la force de chaque crise dans sa bande (léger / moyen / fort), les médicaments en dessous.
   // Sur 3 mois : une barre par semaine, le nombre de jours avec mal (fort en bas, puis moyen, puis léger).
@@ -1904,32 +2015,50 @@ function renderStats(){
       <div class="mr" aria-hidden="true">${dates.map(k=>{const e=src[k];return`<span>${e&&e.migraine&&hasMed(e)?'<i class="cap"></i>':""}</span>`}).join("")}</div></div>
       <div class="dlegend" aria-hidden="true"><span><i class="ok"></i>sans mal de tête</span><span><i class="no"></i>pas noté</span><span><i class="cap"></i>médicament pris</span>${wk?"":"<span>chiffres : les lundis</span>"}</div></section>`;
   }
+  // 3 bis. Jours avec mal de tête par mois, avec le seuil de 15 jours
+  if(!wk){const mc=monthCounts(src,end,6).filter(x=>x.noted||x.mig),top=Math.max(20,...mc.map(x=>x.mig));
+    if(mc.length)h+=`<section class="card"><div class="rowhead"><h2>Jours de mal par mois</h2></div>
+      <p class="hint">À ${CHRONIC_DAYS} jours ou plus par mois, plusieurs mois de suite, un médecin parle de céphalée chronique.</p>
+      <div class="mbars" role="img" aria-label="${esc(mc.map(x=>`${MONTHS[x.m]} : ${x.mig} jours avec mal sur ${x.noted} notés`).join(", "))}">
+        <div class="line" style="bottom:calc((100% - 8px) * ${(CHRONIC_DAYS/top).toFixed(4)})"><span>${CHRONIC_DAYS} j</span></div>
+        ${mc.map(x=>`<div class="mb"><i class="${x.mig>=CHRONIC_DAYS?"hi":""}" style="height:${Math.max(x.mig?3:0,x.mig/top*100)}%"></i></div>`).join("")}</div>
+      <div class="mxl" aria-hidden="true">${mc.map(x=>`<span><b class="${x.mig>=CHRONIC_DAYS?"hi":""}">${x.mig} j</b>${MONTHS_S[x.m]}<small>${x.noted}/${x.days} notés</small></span>`).join("")}</div></section>`}
   // 4. Moment des crises
   if(timed)h+=`<section class="card"><h2>Moment des crises</h2><p class="hint">Heure de début des crises dont l'heure est notée (${timed}).</p><div class="cmp">`
     +s.slots.map(x=>`<div class="cmprow"><span>${x.lab} <span class="muted small">${x.range}</span></span><div class="track" aria-hidden="true"><div class="fill" style="width:${x.n/timed*100}%"></div></div><span class="pct">${x.n}</span></div>`).join("")+`</div></section>`;
   // 5. Situation par situation (les situations sans écart net sont repliées)
-  const cmpHtml=g=>`<div class="cmp"><h3>${esc(g.title)}</h3>${g.rows.map(r=>`<div class="cmprow"><span>${esc(r.lab)}</span><div class="track" aria-hidden="true"><div class="fill" style="width:${r.r}%"></div></div><span class="pct">${r.m} sur ${r.n}</span></div>`).join("")}</div>`;
+  const cmpHtml=g=>`<div class="cmp"><h3>${esc(g.title)}</h3>${g.rows.map(r=>`<div class="cmprow"><span>${esc(r.lab)}</span><div class="track" aria-hidden="true"><div class="fill" style="width:${r.r}%"></div></div><span class="pct">${r.m} sur ${r.n}</span></div>`).join("")}${isWeak(g.rows[0].n,g.rows[1].n)?weakTag:""}</div>`;
   const clear=reliableFactors(s).map(x=>x.g),flat=s.groups.filter(g=>!clear.includes(g));
   if(s.groups.length)h+=`<section class="card"><h2>Situation par situation</h2><p class="hint">Pour chaque situation : combien de jours avec mal de tête, sur les jours notés.</p>`
     +(clear.length?clear.map(cmpHtml).join(""):`<p class="muted small">${s.n<MIN_DAYS?"Les pistes apparaîtront à partir de 10 jours notés.":"Aucune situation ne change nettement les choses pour l'instant."}</p>`)
     +(flat.length?`<details class="more"><summary>Voir les autres situations (${flat.length})</summary>${flat.map(cmpHtml).join("")}</details>`:"")+`</section>`;
+  // 5 bis. Autour des règles (fenêtre du 2e jour avant au 3e jour après le 1er jour)
+  if(mm){const hasDeb=Object.values(src).some(e=>e.period==="debut"),row=(lab,x)=>`<div class="cmprow"><span>${lab}</span><div class="track" aria-hidden="true"><div class="fill" style="width:${x.n?x.m/x.n*100:0}%"></div></div><span class="pct">${x.m} sur ${x.n}</span></div>`;
+    h+=`<section class="card"><h2>Autour des règles</h2>
+      <p class="insight">Sur tes ${mm.cycles.length} dernier${pl(mm.cycles.length)} cycle${pl(mm.cycles.length)}, crise entre 2 jours avant et 3 jours après le début des règles : <b>${mm.hits} fois sur ${mm.cycles.length}</b>.</p>
+      <div class="cmp"><h3>Jours avec mal de tête</h3>${row("Autour des règles",mm.win)}${row("Le reste du cycle",mm.out)}${isWeak(mm.win.n,mm.out.n)?weakTag:""}</div>
+      <p class="hint">On parle de migraine menstruelle quand les crises tombent dans cette fenêtre dans au moins 2 cycles sur 3. C'est au médecin de conclure.${hasDeb?"":" Note le « 1er jour des règles » pour plus de précision : ici, il est déduit des jours « Règles »."}</p></section>`}
   // 6. Aliments à surveiller : comparés aux autres jours
   if(s.foods.length){
     const fx=x=>x.o===0?`seulement les jours de mal`:`plus souvent les jours de mal`;
     h+=`<section class="card"><h2>Aliments à surveiller</h2><p class="hint">Un aliment ressort s'il revient nettement plus souvent les jours de mal que les autres jours.</p>`
-      +(s.foodsCmp.length?`<ul class="tips">${s.foodsCmp.map(x=>`<li class="tip"><span class="tico" aria-hidden="true">${TICO.food}</span><div><b>${esc(x.t.charAt(0).toUpperCase()+x.t.slice(1))} : ${fx(x)}</b><span>${x.m} jour${pl(x.m)} de mal sur ${x.M}, contre ${x.o} jour${pl(x.o)} sur ${x.O} sans mal.</span></div></li>`).join("")}</ul>`
+      +(s.foodsCmp.length?`<ul class="tips">${s.foodsCmp.map(x=>`<li class="tip"><span class="tico" aria-hidden="true">${TICO.food}</span><div><b>${esc(x.t.charAt(0).toUpperCase()+x.t.slice(1))} : ${fx(x)}</b><span>${x.m} jour${pl(x.m)} de mal sur ${x.M}, contre ${x.o} jour${pl(x.o)} sur ${x.O} sans mal.</span>${isWeak(x.M,x.O)?weakTag:""}</div></li>`).join("")}</ul>`
         :`<p class="muted small">${s.n<MIN_DAYS?"Les aliments à surveiller apparaîtront à partir de 10 jours notés.":"Aucun aliment ne ressort pour l'instant."}</p>`)+`</section>`;
   }
   // 7. Où et comment
   const li=a=>a.map(([t,n])=>`<li><span>${esc(t)}</span><span>${n} fois</span></li>`).join("");
-  if(s.zones.length||s.symptoms.length)h+=`<section class="card"><h2>Où et comment</h2>${s.zones.length?`<h3>Zones</h3><ul class="tl">${li(s.zones)}</ul>`:""}${s.symptoms.length?`<h3>Autres signes</h3><ul class="tl">${li(s.symptoms)}</ul>`:""}</section>`;
+  const ic=s.ichd,icHtml=ic.n?`<div class="insight"><b>${ic.typical} crise${pl(ic.typical)} sur ${ic.n}</b> décrite${pl(ic.n)} ${ic.typical>1?"ont":"a"} les signes de la migraine (classification ICHD-3)${ic.aura?`, dont ${ic.aura} avec aura`:""}.</div>
+    <p class="hint">Au moins 2 caractères de la douleur (d'un seul côté, qui bat, moyenne à forte, pire en bougeant), plus des nausées ou une gêne à la lumière et au bruit, sur 4 à 72 h. C'est au médecin de conclure.${s.mig.length>ic.n?` ${s.mig.length-ic.n} crise${pl(s.mig.length-ic.n)} sans signes notés.`:""}</p>`:"";
+  if(s.zones.length||s.symptoms.length)h+=`<section class="card"><h2>Où et comment</h2>${icHtml}${s.zones.length?`<h3>Zones</h3><ul class="tl">${li(s.zones)}</ul>`:""}${s.symptoms.length?`<h3>Signes</h3><ul class="tl">${li(s.symptoms)}</ul>`:""}</section>`;
   // 8. Médicaments : efficacité de chacun, jauge vers le seuil d'alerte, délai de prise
   const mk=Object.entries(s.meds).sort((a,b)=>b[1].n-a[1].n);
   if(mk.length){
     const gauge=(v,max,lab)=>`<div class="gauge"><div class="gl"><span>${lab}</span><b>${v} / ${max} j</b></div><div class="track" role="img" aria-label="${esc(lab)} : ${v} jours, alerte à ${max}"><div class="fill${v>=max?" over":v>=max*.66?" near":""}" style="width:${Math.min(v/max,1)*100}%"></div></div></div>`;
     h+=`<section class="card"><h2>Médicaments</h2>`
       +(wk?"":`<div class="gauges">${gauge(mpm,15,qt?"Jours avec médicament, par mois":"Jours avec médicament ce mois-ci")}${s.triDays?gauge(tpm,10,qt?"Dont triptan, par mois":"Dont triptan ce mois-ci"):""}<p class="hint">Au-delà, les médicaments peuvent eux-mêmes entretenir les maux de tête.</p></div>`)
-      +`<ul class="medl">${mk.map(([k,v])=>{const u=v["un peu"];return`<li><div class="ml"><b>${esc(k)}</b><span>${v.n} prise${pl(v.n)} · a soulagé ${v.oui} fois sur ${v.n}${u?`, un peu ${u} fois`:""}</span></div><div class="track eff" aria-hidden="true"><div class="fill" style="width:${v.oui/v.n*100}%"></div><div class="fill soft" style="width:${u/v.n*100}%"></div></div></li>`}).join("")}</ul>`
+      +`<ul class="medl">${mk.map(([k,v])=>{if(v.h2)return`<li><div class="ml"><b>${esc(k)}</b><span>${v.n} prise${pl(v.n)} · 2 h après : plus de douleur ${v.libre} fois sur ${v.h2}, mieux ${v.mieux}, pareil ${v.pareil}${v.n>v.h2?` (${v.n-v.h2} sans réponse)`:""}</span></div><div class="track eff" aria-hidden="true"><div class="fill" style="width:${v.libre/v.h2*100}%"></div><div class="fill soft" style="width:${v.mieux/v.h2*100}%"></div></div></li>`;
+        const u=v["un peu"];return`<li><div class="ml"><b>${esc(k)}</b><span>${v.n} prise${pl(v.n)} · a soulagé ${v.oui} fois sur ${v.n}${u?`, un peu ${u} fois`:""}</span></div><div class="track eff" aria-hidden="true"><div class="fill" style="width:${v.oui/v.n*100}%"></div><div class="fill soft" style="width:${u/v.n*100}%"></div></div></li>`}).join("")}</ul>`
+      +(rc.length?`<p class="insight">Après un médicament qui a marché, la douleur est revenue dans les 48 h <b>${rcb} fois sur ${rc.length}</b>.</p>`:"")
       +(s.delays.length>=2?`<p class="insight">En moyenne, tu prends ton médicament <b>${hmTxt(avg(s.delays))}</b> après le début de la crise.${avg(s.delays)>=120?" Un médicament pris tôt soulage souvent mieux : à voir avec ton médecin.":""}</p>`:"")+`</section>`;
   }
   // 9. Retentissement : questionnaire MIDAS tous les 3 mois
@@ -2154,20 +2283,28 @@ $("pdfBtn").addEventListener("click",async()=>{
       ["Durée moyenne d'une crise",s.durs.length?`${f1(avg(s.durs))} h`:"-"],
       ["Jours avec prise de médicament",`${s.medDays} (${f1(s.medDays/months)} par mois)`],
       ["dont jours avec triptan",`${s.triDays} (${f1(s.triDays/months)} par mois)`],
-      ["Sommeil moyen",s.hasSleep?`${f1(s.sleep)} h`:"-"]],{columnStyles:{0:{cellWidth:80,fontStyle:"bold"}}});
+      ["Sommeil moyen",s.hasSleep?`${f1(s.sleep)} h`:"-"],
+      ["Crises avec les signes de la migraine (ICHD-3)",s.ichd.n?`${s.ichd.typical} sur ${s.ichd.n} décrites${s.ichd.aura?`, dont ${s.ichd.aura} avec aura`:""}`:"signes non notés"]],{columnStyles:{0:{cellWidth:80,fontStyle:"bold"}}});
+    const cfp=chronicFlag(S.entries,parse(to));
     const pw=medWarn(Math.round(s.medDays/months),Math.round(s.triDays/months),"par mois en moyenne");
-    if(pw){title("Point d'attention");table(["Consommation de médicaments"],[[`${pw.t}. Seuils de surveillance de l'abus médicamenteux (ICHD-3) : 10 jours par mois pour les triptans, 15 jours par mois pour les antidouleurs simples.`]])}
+    const att=[];if(cfp)att.push([`${CHRONIC_DAYS} jours ou plus de mal de tête par mois sur les 3 derniers mois terminés (${cfp.map(x=>`${MONTHS[x.m]} ${x.mig} j`).join(", ")}). Seuil de la céphalée chronique (ICHD-3) : 15 jours par mois pendant plus de 3 mois.`]);
+    if(pw)att.push([`${pw.t}. Seuils de surveillance de l'abus médicamenteux (ICHD-3) : 10 jours par mois pour les triptans, 15 jours par mois pour les antidouleurs simples.`]);
+    if(att.length){title("Points d'attention");table(["À discuter"],att)}
     const byM={};ents.forEach(e=>{const k=e.date.slice(0,7);const o=byM[k]=byM[k]||{n:0,m:0,i:[],med:0};o.n++;if(e.migraine){o.m++;o.i.push(e.intensity);if(hasMed(e))o.med++}});
     if(Object.keys(byM).length>1){title("Mois par mois");table(["Mois","Jours notés","Jours avec mal","Intensité moy.","Jours avec médicament"],
-      Object.entries(byM).map(([k,o])=>{const[yy,mm]=k.split("-");return[`${MONTHS[+mm-1]} ${yy}`,String(o.n),String(o.m),o.i.length?f1(avg(o.i)):"-",String(o.med)]}))}
+      Object.entries(byM).map(([k,o])=>{const[yy,mm]=k.split("-");return[`${MONTHS[+mm-1]} ${yy}`,String(o.n),o.m>=CHRONIC_DAYS?`${o.m} (15 ou plus)`:String(o.m),o.i.length?f1(avg(o.i)):"-",String(o.med)]}));
+      y-=4;note("Jours notés : sans note, un jour n'est compté ni avec ni sans mal de tête.")}
     const mk=Object.entries(s.meds).sort((a,b)=>b[1].n-a[1].n);
     if(mk.length){title("Médicaments",50);y+=3;gauge("Jours avec prise de médicament",s.medDays/months,15);if(s.triDays)gauge("dont jours avec triptan",s.triDays/months,10);
       note("Seuils de surveillance de l'abus médicamenteux (ICHD-3) : 15 jours par mois pour les antidouleurs simples, 10 pour les triptans.");
-      table(["Médicament","Prises","Efficace","Un peu","Pas efficace"],mk.map(([k,v])=>[k,String(v.n),String(v.oui),String(v["un peu"]),String(v.non)]));
+      table(["Médicament","Prises","2 h après : plus de douleur","Mieux","Pareil","Sans réponse à 2 h"],mk.map(([k,v])=>[k,String(v.n),String(v.libre),String(v.mieux),String(v.pareil),String(v.n-v.h2)]));
+      const old=mk.filter(([k,v])=>v.n>v.h2&&(v.oui+v["un peu"]+v.non)>0);
+      if(old.length){y-=4;note("Avant le suivi à 2 h, l'efficacité était notée « a soulagé : oui / un peu / non » : "+old.map(([k,v])=>`${k} ${v.oui} / ${v["un peu"]} / ${v.non}`).join(" ; ")+".")}
+      const rcp=recurrences(S.entries,from,to);if(rcp.length){y-=4;note(`Récurrence : après un médicament efficace, douleur revenue dans les 48 h ${rcp.filter(x=>x.back).length} fois sur ${rcp.length}.`)}
       if(s.delays.length>=2){y-=4;note(`Délai moyen entre le début de la crise et la prise : ${hmTxt(avg(s.delays))} (sur ${s.delays.length} prises dont l'heure est notée).`)}}
     if(s.starts.length){title("Moment des crises");table(["Début de la crise","Crises","Part"],s.slots.map(x=>[`${x.lab} (${x.range})`,String(x.n),`${Math.round(x.n/s.starts.length*100)} %`]),{columnStyles:{0:{cellWidth:80}}})}
     if(s.groups.length){title("Facteurs observés (jours avec mal de tête sur jours notés)");
-      table(["Facteur","Situation","Jours avec mal"],s.groups.flatMap(g=>g.rows.map((r,i)=>[i?"":g.title,r.lab,`${r.m} sur ${r.n}`])));
+      table(["Facteur","Situation","Jours avec mal","Fiabilité"],s.groups.flatMap(g=>g.rows.map((r,i)=>[i?"":g.title,r.lab,`${r.m} sur ${r.n}`,i?"":isWeak(g.rows[0].n,g.rows[1].n)?`faible (moins de ${MIN_STRONG} j d'un côté)`:"suffisante"])));
       if(s.n<MIN_DAYS){y-=4;note("Moins de 10 jours notés : ces chiffres sont encore trop peu nombreux pour en tirer une piste.")}}
     if(s.foodsCmp.length){title("Aliments plus fréquents les jours de mal");table(["Aliment","Jours de mal","Jours sans mal"],s.foodsCmp.map(x=>[x.t,`${x.m} sur ${x.M}`,`${x.o} sur ${x.O}`]))}
     const mids=(S.settings.midas||[]).filter(m=>m.date<=to);
@@ -2180,6 +2317,10 @@ $("pdfBtn").addEventListener("click",async()=>{
         for(let i=1;i<P.length;i++)doc.line(P[i-1][0],P[i-1][1],P[i][0],P[i][1]);doc.setFillColor(...berry);P.forEach(([px,py],i)=>{doc.circle(px,py,1.2,"F");doc.setFontSize(7);doc.setTextColor(42,20,37);doc.text(dayFull(pts[i].date).slice(0,5),px,y+h+5,{align:"center"})});
         y+=h+11}
       note("Grades MIDAS : I (0-5) peu ou pas de gêne, II (6-10) gêne légère, III (11-20) gêne modérée, IV (21 et plus) gêne sévère.")}
+    const mmp=menstrual(S.entries,to,12,from);
+    if(mmp){title("Autour des règles (du 2e jour avant au 3e jour après le 1er jour)");
+      table(["Période","Jours avec mal de tête"],[["Autour des règles",`${mmp.win.m} sur ${mmp.win.n}`],["Le reste du cycle",`${mmp.out.m} sur ${mmp.out.n}`]]);
+      y-=4;note(`Crise dans cette fenêtre : ${mmp.hits} cycle(s) sur ${mmp.cycles.length} (1ers jours : ${mmp.cycles.map(c=>dayFull(c.start).slice(0,5)).join(", ")}). Migraine menstruelle (ICHD-3) : dans au moins 2 cycles sur 3.`)}
     if(s.zones.length||s.symptoms.length){title("Localisation et signes associés");
       table(["Type","Description","Nombre de crises"],s.zones.map(([t,n])=>["Zone",t,String(n)]).concat(s.symptoms.map(([t,n])=>["Signe",t,String(n)])))}
     if(s.mig.length){title("Détail des jours avec mal de tête");
@@ -2286,7 +2427,7 @@ if(CapApp)CapApp.addListener("backButton",()=>{
   CapApp.exitApp();
 });
 // Retour dans l'appli (après minuit, ou depuis une notification) : accueil à jour et rappels recalculés
-if(CapApp)CapApp.addListener("resume",()=>{scheduleReminders();scheduleDoseReminders();refresh()});
+if(CapApp)CapApp.addListener("resume",()=>{scheduleReminders();scheduleDoseReminders();schedule2h();refresh()});
 // Liens du widget Android et des raccourcis de l'icône : journalmigraines://quick?l=3|6|9, ://nopain, ://day, ://med
 let lastLink={u:"",at:0};
 async function handleLink(url){
@@ -2301,8 +2442,10 @@ async function handleLink(url){
 }
 if(CapApp&&CapApp.addListener)CapApp.addListener("appUrlOpen",d=>{handleLink(d&&d.url)});
 if(CapApp&&CapApp.getLaunchUrl)CapApp.getLaunchUrl().then(r=>{if(r&&r.url)handleLink(r.url)}).catch(()=>{});
-// Réponse à « Ta crise est-elle finie ? »
+// Réponse à « Ta crise est-elle finie ? » et à « 2 h après, comment va ta tête ? »
 {const ln=LN();if(ln&&ln.addListener)ln.addListener("localNotificationActionPerformed",a=>{
+  const x=a&&a.notification&&a.notification.extra;
+  if(a&&a.notification&&a.notification.actionTypeId==="MED_2H"&&x){if(EFF_OF[a.actionId])set2h(x.date,x.name,x.time,a.actionId);else show("home");return}
   if(!a||!a.notification||a.notification.id!==CRISIS_NOTIF)return;
   if(a.actionId==="done")endCrisis();else if(a.actionId==="later")crisisCheckIn(1);else if(a.actionId==="med"){show("home");setCrisis(true)}else{show("home")}})}
 })();
