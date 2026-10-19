@@ -25,5 +25,9 @@
     "@fontsource/manrope": "5.2.5",
     "jspdf": "4.2.1",
     "jspdf-autotable": "5.0.8"
+  },
+  "overrides": {
+    "sharp": "0.35.5",
+    "uuid": "11.1.1"
   }
 }
