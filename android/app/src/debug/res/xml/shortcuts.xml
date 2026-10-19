@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Version de test (identifiant fr.journalmigraines.app.test) : mêmes raccourcis, vers l'appli de test -->
+<!-- Raccourcis de l'icône (appui long) : mêmes liens que le widget, traités par la page (handleLink) -->
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut android:shortcutId="crise_forte" android:enabled="true" android:icon="@drawable/ic_sc_storm"
+        android:shortcutShortLabel="@string/sc_strong_short" android:shortcutLongLabel="@string/sc_strong_long">
+        <intent android:action="android.intent.action.VIEW" android:data="journalmigraines://quick?l=9"
+            android:targetPackage="fr.journalmigraines.app.test" android:targetClass="fr.journalmigraines.app.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="medicament" android:enabled="true" android:icon="@drawable/ic_sc_med"
+        android:shortcutShortLabel="@string/sc_med_short" android:shortcutLongLabel="@string/sc_med_long">
+        <intent android:action="android.intent.action.VIEW" android:data="journalmigraines://med"
+            android:targetPackage="fr.journalmigraines.app.test" android:targetClass="fr.journalmigraines.app.MainActivity" />
+    </shortcut>
+    <shortcut android:shortcutId="ma_journee" android:enabled="true" android:icon="@drawable/ic_sc_edit"
+        android:shortcutShortLabel="@string/sc_day_short" android:shortcutLongLabel="@string/sc_day_long">
+        <intent android:action="android.intent.action.VIEW" android:data="journalmigraines://day"
+            android:targetPackage="fr.journalmigraines.app.test" android:targetClass="fr.journalmigraines.app.MainActivity" />
+    </shortcut>
+</shortcuts>

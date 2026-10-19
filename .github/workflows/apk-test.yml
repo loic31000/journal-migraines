@@ -1,0 +1,51 @@
+# APK de test : fabriqué à chaque push sur une branche autre que main (ou à la demande).
+# Version « debug » : identifiant fr.journalmigraines.app.test, nom « Mon Journal (test) ».
+# Elle s'installe à côté de la vraie appli, avec ses propres notes : rien n'est touché.
+# Téléchargement : onglet Actions › le dernier « APK de test » › Artifacts › mon-journal-test-apk.
+name: APK de test
+
+on:
+  push:
+    branches-ignore: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Dépendances
+        run: npm ci
+
+      - name: Tests
+        run: npm test
+
+      - name: Copie de l'appli dans le projet Android
+        run: npm run sync
+
+      - name: Fabrication de l'APK de test
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mon-journal-test-apk
+          path: android/app/build/outputs/apk/debug/*.apk
+          retention-days: 30

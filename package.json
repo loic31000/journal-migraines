@@ -1,6 +1,6 @@
 {
   "name": "mon-journal-migraines",
-  "version": "2.2.3",
+  "version": "2.4.0",
   "private": true,
   "license": "MIT",
   "description": "Journal des maux de tête, application Android 100 % locale",

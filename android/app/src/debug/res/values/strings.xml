@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Version de test : un autre nom, pour l'installer à côté de la vraie appli sans toucher à ses notes -->
+<resources>
+    <string name="app_name">Mon Journal (test)</string>
+    <string name="title_activity_main">Mon Journal (test)</string>
+</resources>

@@ -9,11 +9,11 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 **[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
 
-![Version](https://img.shields.io/badge/version-2.2.3-a92c49)
+![Version](https://img.shields.io/badge/version-2.4.0-a92c49)
 ![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-58%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-110%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
 ![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
@@ -47,13 +47,19 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 ## Captures d'écran
 
 <p align="center">
-  <img src="docs/captures/accueil.png" alt="Accueil : la question « Comment va ta tête aujourd'hui ? », les tuiles J'ai eu mal et Pas de mal, et la crise rapide en un toucher" width="200">
-  <img src="docs/captures/formulaire.png" alt="Formulaire, étape La crise : heure de début, durée, zones, signes et plusieurs médicaments avec leur heure" width="200">
-  <img src="docs/captures/jour.png" alt="Détail d'un jour : la journée heure par heure, puis toutes les infos par thème" width="200">
+  <img src="docs/captures/accueil.png" alt="Accueil : « Comment va ta tête aujourd'hui ? », le bouton Ma tête va bien, J'ai eu mal, et la crise rapide avec trois têtes (1, 2 ou 3 traits de douleur)" width="200">
+  <img src="docs/captures/formulaire.png" alt="Formulaire, étape La crise : le médicament pris, son heure, la question « 2 h après la prise ? », les médicaments habituels à ajouter d'un toucher, et le bouton Enregistrer" width="200">
+  <img src="docs/captures/jour.png" alt="Détail d'un jour : la journée heure par heure, puis une liste par thème (où, douleur, autres signes, médicament, repas)" width="200">
+  <img src="docs/captures/crise.png" alt="Mode crise : écran noir, temps écoulé depuis le début de la crise, boutons J'ai pris pour les médicaments habituels, Ma crise est finie" width="200">
 </p>
 <p align="center">
-  <img src="docs/captures/bilan.png" alt="Bilan du mois : résumé, puis « En bref » avec les pistes en phrases simples" width="200">
-  <img src="docs/captures/crise.png" alt="Mode crise : écran noir, sans animation, gros boutons" width="200">
+  <img src="docs/captures/bilan.png" alt="Bilan du mois : anneau de synthèse, tendance, force moyenne, puis En bref" width="200">
+  <img src="docs/captures/bilan-graphique.png" alt="Bilan : graphique jour par jour en bandes léger, moyen, fort, avec les jours de médicament, puis les jours de mal par mois et la ligne des 15 jours" width="200">
+  <img src="docs/captures/bilan-cycle.png" alt="Bilan : autour des règles cycle par cycle, puis les crises qui ont les signes de la migraine" width="200">
+</p>
+<p align="center">
+  <img src="docs/captures/medecin.png" alt="Onglet Médecin : prochain et dernier rendez-vous, résumé depuis le dernier, questions à poser" width="200">
+  <img src="docs/captures/reglages.png" alt="Réglages : la journée type notée d'office avec Ma tête va bien" width="200">
   <img src="docs/captures/accueil-nuit.png" alt="Accueil en mode nuit" width="200">
 </p>
 
@@ -61,55 +67,79 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 ## Pourquoi cette appli
 
-Un médecin a besoin de savoir **à quelle fréquence** surviennent les maux de tête, **avec quelle force**, **quels médicaments** ont été pris et **ce qui les déclenche**. Ces informations s'oublient vite : l'appli permet de les noter chaque jour en moins d'une minute, et de les retrouver sous forme de bilans et d'un rapport prêt à imprimer.
+Un médecin a besoin de savoir **à quelle fréquence** surviennent les maux de tête, **avec quelle force**, **quels médicaments** ont été pris, **s'ils ont marché** et **ce qui les déclenche**. Ces informations s'oublient vite : l'appli permet de les noter chaque jour en quelques secondes, et de les retrouver sous forme de bilans et d'un rapport prêt pour le rendez-vous.
 
 Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 
 ## Fonctionnalités
 
 ### Noter sa journée
-- **Accueil en une question** : « Comment va ta tête aujourd'hui ? », avec deux grandes tuiles (*J'ai eu mal* / *Pas de mal*). Une fois la journée notée, elle se retrouve dans *Ma semaine*, qui la rouvre d'un toucher.
-- **Crise rapide** : un toucher sur *Légère*, *Moyenne* ou *Forte* (une tête qui se remplit comme une jauge) note la crise avec l'heure. On complète plus tard. Bouton **Annuler** et **Retirer cette crise** en cas d'erreur.
-- **Mode crise** : un appui long sur *Forte* (ou *Passer en mode crise*) note la crise et passe l'appli en noir profond, sans animation, avec de gros boutons et l'essentiel seulement.
-- **Fin de crise en un toucher** : *Ma crise est finie* calcule la durée. Une notification « Ta crise est-elle finie ? » arrive 2 h après une crise rapide, avec *Oui, c'est fini* ou *Pas encore* (nouveau rappel 1 h plus tard).
-- **Comme d'habitude** : remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après les 14 derniers jours.
-- **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression) :
-  - la tête : mal ou pas, force de 1 à 10 sur un curseur ;
-  - la crise : heure de début, durée, zones douloureuses, signes associés (nausées, lumière, bruit…), médicaments pris (autant que nécessaire, avec l'heure de prise et l'efficacité de chacun) ;
-  - les repas : petit-déjeuner, midi, soir (avec l'heure si on veut), cafés ou thés, verres d'eau ;
-  - la journée : port des lunettes, sommeil, temps d'écran, stress, cycle ;
-  - pour finir : questions personnelles et notes libres.
-- **Écart entre deux prises** : pour chaque médicament, l'écart minimum (notice ou médecin). L'accueil affiche « prochaine prise possible vers 21 h » et une notification prévient à l'heure.
-- **Questions perso** : ajouter ses propres questions (*Sport aujourd'hui ?*), en Oui/Non ou réponse écrite. Les Oui/Non sont comparées dans le bilan.
+- **Accueil en une question** : « Comment va ta tête aujourd'hui ? ».
+  - **Ma tête va bien** note la journée d'un seul toucher, sans formulaire, avec la **journée type** (voir Réglages). *Modifier* ou *Compléter* reste possible juste après.
+  - **J'ai eu mal, je raconte** ouvre le formulaire.
+  - **Jour oublié** : *Ma semaine* signale le dernier jour pas noté (« Samedi n'est pas noté : le noter »).
+- **Crise rapide** : on touche l'icône qui correspond à sa douleur (*Légère*, *Moyenne* ou *Forte* : une tête avec 1, 2 ou 3 traits de douleur). La crise est enregistrée tout de suite avec l'heure, on complète plus tard. *Annuler* et *Retirer cette crise* en cas d'erreur.
+- **Mode crise** : *Forte* (ou *Passer en mode crise*) passe l'appli en noir profond, sans animation, avec de gros boutons et l'essentiel :
+  - le temps écoulé depuis le début de la crise ;
+  - **J'ai pris** : les médicaments habituels se notent d'un toucher, avec l'heure, l'heure de la dernière prise et la prochaine prise possible ;
+  - **Ma crise est finie** calcule la durée.
+- **Notifications** :
+  - « Ta crise est-elle finie ? » 2 h après une crise rapide, avec *Oui, c'est fini*, *Pas encore* (nouveau rappel 1 h plus tard) ou *J'ai pris…* ;
+  - **2 h après chaque prise** : « Comment va ta tête ? » avec *Plus de douleur*, *Mieux* ou *Pareil* (la mesure utilisée dans les essais sur la migraine). Si elle est manquée, la question attend sur l'accueil ;
+  - prochaine prise possible, d'après l'**écart entre deux prises** réglé pour chaque médicament (notice ou médecin) ;
+  - rappel du soir, seulement si la journée n'est pas notée.
+- **Widget et raccourcis Android** : le widget « Ma tête aujourd'hui » (*Ma tête va bien*, *Légère*, *Moyenne*, *Forte*) et l'appui long sur l'icône (*Crise forte*, *J'ai pris un médicament*, *Noter ma journée*) notent sans chercher l'appli.
+- **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression). **Enregistrer** à chaque étape : rien n'oblige à aller au bout.
+  - la tête : mal ou pas, force de 1 à 10 ;
+  - la crise :
+    - d'abord **ce qui a été pris** : les médicaments habituels s'ajoutent d'un toucher avec l'heure, autant que nécessaire, et pour chacun **2 h après la prise : plus de douleur, mieux ou pareil** ;
+    - puis heure de début, durée, zones douloureuses ;
+    - **comment est la douleur** : d'un seul côté, qui bat, pire en bougeant, aura avant la douleur ;
+    - les autres signes, repliés : nausées, vomissements, gêne à la lumière ou au bruit, troubles de la vue, vertiges, grande fatigue ;
+  - les repas : petit-déjeuner, midi, soir (avec l'heure si on veut), cafés ou thés, verres d'eau. **Comme d'habitude** remplit les cases vides avec la journée type, puis d'après les 14 derniers jours ;
+  - la journée : lunettes, sommeil, écrans, stress, cycle (avec le **1er jour des règles**) ;
+  - pour finir : questions perso et notes libres.
+- **Questions perso** : ajouter ses propres questions (*Sport aujourd'hui ?*, *Cachet aujourd'hui ?*), en Oui/Non ou réponse écrite. Les Oui/Non sont comparées dans le bilan et peuvent faire partie de la journée type.
 
 ### Voir et comprendre
-- **Calendrier** coloré : chaque jour est une petite jauge qui se remplit selon la force de la douleur (léger 1/3, moyen 2/3, fort plein). Un toucher ouvre le détail complet du jour : la journée **heure par heure** (repas, début et fin de crise, chaque prise de médicament), puis toutes les autres infos par thème. À modifier ou supprimer.
-- **Bilan de la semaine et du mois** :
-  - anneau de synthèse et phrase (*« Une semaine plutôt calme »*) ;
-  - **tendance** par rapport à la période d'avant ;
-  - force moyenne, durée de douleur, sommeil moyen ;
-  - graphique jour par jour ;
-  - **En bref** : les pistes les plus nettes dites en phrases simples (« Tu as plus souvent mal quand tu dors moins de 7 h », « 3 jours sur 4 ») ;
-  - **situation par situation** : jours avec mal selon le sommeil, les lunettes, le stress, l'eau, les écrans, le café, le cycle et les questions perso ;
-  - aliments les plus fréquents les jours de mal, zones, signes, médicaments.
+- **Calendrier** coloré : chaque jour est une petite jauge qui se remplit selon la force de la douleur (léger 1/3, moyen 2/3, fort plein). Un toucher ouvre le détail du jour : la journée **heure par heure** (repas, début et fin de crise, chaque prise), puis une liste par thème. À modifier ou supprimer.
+- **Bilan de la semaine, du mois ou de 3 mois** :
+  - anneau de synthèse et phrase (*« Un mois plutôt calme »*), **tendance** par rapport à la période d'avant, force moyenne, heures de douleur, sommeil moyen ;
+  - **En bref** : les pistes les plus nettes en phrases simples (« Tu as plus souvent mal quand tu dors moins de 7 h », « 6 jours sur 6 »). **Piste encore faible** est affiché quand une piste repose sur moins de 8 jours d'un côté ;
+  - **jour par jour** : une barre par crise dans sa bande (léger, moyen, fort), un rond pour les jours sans mal de tête, une capsule sous les jours avec médicament, et le décompte par force. Sur 3 mois, une barre par semaine ;
+  - **jours de mal par mois** sur 6 mois, avec la ligne des 15 jours et le nombre de jours notés. Alerte si 15 jours ou plus par mois 3 mois de suite (seuil de la céphalée chronique, classification ICHD-3) ;
+  - **moment des crises** et **situation par situation** : sommeil, lunettes, stress, eau, écrans, café, cycle et questions perso ;
+  - **autour des règles** : crise entre 2 jours avant et 3 jours après le 1er jour des règles, cycle par cycle, et jours avec mal dans cette fenêtre comparés au reste du cycle (migraine menstruelle : au moins 2 cycles sur 3) ;
+  - **aliments à surveiller** : seulement ceux qui reviennent nettement plus souvent les jours de mal ;
+  - **où et comment** : combien de crises décrites réunissent les **critères ICHD-3 de la migraine** (au moins 2 caractères de la douleur, plus nausées ou gêne à la lumière et au bruit, sur 4 à 72 h), combien avec aura, zones et signes ;
+  - **médicaments** : jours de prise face aux seuils d'alerte, efficacité **2 h après la prise**, **récurrence** (douleur revenue dans les 48 h après un médicament qui a marché), délai moyen entre le début de la crise et la prise.
 - **Questionnaire MIDAS** (gêne au quotidien sur 3 mois, utilisé par les neurologues) : proposé tous les 3 mois, score, grade et historique dans le bilan et le rapport.
-- **Alerte médicaments** : bandeau si les prises dépassent les seuils de surveillance de l'abus médicamenteux (classification ICHD-3 : 10 jours par mois pour les triptans, 15 pour les antidouleurs simples).
+- **Alerte médicaments** sur l'accueil si les prises approchent ou dépassent les seuils de surveillance de l'abus médicamenteux (ICHD-3 : 10 jours par mois pour les triptans, 15 pour les antidouleurs simples).
 
-### Pour le médecin et la sauvegarde
-- **Rapport PDF** sur 1, 3, 6, 12 mois ou tout l'historique : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
+Le bilan observe, il ne diagnostique pas : chaque critère médical est présenté comme un repère à discuter avec le médecin.
+
+### Pour le médecin
+- **Onglet Médecin** : dates du prochain et du dernier rendez-vous, résumé depuis le dernier (jours avec mal, force moyenne, jours de médicament dont triptan), et **questions à poser** notées au fil des jours. *Le rendez-vous a eu lieu* range les questions cochées et fait repartir le résumé de cette date.
+- **Rapport PDF**, depuis le dernier rendez-vous, sur 1, 3, 6, 12 mois ou tout l'historique :
+  - résumé, crises avec les signes de la migraine (et avec aura), **points d'attention** (15 jours par mois, médicaments) ;
+  - mois par mois, jauge des médicaments vers les seuils, efficacité **2 h après la prise**, récurrences, délai de prise ;
+  - moment des crises, facteurs observés avec leur **fiabilité**, fenêtre des règles, aliments, MIDAS ;
+  - détail de chaque crise, et les questions pas encore cochées à la fin.
 - **Tableau** (CSV, s'ouvre dans Excel ou Google Sheets).
-- **Sauvegarde automatique** : à chaque note, une copie complète (plus celle de la veille) est écrite dans le dossier privé de l'appli. Android l'envoie dans la sauvegarde Google du téléphone, sans que l'appli ait besoin d'Internet. Si l'appli perd ses notes (nouveau téléphone, données effacées), elle les retrouve toute seule au démarrage, sans jamais remplacer un jour plus récent.
-- **Sauvegarde sur Drive** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…), rappelée chaque semaine. **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
-- **Rappel de sauvegarde** sur l'accueil si la dernière copie envoyée sur Drive date de plus de 7 jours.
 
-### Confort
-- **Rappel du soir** (notification, 21 h par défaut, heure réglable) : seulement si la journée n'est pas encore notée.
-- **Mode nuit** en un toucher, utile quand la lumière fait mal.
-- **Bouton retour d'Android** géré : il recule dans l'appli au lieu de la fermer.
+### Réglages (roue dentée sur l'accueil)
+- **L'appli et toi** : prénom, petit nom, **les mots pour toi** (neutre par défaut, au féminin ou au masculin : « Très stressée », « Gênée par la lumière ») et **le ton** (sobre par défaut, ou tendre : « Coucou mon amour, tu as noté ta journée ? »). Un aperçu montre le rappel du soir. Ce qui est enregistré reste toujours la forme neutre : changer de réglage ne touche ni aux notes ni au bilan.
+- **Ma journée type** : lunettes, sommeil, eau, cafés, écrans, stress, cycle, repas et questions Oui/Non notés d'office avec *Ma tête va bien* (et le widget), sans jamais remplacer une réponse déjà donnée. Option : compléter le reste d'après les 14 derniers jours.
+- **Rappel du soir** (21 h par défaut, heure réglable), **écart entre deux prises**, **questions perso**.
+- **Sauvegarde** :
+  - **automatique** : à chaque note, une copie complète (plus celle de la veille) est écrite dans le dossier privé de l'appli. Android l'envoie dans la sauvegarde Google du téléphone, sans que l'appli ait besoin d'Internet. Si l'appli perd ses notes (nouveau téléphone, données effacées), elle les retrouve toute seule au démarrage, sans jamais remplacer un jour plus récent ;
+  - **sur Drive** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…), rappelée sur l'accueil chaque semaine. **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
 - **Tout effacer**, protégé par une confirmation à taper.
 
-### Accessibilité
-Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des éléments interactifs), grandes zones à toucher, compatible avec le lecteur d'écran TalkBack, information jamais portée par la couleur seule, animations coupées si le téléphone le demande.
+### Confort et accessibilité
+- **Mode nuit** en un toucher, utile quand la lumière fait mal.
+- **Bouton retour d'Android** géré : il recule dans l'appli au lieu de la fermer.
+- Libellés d'au moins 14 px, contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des éléments interactifs), zones à toucher de 44 px au moins, compatible avec le lecteur d'écran TalkBack, information jamais portée par la couleur seule, animations coupées si le téléphone le demande.
 
 ## Vie privée et données
 
@@ -118,7 +148,7 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 | **Où sont les notes ?** | Dans le téléphone, dans l'espace privé de l'appli. Aucun serveur, aucun compte. |
 | **Connexion internet** | Aucune : l'appli n'a pas la permission Internet, Android lui interdit toute connexion. |
 | **Compte, publicité, statistiques** | Aucun. |
-| **Permissions demandées** | Notifications (rappel du soir, fin de crise, prochaine prise), réveil et redémarrage du téléphone (pour que les rappels survivent à un redémarrage). |
+| **Permissions demandées** | Notifications (rappel du soir, fin de crise, 2 h après une prise, prochaine prise), réveil et redémarrage du téléphone (pour que les rappels survivent à un redémarrage). Le widget n'affiche que des boutons : il ne lit aucune note. |
 | **Sauvegarde Google du téléphone** | L'appli écrit une copie de ses notes dans son dossier privé à chaque changement. Si la sauvegarde Google est activée (Réglages › Google › Sauvegarde, en général activée par défaut), Android l'envoie chiffrée dans le compte Google, environ une fois par jour (en Wi-Fi, téléphone en charge). Sur un nouveau téléphone, en réinstallant l'appli avec le même compte, les notes reviennent. L'appli elle-même n'envoie rien. |
 | **Si le téléphone casse** | Deux protections indépendantes : la sauvegarde Google automatique, et les copies envoyées sur Drive chaque semaine. La seconde marche même si la sauvegarde Google est désactivée. |
 
@@ -130,9 +160,11 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 2. L'ouvrir depuis l'appli **Fichiers**, puis autoriser l'installation pour cette source si Android le demande.
 3. **Mise à jour** : installer le nouvel APK par-dessus. Les notes sont conservées.
 4. **Vérifier la sauvegarde Google** (une fois) : *Réglages* › *Google* › *Sauvegarde* (selon les téléphones : *Système* › *Sauvegarde*), « Sauvegarde par Google One » activée. C'est elle qui emporte la copie automatique hors du téléphone.
-5. **Nouveau téléphone** : se connecter au même compte Google, installer l'APK, ouvrir l'appli. Si Android a remis la copie automatique, l'appli retrouve les notes toute seule au démarrage. Sinon : *Mes données* › *Remettre une sauvegarde (fichier)* avec la dernière copie envoyée sur Drive.
+5. **Nouveau téléphone** : se connecter au même compte Google, installer l'APK, ouvrir l'appli. Si Android a remis la copie automatique, l'appli retrouve les notes toute seule au démarrage. Sinon : *Réglages* (roue dentée) › *Remettre une sauvegarde (fichier)* avec la dernière copie envoyée sur Drive.
 
-> **Changement de clé de signature (une seule fois)** : Android refuse d'installer un APK signé avec une autre clé par-dessus l'appli déjà installée. Dans l'ancienne appli : *Mes données* → *Faire une sauvegarde* (l'envoyer sur Drive ou par mail). Désinstaller, installer le nouvel APK, puis *Mes données* → *Remettre une sauvegarde (fichier)*. Les mises à jour suivantes, signées avec la même clé, s'installent de nouveau par-dessus.
+> **Changement de clé de signature (une seule fois)** : Android refuse d'installer un APK signé avec une autre clé par-dessus l'appli déjà installée. Dans l'ancienne appli : *Mes données* → *Faire une sauvegarde* (l'envoyer sur Drive ou par mail). Désinstaller, installer le nouvel APK, puis *Réglages* (roue dentée) → *Remettre une sauvegarde (fichier)*. Les mises à jour suivantes, signées avec la même clé, s'installent de nouveau par-dessus.
+
+**Version de test** : à chaque push sur une branche autre que `main`, GitHub Actions fabrique un APK de test (onglet *Actions* › *APK de test* › *Artifacts* › `mon-journal-test-apk`). Il s'appelle « Mon Journal (test) » (identifiant `fr.journalmigraines.app.test`) et s'installe **à côté** de la vraie appli, avec ses propres notes : rien n'est touché. Pour y essayer ses vraies notes : *Faire une sauvegarde* dans l'appli, puis *Remettre une sauvegarde (fichier)* dans la version de test.
 
 L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](https://github.com/loic31000/journal-migraines/releases), ou se fabrique avec `npm run apk` (voir ci-dessous).
 
@@ -143,6 +175,7 @@ L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](http
 | Interface et logique | HTML, CSS, JavaScript, sans framework | Un seul fichier, `www/index.html` |
 | Appli Android | [Capacitor](https://capacitorjs.com) 6.2 | Enveloppe la page dans une vraie appli Android |
 | Plugins natifs | `@capacitor/app`, `filesystem`, `share`, `local-notifications` | Bouton retour, fichiers, menu de partage, rappel du soir |
+| Code natif | Java (`JournalWidget.java`), ressources Android | Widget de l'écran d'accueil, raccourcis de l'icône, liens `journalmigraines://` |
 | Stockage | `localStorage` de la WebView | Privé à l'appli, persistant |
 | PDF | jsPDF 4.2.1 + jsPDF-AutoTable 5.0.8 | Rapport pour le médecin, intégré à l'APK |
 | Polices | Fraunces (titres, chiffres) et Manrope (texte), via Fontsource | Intégrées à l'APK, aucune requête réseau |
@@ -214,7 +247,13 @@ Pour redessiner l'icône : `node scripts/icons.js` puis `npx @capacitor/assets g
 - plusieurs médicaments par jour : ancien et nouveau format lus, chaque prise comptée dans le bilan, vieilles sauvegardes restaurées sans perte ;
 - heures : fin de crise calculée (même après minuit), détail du jour rangé par heure et complet ;
 - sauvegarde automatique : copie écrite à chaque changement, notes retrouvées au démarrage, jamais au détriment d'un jour plus récent, copie de la veille si la dernière est abîmée, « Tout effacer » efface aussi les copies ;
-- remise à zéro, seuils médicaments, bilan semaine et mois.
+- remise à zéro, seuils médicaments, bilan semaine, mois et 3 mois ;
+- mots et ton : neutre et sobre par défaut, féminin, masculin, tendre avec ou sans petit nom ; symptômes notés au féminin ramenés à la forme neutre ;
+- « Ma tête va bien » en un toucher, journée type notée d'office sans remplacer une réponse donnée, jours oubliés ;
+- mode crise : médicaments habituels, « J'ai pris » et « Annuler », prochaine prise possible ;
+- liens du widget et des raccourcis (liens inconnus ignorés, même lien jamais traité deux fois) ;
+- onglet Médecin : résumé depuis le dernier rendez-vous, questions à poser, rendez-vous passé ;
+- bilan précis : jours de mal par mois et seuil des 15 jours, critères ICHD-3 de la migraine, 1ers jours des règles et fenêtre menstruelle, réponses « 2 h après », récurrences dans les 48 h, pistes encore faibles.
 
 Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de partage, notifications).
 
@@ -233,6 +272,8 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 │   └── copy-apk.js         copie l'APK à la racine
 ├── tests/
 │   └── app.test.js         tests de la logique
+├── .github/workflows/
+│   └── apk-test.yml        APK de test à chaque push sur une branche
 ├── capacitor.config.json   identité de l'appli et réglages des plugins
 ├── package.json            dépendances et scripts
 ├── CONTRIBUTING.md         comment proposer une correction
@@ -252,6 +293,8 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.4.0** | 11 | Bilan plus précis : jours de mal par mois et seuil des 15 jours, critères ICHD-3 de la migraine (nouveaux signes : d'un seul côté, qui bat, pire en bougeant, aura, vomissements), 1er jour des règles et fenêtre menstruelle, efficacité 2 h après la prise (notification et question sur l'accueil), récurrences dans les 48 h, pistes « encore faibles » signalées ; tout est repris dans le rapport PDF. Journée type, graphique du bilan par bandes de force. |
+| **2.3.0** | 10 | « Pas de mal » en un toucher, jour oublié signalé, *Forte* passe en mode crise, mode crise avec minuteur et *J'ai pris*, *Enregistrer* à chaque étape du formulaire, médicaments habituels en un toucher, onglet **Médecin** (rendez-vous, résumé, questions à poser), **Réglages** (prénom, petit nom, accords, ton), widget et raccourcis Android, action *J'ai pris…* dans la notification, libellés de 14 px minimum, APK de test via GitHub Actions. |
 | **2.2.3** | 9 | Salutation de l'accueil sans cœur, captures d'écran mises à jour. |
 | **2.2.2** | 8 | Version publique : licences des polices (OFL) jointes à l'APK, Android 7.0 minimum (la WebView d'Android 5 et 6 ne gère plus les couleurs de l'interface), lien de téléchargement dans le README. |
 | **2.2.1** | 7 | Correction : le détail d'un jour (et le questionnaire MIDAS) s'ouvre sans flash, le panneau glisse du bas en même temps que le fond s'assombrit. |
