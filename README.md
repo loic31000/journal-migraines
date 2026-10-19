@@ -9,11 +9,11 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 **[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
 
-![Version](https://img.shields.io/badge/version-2.2.3-a92c49)
+![Version](https://img.shields.io/badge/version-2.3.0-a92c49)
 ![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-58%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-87%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
 ![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
@@ -68,14 +68,16 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 ## Fonctionnalités
 
 ### Noter sa journée
-- **Accueil en une question** : « Comment va ta tête aujourd'hui ? », avec deux grandes tuiles (*J'ai eu mal* / *Pas de mal*). Une fois la journée notée, elle se retrouve dans *Ma semaine*, qui la rouvre d'un toucher.
+- **Accueil en une question** : « Comment va ta tête aujourd'hui ? ». **Pas de mal aujourd'hui** note la journée d'un seul toucher, sans formulaire (*Compléter* reste possible). *J'ai eu mal, je raconte* ouvre le formulaire. Une fois la journée notée, elle se retrouve dans *Ma semaine*, qui la rouvre d'un toucher.
+- **Jour oublié** : *Ma semaine* signale le dernier jour pas noté (« Samedi n'est pas noté : le noter »).
 - **Crise rapide** : un toucher sur *Légère*, *Moyenne* ou *Forte* (une tête qui se remplit comme une jauge) note la crise avec l'heure. On complète plus tard. Bouton **Annuler** et **Retirer cette crise** en cas d'erreur.
-- **Mode crise** : un appui long sur *Forte* (ou *Passer en mode crise*) note la crise et passe l'appli en noir profond, sans animation, avec de gros boutons et l'essentiel seulement.
+- **Mode crise** : *Forte* (ou *Passer en mode crise*) note la crise et passe l'appli en noir profond, sans animation, avec de gros boutons et l'essentiel seulement : le temps écoulé depuis le début de la crise, et **J'ai pris** pour noter un médicament habituel d'un toucher, avec l'heure et la prochaine prise possible.
+- **Widget et raccourcis Android** : le widget « Ma tête aujourd'hui » (Pas de mal, Légère, Moyenne, Forte) et l'appui long sur l'icône (*Crise forte*, *J'ai pris un médicament*, *Noter ma journée*) notent sans chercher l'appli. La notification « Ta crise est-elle finie ? » propose aussi *J'ai pris…*.
 - **Fin de crise en un toucher** : *Ma crise est finie* calcule la durée. Une notification « Ta crise est-elle finie ? » arrive 2 h après une crise rapide, avec *Oui, c'est fini* ou *Pas encore* (nouveau rappel 1 h plus tard).
 - **Comme d'habitude** : remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après les 14 derniers jours.
-- **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression) :
+- **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression), avec **Enregistrer** à chaque étape : rien n'oblige à aller au bout.
   - la tête : mal ou pas, force de 1 à 10 sur un curseur ;
-  - la crise : heure de début, durée, zones douloureuses, signes associés (nausées, lumière, bruit…), médicaments pris (autant que nécessaire, avec l'heure de prise et l'efficacité de chacun) ;
+  - la crise : d'abord les médicaments pris (les habituels s'ajoutent d'un toucher avec l'heure, autant que nécessaire, avec l'efficacité de chacun), puis heure de début, durée, zones douloureuses, et les signes associés repliés (nausées, lumière, bruit…) ;
   - les repas : petit-déjeuner, midi, soir (avec l'heure si on veut), cafés ou thés, verres d'eau ;
   - la journée : port des lunettes, sommeil, temps d'écran, stress, cycle ;
   - pour finir : questions personnelles et notes libres.
@@ -96,11 +98,15 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 - **Alerte médicaments** : bandeau si les prises dépassent les seuils de surveillance de l'abus médicamenteux (classification ICHD-3 : 10 jours par mois pour les triptans, 15 pour les antidouleurs simples).
 
 ### Pour le médecin et la sauvegarde
-- **Rapport PDF** sur 1, 3, 6, 12 mois ou tout l'historique : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
+- **Onglet Médecin** : dates du prochain et du dernier rendez-vous, résumé depuis le dernier rendez-vous (jours avec mal, force moyenne, jours de médicament), et **questions à poser** notées au fil des jours. *Le rendez-vous a eu lieu* range les questions cochées et fait repartir le résumé de cette date.
+- **Rapport PDF** depuis le dernier rendez-vous, sur 1, 3, 6, 12 mois ou tout l'historique, avec les questions pas encore cochées à la fin : résumé, mois par mois, jauge des médicaments vers les seuils d'alerte, délai de prise, moment des crises, facteurs observés, aliments à surveiller, historique MIDAS, détail de chaque crise.
 - **Tableau** (CSV, s'ouvre dans Excel ou Google Sheets).
 - **Sauvegarde automatique** : à chaque note, une copie complète (plus celle de la veille) est écrite dans le dossier privé de l'appli. Android l'envoie dans la sauvegarde Google du téléphone, sans que l'appli ait besoin d'Internet. Si l'appli perd ses notes (nouveau téléphone, données effacées), elle les retrouve toute seule au démarrage, sans jamais remplacer un jour plus récent.
 - **Sauvegarde sur Drive** en un fichier, envoyé via le menu de partage Android (Drive, Gmail, WhatsApp…), rappelée chaque semaine. **Restauration** depuis ce fichier ou un texte collé, sans jamais écraser un jour plus récent.
 - **Rappel de sauvegarde** sur l'accueil si la dernière copie envoyée sur Drive date de plus de 7 jours.
+
+### Réglages (roue dentée sur l'accueil)
+- **L'appli et toi** : prénom, petit nom, **les mots pour toi** (neutre par défaut, au féminin ou au masculin : « Très stressée », « Gênée par la lumière ») et **le ton** (sobre par défaut, ou tendre : « Coucou mon amour, tu as noté ta journée ? »). Un aperçu montre le rappel du soir. Ce qui est enregistré reste toujours la forme neutre : changer de réglage ne touche pas aux notes ni au bilan.
 
 ### Confort
 - **Rappel du soir** (notification, 21 h par défaut, heure réglable) : seulement si la journée n'est pas encore notée.
@@ -109,7 +115,7 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 - **Tout effacer**, protégé par une confirmation à taper.
 
 ### Accessibilité
-Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des éléments interactifs), grandes zones à toucher, compatible avec le lecteur d'écran TalkBack, information jamais portée par la couleur seule, animations coupées si le téléphone le demande.
+Libellés d'au moins 14 px, contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des éléments interactifs), grandes zones à toucher, compatible avec le lecteur d'écran TalkBack, information jamais portée par la couleur seule, animations coupées si le téléphone le demande.
 
 ## Vie privée et données
 
@@ -130,9 +136,11 @@ Contrastes vérifiés (au moins 4,5:1 pour le texte et 3:1 pour les contours des
 2. L'ouvrir depuis l'appli **Fichiers**, puis autoriser l'installation pour cette source si Android le demande.
 3. **Mise à jour** : installer le nouvel APK par-dessus. Les notes sont conservées.
 4. **Vérifier la sauvegarde Google** (une fois) : *Réglages* › *Google* › *Sauvegarde* (selon les téléphones : *Système* › *Sauvegarde*), « Sauvegarde par Google One » activée. C'est elle qui emporte la copie automatique hors du téléphone.
-5. **Nouveau téléphone** : se connecter au même compte Google, installer l'APK, ouvrir l'appli. Si Android a remis la copie automatique, l'appli retrouve les notes toute seule au démarrage. Sinon : *Mes données* › *Remettre une sauvegarde (fichier)* avec la dernière copie envoyée sur Drive.
+5. **Nouveau téléphone** : se connecter au même compte Google, installer l'APK, ouvrir l'appli. Si Android a remis la copie automatique, l'appli retrouve les notes toute seule au démarrage. Sinon : *Réglages* (roue dentée) › *Remettre une sauvegarde (fichier)* avec la dernière copie envoyée sur Drive.
 
 > **Changement de clé de signature (une seule fois)** : Android refuse d'installer un APK signé avec une autre clé par-dessus l'appli déjà installée. Dans l'ancienne appli : *Mes données* → *Faire une sauvegarde* (l'envoyer sur Drive ou par mail). Désinstaller, installer le nouvel APK, puis *Mes données* → *Remettre une sauvegarde (fichier)*. Les mises à jour suivantes, signées avec la même clé, s'installent de nouveau par-dessus.
+
+**Version de test** : à chaque push sur une branche autre que `main`, GitHub Actions fabrique un APK de test (onglet *Actions* › *APK de test* › *Artifacts* › `mon-journal-test-apk`). Il s'appelle « Mon Journal (test) » (identifiant `fr.journalmigraines.app.test`) et s'installe **à côté** de la vraie appli, avec ses propres notes : rien n'est touché. Pour y essayer ses vraies notes : *Faire une sauvegarde* dans l'appli, puis *Remettre une sauvegarde (fichier)* dans la version de test.
 
 L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](https://github.com/loic31000/journal-migraines/releases), ou se fabrique avec `npm run apk` (voir ci-dessous).
 
@@ -233,6 +241,8 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 │   └── copy-apk.js         copie l'APK à la racine
 ├── tests/
 │   └── app.test.js         tests de la logique
+├── .github/workflows/
+│   └── apk-test.yml        APK de test à chaque push sur une branche
 ├── capacitor.config.json   identité de l'appli et réglages des plugins
 ├── package.json            dépendances et scripts
 ├── CONTRIBUTING.md         comment proposer une correction
@@ -252,6 +262,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.3.0** | 10 | « Pas de mal » en un toucher, jour oublié signalé, *Forte* passe en mode crise, mode crise avec minuteur et *J'ai pris*, *Enregistrer* à chaque étape du formulaire, médicaments habituels en un toucher, onglet **Médecin** (rendez-vous, résumé, questions à poser), **Réglages** (prénom, petit nom, accords, ton), widget et raccourcis Android, action *J'ai pris…* dans la notification, libellés de 14 px minimum, APK de test via GitHub Actions. |
 | **2.2.3** | 9 | Salutation de l'accueil sans cœur, captures d'écran mises à jour. |
 | **2.2.2** | 8 | Version publique : licences des polices (OFL) jointes à l'APK, Android 7.0 minimum (la WebView d'Android 5 et 6 ne gère plus les couleurs de l'interface), lien de téléchargement dans le README. |
 | **2.2.1** | 7 | Correction : le détail d'un jour (et le questionnaire MIDAS) s'ouvre sans flash, le panneau glisse du bas en même temps que le fond s'assombrit. |

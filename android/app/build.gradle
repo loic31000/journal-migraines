@@ -12,8 +12,8 @@ android {
         applicationId "fr.journalmigraines.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "2.2.3"
+        versionCode 10
+        versionName "2.3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -32,6 +32,11 @@ android {
         }
     }
     buildTypes {
+        // Version de test (fabriquée par GitHub Actions) : s'installe à côté de la vraie appli, avec ses propres notes
+        debug {
+            applicationIdSuffix ".test"
+            versionNameSuffix "-test"
+        }
         release {
             if (keystoreFile.exists()) signingConfig signingConfigs.release
             minifyEnabled false

@@ -6,7 +6,7 @@ const path = require("path");
 const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
 const scriptStart = html.lastIndexOf("<script>") + "<script>".length;
 const app = html.slice(scriptStart, html.indexOf("</script>", scriptStart))
-  .replace(/\}\)\(\);\s*$/, "window.__t={S,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
+  .replace(/\}\)\(\);\s*$/, "window.__t={S,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---
 const mk = () => {
@@ -198,8 +198,8 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   native.scheduled = [];
   await T.quickCrisis(9); await new Promise(r => setTimeout(r, 30));
   const cn = native.scheduled.flat().find(n => n.id === 300);
-  ok(cn && cn.actionTypeId === "CRISIS_END" && native.actionTypes && native.actionTypes[0].actions.map(x => x.id).join() === "done,later" && Math.abs(cn.schedule.at - Date.now() - 2 * 3600e3) < 60e3,
-    "crise rapide : notification de fin dans 2 h, avec « Oui, c'est fini » et « Pas encore »");
+  ok(cn && cn.actionTypeId === "CRISIS_END" && native.actionTypes && native.actionTypes[0].actions.map(x => x.id).join() === "done,later,med" && Math.abs(cn.schedule.at - Date.now() - 2 * 3600e3) < 60e3,
+    "crise rapide : notification de fin dans 2 h, avec « Oui, c'est fini », « Pas encore » et « J'ai pris… »");
   ok(typeof native.listeners.localNotificationActionPerformed === "function", "la réponse à la notification est écoutée");
   await T.undoQuick(T.S.entries[Object.keys(T.S.entries).sort().pop()].date);
 
@@ -270,6 +270,87 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   ok(!native.files["sauvegarde-auto-veille.json"] && after.entries && !Object.keys(after.entries).length, "« Tout effacer » efface aussi les copies automatiques");
   T = boot(true); await tick(); await tick();
   ok(!Object.keys(T.S.entries).length, "après « Tout effacer », rien ne revient au démarrage");
+
+
+  // --- v2.3 ---
+  const tk = () => new Promise(r => setTimeout(r, 30));
+  const td = ymdL(new Date());
+  // Mots et ton : neutre et sobre par défaut, rien de genré ni de tendre tant que ce n'est pas choisi
+  T = boot(true); await tk();
+  T.S.settings.name = "Camille Martin";
+  ok(T.stLabel("4") === "Fort stress" && T.symLabel("Sensible à la lumière") === "Sensible à la lumière" && T.T("remind") === "As-tu noté ta journée ? Même un jour sans mal compte.",
+    "par défaut : textes neutres et sobres");
+  T.S.settings.gender = "f";
+  ok(T.stLabel("3") === "Stressée" && T.stLabel("4") === "Très stressée" && T.symLabel("Sensible au bruit") === "Gênée par le bruit", "au féminin : Stressée, Gênée par le bruit");
+  T.S.settings.gender = "m";
+  ok(T.stLabel("4") === "Très stressé" && T.symLabel("Sensible à la lumière") === "Gêné par la lumière", "au masculin : Très stressé, Gêné par la lumière");
+  T.S.settings.tone = "tendre";
+  ok(T.T("remind") === "Coucou Camille, tu as noté ta journée ? Même un jour sans mal compte.", "ton tendre : le rappel salue par le prénom");
+  T.S.settings.pet = "mon amour";
+  ok(T.T("remind").startsWith("Coucou mon amour,") && T.T("dose", { med: "Doliprane" }) === "Mon amour, tu peux reprendre Doliprane si tu en as besoin."
+    && T.T("crisisEnded", { h: "2,5" }) === "Crise de 2,5 h notée. Repose-toi bien, mon amour.", "ton tendre : le petit nom remplace le prénom");
+  T.S.settings.pet = ""; T.S.settings.name = "";
+  ok(T.T("crisisAsk").startsWith("Ta crise est passée ?") && T.T("savedCalm") === "C'est noté. Belle journée !", "ton tendre sans prénom : phrases correctes");
+  const cs2 = T.cleanSettings({ gender: "x", tone: "fou", pet: "a".repeat(90), rdv: { next: "<b>", last: "2026-09-03" }, docQ: [{ id: "d1", t: "Traitement de fond ?", done: 1 }, { id: "bad id", t: "x" }] });
+  ok(cs2.gender === "" && cs2.tone === "" && cs2.pet.length === 40 && cs2.rdv.next === "" && cs2.rdv.last === "2026-09-03" && cs2.docQ.length === 1 && cs2.docQ[0].done === false,
+    "réglages : accords, ton, petit nom, rendez-vous et questions nettoyés");
+  ok(T.cleanEntry({ date: "2026-09-01", migraine: true, symptoms: ["Gênée par la lumière", "Nausées"] }).symptoms.join() === "Sensible à la lumière,Nausées",
+    "symptômes notés au féminin (ancienne version) ramenés à la forme neutre");
+  T.S.settings.gender = ""; T.S.settings.tone = "";
+
+  // « Pas de mal » en un toucher
+  T.S.entries = {};
+  ok(await T.noPainNow() && T.S.entries[td].migraine === false && T.S.entries[td].intensity === 0, "« Pas de mal » : journée notée d'un toucher");
+  ok(!(await T.noPainNow()), "« Pas de mal » ne remplace pas une journée déjà notée");
+
+  // Jours oubliés : seulement depuis la première note
+  const nowD = new Date(2026, 9, 19, 12), K = n => ymdL(new Date(2026, 9, 19 - n));
+  ok(T.missedDays({}, nowD).length === 0, "jours oubliés : rien tant qu'aucune note");
+  ok(T.missedDays({ [K(3)]: {}, [K(1)]: {} }, nowD).join() === K(2), "jours oubliés : seulement les trous depuis la première note");
+  ok(T.missedDays({ [K(10)]: {} }, nowD).length === 6 && T.missedDays({ [K(10)]: {} }, nowD)[0] === K(1), "jours oubliés : les 6 derniers jours, le plus récent d'abord");
+
+  // Médicaments habituels et « J'ai pris »
+  const md = { "2026-10-10": { date: "2026-10-10", meds: [{ name: "Ibuprofène 400", time: "10:00" }] }, "2026-10-12": { date: "2026-10-12", meds: [{ name: "Ibuprofène 400", time: "" }, { name: "Sumatriptan", time: "" }] },
+    "2026-10-15": { date: "2026-10-15", meds: [{ name: "ibuprofène 400", time: "" }] }, "2026-01-01": { date: "2026-01-01", meds: [{ name: "Vieux", time: "" }] } };
+  const rm = T.recentMeds(md, nowD);
+  ok(rm.join() === "ibuprofène 400,Sumatriptan", "médicaments habituels : les plus pris d'abord, 90 derniers jours seulement");
+  T.S.entries = {}; T.S.settings.medGaps = { "sumatriptan": 6 };
+  const at = new Date(); at.setHours(13, 20, 0, 0);
+  ok(!(await T.takeMed("Sumatriptan", at)), "« J'ai pris » : refusé s'il n'y a pas de crise notée ce jour");
+  await T.putEntry({ date: td, migraine: true, intensity: 8, start: "13:05", duration: "", zones: [], symptoms: [], meds: [], quick: true, quickPrev: null });
+  ok(await T.takeMed("Sumatriptan", at), "« J'ai pris » : prise ajoutée à la crise du jour");
+  const me = T.S.entries[td];
+  ok(me.meds.length === 1 && me.meds[0].name === "Sumatriptan" && me.meds[0].time === "13:20" && me.quick === true, "« J'ai pris » : nom et heure gardés, la crise reste une crise rapide");
+  const st1 = T.medStatus("Sumatriptan", new Date(at.getTime() + 3600e3));
+  ok(st1.wait && st1.txt === "possible vers 19 h 20", "statut : prochaine prise possible d'après l'écart réglé");
+  await T.untakeMed(td, "Sumatriptan", "13:20");
+  ok(T.S.entries[td].meds.length === 0, "« Annuler » retire la prise");
+
+  // Liens du widget et des raccourcis
+  T.S.entries = {};
+  ok(await T.handleLink("journalmigraines://nopain") && T.S.entries[td] && T.S.entries[td].migraine === false, "lien « Pas de mal » : journée notée");
+  T.S.entries = {};
+  await new Promise(r => setTimeout(r, 5));
+  ok(await T.handleLink("journalmigraines://quick?l=6") && T.S.entries[td].migraine === true && T.S.entries[td].intensity === 6 && T.S.entries[td].quick && !T.isCrisis(), "lien crise moyenne : crise rapide notée");
+  ok(!(await T.handleLink("journalmigraines://quick?l=6")), "le même lien reçu deux fois de suite n'est traité qu'une fois");
+  ok(await T.handleLink("journalmigraines://quick?l=9") && T.S.entries[td].intensity === 9 && T.isCrisis(), "lien crise forte : mode crise");
+  ok(!(await T.handleLink("journalmigraines://quick?l=7")) && !(await T.handleLink("https://exemple.fr")) && !(await T.handleLink("journalmigraines://rm?l=1")), "liens inconnus ignorés");
+
+  // Médecin : depuis le dernier rendez-vous, questions à poser
+  T.S.entries = { "2026-08-30": { date: "2026-08-30", migraine: true, intensity: 9, meds: [] }, "2026-09-05": { date: "2026-09-05", migraine: true, intensity: 6, meds: [{ name: "Sumatriptan" }] },
+    "2026-09-06": { date: "2026-09-06", migraine: true, intensity: 4, meds: [{ name: "Doliprane" }] }, "2026-09-07": { date: "2026-09-07", migraine: false, intensity: 0 } };
+  T.S.settings.rdv = { next: "", last: "2026-09-03" };
+  const rf = T.rdvFrom(nowD), ds = T.docSummary(T.S.entries, rf.from, "2026-10-19");
+  ok(rf.since && rf.from === "2026-09-03" && ds.n === 3 && ds.mig === 2 && ds.avgI === 5 && ds.medDays === 2 && ds.triDays === 1, "médecin : résumé depuis le dernier rendez-vous");
+  T.S.settings.rdv = { next: "", last: "" };
+  ok(!T.rdvFrom(nowD).since && T.rdvFrom(nowD).from === "2026-08-01", "médecin : sans rendez-vous noté, les 3 derniers mois");
+  T.S.settings.docQ = [];
+  ok(await T.addDocQ("  Un traitement de fond ?  ") && !(await T.addDocQ("   ")) && T.S.settings.docQ[0].t === "Un traitement de fond ?", "questions pour le médecin : ajout, texte vide refusé");
+  T.S.settings.docQ.push({ id: "dz", t: "Lien avec les règles ?", done: true });
+  T.S.settings.rdv = { next: td, last: "2026-09-03" };
+  ok(await T.rdvDone() && T.S.settings.rdv.last === td && !T.S.settings.rdv.next && T.S.settings.docQ.length === 1, "rendez-vous passé : il devient le dernier, les questions cochées sont rangées");
+  T = boot(true); await tk();
+  ok(T.S.settings.rdv.last === td && T.S.settings.docQ.length === 1, "rendez-vous et questions gardés à la réouverture");
 
   // Bilan
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }

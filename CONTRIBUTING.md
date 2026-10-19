@@ -22,5 +22,5 @@ Pour une faille de sécurité, ne passez pas par une issue publique : voir [SECU
 - **100 % local** : aucune connexion réseau, aucun compte, aucun service tiers. L'appli n'a pas la permission Internet et doit le rester.
 - **Accessibilité** : contrastes d'au moins 4,5:1 pour le texte et 3:1 pour les contours, zones à toucher de 44 px, compatible avec le lecteur d'écran TalkBack.
 - **Sécurité** : toute donnée saisie ou restaurée affichée dans la page passe par `esc()`.
-- **Textes** : en français, au tutoiement, neutres (sans forme au féminin ou au masculin qui vise la personne), sans tiret long (utiliser « - »).
+- **Textes** : en français, au tutoiement, neutres par défaut (sans forme au féminin ou au masculin qui vise la personne), sans tiret long (utiliser « - »). Les formes accordées passent par `G(neutre, féminin, masculin)` et les phrases au ton tendre par `T()` : elles n'apparaissent que si la personne les choisit dans les réglages. Ce qui est enregistré reste la forme neutre.
 - **Pas de diagnostic** : l'appli observe, elle ne conclut pas à la place d'un médecin.

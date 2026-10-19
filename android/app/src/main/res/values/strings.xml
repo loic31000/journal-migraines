@@ -4,4 +4,21 @@
     <string name="title_activity_main">Mon Journal</string>
     <string name="package_name">fr.journalmigraines.app</string>
     <string name="custom_url_scheme">fr.journalmigraines.app</string>
+
+    <!-- Widget de l'écran d'accueil -->
+    <string name="widget_label">Ma tête aujourd\'hui</string>
+    <string name="widget_description">Noter sa journée ou une crise en un toucher</string>
+    <string name="widget_title">Ma tête aujourd\'hui</string>
+    <string name="widget_nopain">Pas de mal</string>
+    <string name="widget_light">Légère</string>
+    <string name="widget_mid">Moyenne</string>
+    <string name="widget_strong">Forte</string>
+
+    <!-- Raccourcis de l'icône -->
+    <string name="sc_strong_short">Crise forte</string>
+    <string name="sc_strong_long">Crise forte (mode crise)</string>
+    <string name="sc_med_short">J\'ai pris…</string>
+    <string name="sc_med_long">J\'ai pris un médicament</string>
+    <string name="sc_day_short">Ma journée</string>
+    <string name="sc_day_long">Noter ma journée</string>
 </resources>
