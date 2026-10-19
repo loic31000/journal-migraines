@@ -1756,7 +1756,8 @@ async function saveFile(filename,data){
   }
   // Ouverte dans un navigateur : téléchargement classique
   try{
-    const url=URL.createObjectURL(data instanceof Blob?data:new Blob([data],{type:"application/octet-stream"}));
+    // Toujours binaire (PDF compris) : le navigateur enregistre le fichier, il ne l'ouvre jamais
+    const url=URL.createObjectURL(new Blob([data],{type:"application/octet-stream"}));
     const a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
     setTimeout(()=>URL.revokeObjectURL(url),5000);toast("Fichier téléchargé");return true;
   }catch(e){toast("Le fichier n'a pas pu être enregistré");return false}

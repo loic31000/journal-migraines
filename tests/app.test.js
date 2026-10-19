@@ -4,7 +4,8 @@ const fs = require("fs");
 const path = require("path");
 
 const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
-const app = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].pop()[1]
+const scriptStart = html.lastIndexOf("<script>") + "<script>".length;
+const app = html.slice(scriptStart, html.indexOf("</script>", scriptStart))
   .replace(/\}\)\(\);\s*$/, "window.__t={S,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---
