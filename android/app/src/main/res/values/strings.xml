@@ -9,7 +9,7 @@
     <string name="widget_label">Ma tête aujourd\'hui</string>
     <string name="widget_description">Noter sa journée ou une crise en un toucher</string>
     <string name="widget_title">Ma tête aujourd\'hui</string>
-    <string name="widget_nopain">Pas de mal</string>
+    <string name="widget_nopain">Ma tête va bien</string>
     <string name="widget_light">Légère</string>
     <string name="widget_mid">Moyenne</string>
     <string name="widget_strong">Forte</string>

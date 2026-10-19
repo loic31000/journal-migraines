@@ -68,11 +68,11 @@ Tout reste sur le téléphone : pas de compte, pas de serveur, pas d'abonnement.
 ## Fonctionnalités
 
 ### Noter sa journée
-- **Accueil en une question** : « Comment va ta tête aujourd'hui ? ». **Pas de mal aujourd'hui** note la journée d'un seul toucher, sans formulaire (*Compléter* reste possible). *J'ai eu mal, je raconte* ouvre le formulaire. Une fois la journée notée, elle se retrouve dans *Ma semaine*, qui la rouvre d'un toucher.
+- **Accueil en une question** : « Comment va ta tête aujourd'hui ? ». **Ma tête va bien** note la journée d'un seul toucher, sans formulaire (*Compléter* reste possible). *J'ai eu mal, je raconte* ouvre le formulaire. Une fois la journée notée, elle se retrouve dans *Ma semaine*, qui la rouvre d'un toucher.
 - **Jour oublié** : *Ma semaine* signale le dernier jour pas noté (« Samedi n'est pas noté : le noter »).
 - **Crise rapide** : un toucher sur *Légère*, *Moyenne* ou *Forte* (une tête qui se remplit comme une jauge) note la crise avec l'heure. On complète plus tard. Bouton **Annuler** et **Retirer cette crise** en cas d'erreur.
 - **Mode crise** : *Forte* (ou *Passer en mode crise*) note la crise et passe l'appli en noir profond, sans animation, avec de gros boutons et l'essentiel seulement : le temps écoulé depuis le début de la crise, et **J'ai pris** pour noter un médicament habituel d'un toucher, avec l'heure et la prochaine prise possible.
-- **Widget et raccourcis Android** : le widget « Ma tête aujourd'hui » (Pas de mal, Légère, Moyenne, Forte) et l'appui long sur l'icône (*Crise forte*, *J'ai pris un médicament*, *Noter ma journée*) notent sans chercher l'appli. La notification « Ta crise est-elle finie ? » propose aussi *J'ai pris…*.
+- **Widget et raccourcis Android** : le widget « Ma tête aujourd'hui » (Ma tête va bien, Légère, Moyenne, Forte) et l'appui long sur l'icône (*Crise forte*, *J'ai pris un médicament*, *Noter ma journée*) notent sans chercher l'appli. La notification « Ta crise est-elle finie ? » propose aussi *J'ai pris…*.
 - **Fin de crise en un toucher** : *Ma crise est finie* calcule la durée. Une notification « Ta crise est-elle finie ? » arrive 2 h après une crise rapide, avec *Oui, c'est fini* ou *Pas encore* (nouveau rappel 1 h plus tard).
 - **Comme d'habitude** : remplit les cases vides (repas, eau, café, sommeil, écrans, lunettes) d'après les 14 derniers jours.
 - **Formulaire pas à pas** (4 à 5 écrans courts, avec barre de progression), avec **Enregistrer** à chaque étape : rien n'oblige à aller au bout.

@@ -168,9 +168,9 @@ main.wrap > :is(.sheet,.sheet-bg){animation-delay:0s!important}
   display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .4s var(--spring)}
 .quick button:active{transform:scale(.93);transition-duration:.08s}
 .quick button{flex-direction:column;gap:4px;min-height:84px;padding:10px 6px}
-.quick .wx{width:40px;height:40px;color:var(--wx);transition:transform .45s var(--spring)}
+.quick .wx{width:48px;height:48px;color:var(--wx);transition:transform .45s var(--spring)}
 .quick button:active .wx{transform:scale(.85) rotate(-6deg)}
-.quick [data-quick="3"]{--wx:var(--accent-bg)}
+.quick [data-quick="3"]{--wx:var(--lilac)}
 .quick [data-quick="6"]{--wx:var(--accent-bg)}
 .quick [data-quick="9"]{--wx:var(--p-high)}
 
@@ -209,11 +209,13 @@ main.wrap > :is(.sheet,.sheet-bg){animation-delay:0s!important}
 .legend i.none{border:2px dashed var(--line-strong)}
 
 /* résumé du jour */
-.facts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.fact{background:var(--surface-2);border-radius:var(--r-md);padding:12px 14px;min-width:0;border:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
-.fact b{display:block;font-size:.875rem;color:var(--ink-2);font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
-.fact span{font-weight:700;overflow-wrap:anywhere}
-.fact.wide{grid-column:1/-1}
+/* Une liste « libellé · valeur » dans un seul bloc : se lit d'un coup d'œil, sans cases à moitié vides */
+.facts{display:flex;flex-direction:column;background:var(--surface-2);border-radius:var(--r-md);padding:2px 16px}
+.fact{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 16px;padding:12px 0;min-width:0}
+.fact + .fact{border-top:1px solid color-mix(in srgb,var(--line-strong) 30%,transparent)}
+.fact b{flex:none;font-size:.9375rem;font-weight:600;color:var(--ink-2)}
+.fact span{flex:1 1 55%;min-width:0;font-weight:700;text-align:right;overflow-wrap:anywhere}
+.fact:not(:has(b)) span{text-align:left;font-weight:500}
 
 /* formulaire pas à pas */
 .formhead{display:flex;align-items:center;gap:12px;padding-top:26px}
@@ -354,7 +356,7 @@ nav.tabs button:focus-visible{outline-color:var(--dock-pill);outline-offset:-3px
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:84vh;overflow:auto;border-radius:34px 34px 0 0;border-bottom:0;background:var(--surface);
   padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .32s var(--ease) both}
 .sheet > *{width:100%;max-width:520px;margin-inline:auto}
-.sheet > .pill{width:fit-content;margin-inline:0}
+.sheet .pillrow{display:flex}
 .sheet .grab{width:44px;height:5px;border-radius:99px;background:var(--line-strong);opacity:.6}
 @keyframes up{from{transform:translateY(48px);opacity:0}to{transform:none;opacity:1}}
 @keyframes fade{from{opacity:0}to{opacity:1}}
@@ -583,10 +585,10 @@ nav.tabs .in.nocur::before{opacity:0}
   <symbol id="i-storm" viewBox="0 0 48 48"><use href="#i-head"/><path d="M28 13.5 23 21h5.5l-4.5 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-calm" viewBox="0 0 48 48"><use href="#i-head"/><path d="M24.5 26.5s-5.2-2.9-5.2-6.3c0-1.7 1.3-3 3-3 1 0 1.8.5 2.2 1.2.4-.7 1.2-1.2 2.2-1.2 1.7 0 3 1.3 3 3 0 3.4-5.2 6.3-5.2 6.3z" fill="currentColor"/></symbol>
   <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 1.5c.6 5.6 4.9 9.9 10.5 10.5-5.6.6-9.9 4.9-10.5 10.5C11.4 16.9 7.1 12.6 1.5 12 7.1 11.4 11.4 7.1 12 1.5z" fill="currentColor"/></symbol>
-  <!-- Crise rapide : la même tête que les grandes tuiles, remplie comme les perles du calendrier (1/3, 2/3, pleine) -->
-  <symbol id="i-lv1" viewBox="0 0 48 48"><clipPath id="hc1"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="31.5" width="48" height="16.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc1)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-lv2" viewBox="0 0 48 48"><clipPath id="hc2"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="20.5" width="48" height="27.5" fill="currentColor" fill-opacity=".85" clip-path="url(#hc2)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="i-lv3" viewBox="0 0 48 48"><clipPath id="hc3"><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43Z"/></clipPath><rect x="0" y="8" width="48" height="40" fill="currentColor" fill-opacity=".85" clip-path="url(#hc3)"/><path d="M17 43v-6.5C12.5 34 10 29.5 10 24.5 10 15.9 16.6 9 25 9c7.6 0 13.5 5.6 13.5 12.6l3.1 5.7c.4.8-.1 1.7-1 1.7h-2.1v4.5c0 1.9-1.5 3.5-3.4 3.5h-4.6V43" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <!-- Crise rapide : le ciel intérieur, du plus léger au plus fort (nuage, pluie, orage) -->
+  <symbol id="i-lv1" viewBox="0 0 48 48"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="31" cy="15" r="5.5"/><path d="M31 5.5v2M39.5 9l-1.4 1.4M42 15h-2M22.5 9l1.4 1.4"/></g><path d="M14 36h20.5a7 7 0 0 0 1-13.9 10 10 0 0 0-19.3 2.4A5.8 5.8 0 0 0 14 36z" fill="currentColor" fill-opacity=".14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lv2" viewBox="0 0 48 48"><path d="M15 31.5h19.5a7 7 0 0 0 1-13.9 10 10 0 0 0-19.3 2.4 5.8 5.8 0 0 0-1.2 11.5z" fill="currentColor" fill-opacity=".22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 37l-2 4.5M25 37l-2 4.5M32 37l-2 4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lv3" viewBox="0 0 48 48"><path d="M15 31.5h19.5a7 7 0 0 0 1-13.9 10 10 0 0 0-19.3 2.4 5.8 5.8 0 0 0-1.2 11.5z" fill="currentColor" fill-opacity=".45" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M26.5 31.5l-5 7.5h6l-4 6.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 <div class="wrap" id="app">
 
@@ -621,10 +623,10 @@ nav.tabs .in.nocur::before{opacity:0}
   <section class="hero" id="askCard" aria-labelledby="askT">
     <svg class="spark s1" aria-hidden="true"><use href="#i-spark"/></svg><svg class="spark s2" aria-hidden="true"><use href="#i-spark"/></svg>
     <div><p class="eyebrow">Ma journée</p><h2 id="askT">Comment va <em>ta tête</em> aujourd'hui ?</h2></div>
-    <button class="nopain" type="button" id="noPain"><svg class="ico" aria-hidden="true"><use href="#i-calm"/></svg><span><b>Pas de mal aujourd'hui</b><small>Un toucher et c'est noté</small></span></button>
+    <button class="nopain" type="button" id="noPain"><svg class="ico" aria-hidden="true"><use href="#i-calm"/></svg><span><b>Ma tête va bien</b><small>Un toucher et la journée est notée</small></span></button>
     <button class="btn line block" type="button" data-start="yes">J'ai eu mal, je raconte</button>
     <div class="quickrow">
-      <p id="quickT1">Crise en ce moment ? <span>Un toucher la note avec l'heure. « Forte » passe aussi l'écran en mode crise.</span></p>
+      <p id="quickT1">Une crise en ce moment ? <span>Touche sa force : elle est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</span></p>
       <div class="quick" role="group" aria-labelledby="quickT1">
         <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
         <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
@@ -647,7 +649,7 @@ nav.tabs .in.nocur::before{opacity:0}
 
   <!-- Seulement quand la journée est notée sans mal : une crise peut arriver plus tard -->
   <section class="card" id="quickCard" hidden aria-labelledby="quickT">
-    <div><h2 id="quickT">Une crise en ce moment ?</h2><p class="hint">Un toucher la note avec l'heure. Tu compléteras plus tard.</p></div>
+    <div><h2 id="quickT">Une crise en ce moment ?</h2><p class="hint">Touche sa force : elle est enregistrée tout de suite, avec l'heure. Tu compléteras plus tard.</p></div>
     <div class="quick" role="group" aria-labelledby="quickT">
       <button type="button" data-quick="3"><svg class="wx" aria-hidden="true"><use href="#i-lv1"/></svg>Légère</button>
       <button type="button" data-quick="6"><svg class="wx" aria-hidden="true"><use href="#i-lv2"/></svg>Moyenne</button>
@@ -664,7 +666,7 @@ nav.tabs .in.nocur::before{opacity:0}
     <div class="rowhead"><h2 id="weekT">Ma semaine</h2><span class="small muted" id="weekCount"></span></div>
     <div class="week" id="weekStrip"></div>
     <button class="missed" type="button" id="missedDay" hidden></button>
-    <div class="legend" aria-hidden="true"><span><i class="none"></i>rien de noté</span><span><i class="pn"></i>pas de mal</span><span><i class="pl"></i>léger 1-3</span><span><i class="pm"></i>moyen 4-6</span><span><i class="ph"></i>fort 7-10</span></div>
+    <div class="legend" aria-hidden="true"><span><i class="none"></i>rien de noté</span><span><i class="pn"></i>sans mal de tête</span><span><i class="pl"></i>léger 1-3</span><span><i class="pm"></i>moyen 4-6</span><span><i class="ph"></i>fort 7-10</span></div>
   </section>
 
   <button class="btn line block" type="button" id="otherDay">Noter un autre jour</button>
@@ -793,7 +795,7 @@ nav.tabs .in.nocur::before{opacity:0}
       <button class="iconbtn" type="button" id="calNext" aria-label="Mois suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
     </div>
     <div class="cal" id="cal"></div>
-    <div class="legend" aria-hidden="true"><span><i class="none"></i>rien de noté</span><span><i class="pn"></i>pas de mal</span><span><i class="pl"></i>léger 1-3</span><span><i class="pm"></i>moyen 4-6</span><span><i class="ph"></i>fort 7-10</span></div>
+    <div class="legend" aria-hidden="true"><span><i class="none"></i>rien de noté</span><span><i class="pn"></i>sans mal de tête</span><span><i class="pl"></i>léger 1-3</span><span><i class="pm"></i>moyen 4-6</span><span><i class="ph"></i>fort 7-10</span></div>
     <p class="hint">Touche un jour pour voir ou modifier ce que tu as noté.</p>
   </section>
   <div class="sheet-bg" id="sheetBg" hidden></div>
@@ -1260,8 +1262,7 @@ function dayDetailHtml(e){
   if(e.migraine){
     if(e.start)tl.push([e.start,"Début de la crise",`${e.intensity}/10${e.duration!==""?` · pendant ${f1(e.duration)} h`:""}`]);
     const fin=endTime(e.start,e.duration);if(fin)tl.push([fin.next?"24:00":fin.t,"Fin de la crise",fin.next?`le lendemain à ${fin.t}`:""]);
-    if(e.duration!=="")sec.crise.push(["Durée",`${f1(e.duration)} h`]);
-    if(!e.start)sec.crise.push(["Début","Heure non notée"]);
+    if(!e.start){sec.crise.push(["Début","Heure non notée"]);if(e.duration!=="")sec.crise.push(["Durée",`${f1(e.duration)} h`])}
     if(e.zones.length)sec.crise.push(["Où",e.zones.join(", "),1]);
     if((e.symptoms||[]).length)sec.crise.push(["Autres signes",e.symptoms.map(symLabel).join(", "),1]);
     ms.forEach((m,i)=>{const lab=ms.length>1?`Médicament ${i+1}`:"Médicament";
@@ -1295,7 +1296,7 @@ function renderHome(){
   // Une seule entrée tant que la journée n'est pas notée ; ensuite la semaine suffit (un toucher sur le jour le rouvre). La carte du jour ne reste qu'après une crise rapide, à compléter
   $("askCard").hidden=!!e;$("todayCard").hidden=!(e&&e.quick);$("quickCard").hidden=!(e&&!e.migraine);
   if(e){
-    $("todayPill").textContent=e.migraine?`Mal ${e.intensity}/10`:"Pas de mal";$("todayPill").className="pill "+pcls(e);
+    $("todayPill").textContent=e.migraine?`Mal ${e.intensity}/10`:"Sans mal de tête";$("todayPill").className="pill "+pcls(e);
     $("todayT").textContent=e.quick?`Crise notée à ${e.start}`:"Aujourd'hui est noté";
     $("editToday").textContent=e.quick?"Compléter ma crise":"Modifier ma journée";$("undoQuick").hidden=!e.quick;
     $("endCrisis").hidden=!(e.quick&&e.migraine&&e.start&&e.duration==="");$("crisisOn").hidden=!(e.quick&&e.migraine)||isCrisis();
@@ -1307,7 +1308,7 @@ function renderHome(){
   const mon=mondayOf(now);let n=0,cnt=0;
   $("weekStrip").innerHTML=Array.from({length:7},(_,i)=>{const d=addDays(mon,i),k=ymd(d),en=S.entries[k];if(en){cnt++;if(en.migraine)n++}
     const fut=d>now&&k!==t;
-    const lab=`${dayLong(k)} : ${en?(en.migraine?`mal de tête ${en.intensity} sur 10`:"pas de mal"):"pas encore noté"}`;
+    const lab=`${dayLong(k)} : ${en?(en.migraine?`mal de tête ${en.intensity} sur 10`:"sans mal de tête"):"pas encore noté"}`;
     return `<button class="wd${k===t?" today":""}" type="button" data-day="${k}" ${fut?"disabled":""} aria-label="${esc(lab)}"><span aria-hidden="true">${DS[i]}</span><span class="c ${pcls(en)}" aria-hidden="true">${d.getDate()}</span></button>`}).join("");
   $("weekCount").textContent=cnt?`${n} jour${n>1?"s":""} avec mal sur ${cnt} noté${cnt>1?"s":""}`:"";
   const miss=missedDays(S.entries,now);$("missedDay").hidden=!miss.length;
@@ -1580,7 +1581,7 @@ function renderCal(){
   $("calTitle").textContent=`${MONTHS[m]} ${y}`;
   let h=DS.map((d,i)=>`<span class="dn" aria-hidden="true">${d}</span>`).join("")+"<span></span>".repeat(off);
   for(let i=1;i<=nd;i++){const k=ymd(new Date(y,m,i)),e=S.entries[k],fut=k>t;
-    const lab=`${dayLong(k)} : ${e?(e.migraine?`mal de tête ${e.intensity} sur 10`:"pas de mal"):"rien de noté"}`;
+    const lab=`${dayLong(k)} : ${e?(e.migraine?`mal de tête ${e.intensity} sur 10`:"sans mal de tête"):"rien de noté"}`;
     h+=`<button type="button" data-k="${k}" class="${pcls(e)}${k===t?" today":""}${k===calSel?" sel":""}${fut?" future":""}" ${fut?'disabled':""} aria-label="${esc(lab)}" aria-haspopup="dialog">${i}</button>`}
   $("cal").innerHTML=h;
   $("calNext").disabled=y>new Date().getFullYear()||(y===new Date().getFullYear()&&m>=new Date().getMonth());
@@ -1596,7 +1597,7 @@ function renderDay(){
     <button class="iconbtn" type="button" data-act="close" aria-label="Fermer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>`;
   c.innerHTML=!e
     ?`${head}<p class="muted">Rien de noté ce jour-là.</p><button class="btn block" type="button" data-act="edit">Noter ce jour</button>`
-    :`${head}<span class="pill start ${pcls(e)}">${e.migraine?`Mal ${esc(e.intensity)}/10 · ${painWord(e.intensity)}`:"Pas de mal"}</span>
+    :`${head}<div class="pillrow"><span class="pill ${pcls(e)}">${e.migraine?`Mal ${esc(e.intensity)}/10 · ${painWord(e.intensity)}`:"Sans mal de tête"}</span></div>
       ${dayDetailHtml(e)}
       <div class="duo"><button class="btn danger" type="button" data-act="del">Supprimer</button><button class="btn soft" type="button" data-act="edit">Modifier</button></div>`;
 }
@@ -1806,11 +1807,11 @@ function renderStats(){
     <div class="plot"><div class="yax" aria-hidden="true"><span>10</span><span>5</span><span>0</span></div>
     <div class="chart${dense?" dense":""}" role="group" aria-label="Force du mal de tête jour par jour. Touche un jour pour le voir.">`
     +dates.map(k=>{const e=src[k],now=k===tday?" now":"";if(!e)return`<div class="col${now}" aria-hidden="true">${k<=tday&&!dense?'<div class="nil"></div>':""}</div>`;
-      const lab=`${dayLong(k)} : ${e.migraine?`mal de tête ${e.intensity} sur 10`:"pas de mal"}`;
+      const lab=`${dayLong(k)} : ${e.migraine?`mal de tête ${e.intensity} sur 10`:"sans mal de tête"}`;
       if(!e.migraine)return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}><div class="dot"></div></button>`;
       const hh=e.intensity*10;return`<button type="button" class="col${now}" data-openday="${k}" aria-label="${esc(lab)}"${ti}>${wk?`<span class="val" style="bottom:calc(${hh}% + 4px)">${e.intensity}</span>`:""}<div class="bar ${pcls(e)}" style="height:${hh}%"></div></button>`}).join("")
     +`</div><div class="xl" aria-hidden="true">${dates.map((k,i)=>{const d=parse(k);return`<span${k===tday?' class="now"':""}>${wk?`${DS[i]}<small>${d.getDate()}</small>`:dense?(d.getDate()===1?MONTHS_S[d.getMonth()]:""):((i===0||(i+1)%5===0)?i+1:"")}</span>`}).join("")}</div></div>
-    <div class="legend bars" aria-hidden="true"><span><i class="none"></i>pas noté</span><span><i class="pn"></i>pas de mal</span><span><i class="pl"></i>léger</span><span><i class="pm"></i>moyen</span><span><i class="ph"></i>fort</span></div></section>`;
+    <div class="legend bars" aria-hidden="true"><span><i class="none"></i>pas noté</span><span><i class="pn"></i>sans mal de tête</span><span><i class="pl"></i>léger</span><span><i class="pm"></i>moyen</span><span><i class="ph"></i>fort</span></div></section>`;
   // 4. Moment des crises
   if(timed)h+=`<section class="card"><h2>Moment des crises</h2><p class="hint">Heure de début des crises dont l'heure est notée (${timed}).</p><div class="cmp">`
     +s.slots.map(x=>`<div class="cmprow"><span>${x.lab} <span class="muted small">${x.range}</span></span><div class="track" aria-hidden="true"><div class="fill" style="width:${x.n/timed*100}%"></div></div><span class="pct">${x.n}</span></div>`).join("")+`</div></section>`;
