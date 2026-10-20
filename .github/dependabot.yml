@@ -1,0 +1,25 @@
+# Mises à jour surveillées chaque semaine : dépendances npm et actions GitHub du workflow.
+# Une nouvelle version n'est proposée qu'après 7 jours (paquets piégés en général repérés avant) ;
+# les mises à jour de sécurité, elles, sont proposées dès qu'une faille est publiée.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    groups:
+      capacitor:
+        patterns: ["@capacitor/*"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]
