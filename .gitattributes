@@ -1,0 +1,14 @@
+# Fins de ligne identiques sur toutes les machines : LF partout, CRLF pour les scripts Windows
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Fichiers binaires : jamais convertis
+*.png binary
+*.jpg binary
+*.webp binary
+*.jar binary
+*.woff2 binary
+*.apk binary
+*.jks binary
+*.keystore binary
