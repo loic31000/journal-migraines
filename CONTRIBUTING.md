@@ -13,7 +13,7 @@ Pour une faille de sécurité, ne passez pas par une issue publique : voir [SECU
 ## Proposer une modification
 
 1. Forkez le dépôt et créez une branche à partir de `main`.
-2. Faites votre modification. L'appli tient dans un seul fichier, `www/index.html`.
+2. Faites votre modification. L'appli est dans `www/` : `index.html` pour la structure, `app.css` pour les styles, `app.js` pour la logique. N'écrivez pas de script dans la page : la politique de sécurité (CSP) les bloque.
 3. Lancez les tests : `npm install` puis `npm test`. Tous doivent passer.
 4. Ouvrez une *pull request* qui explique ce que vous changez et pourquoi.
 

@@ -3,9 +3,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const html = fs.readFileSync(path.join(__dirname, "..", "www", "index.html"), "utf8");
-const scriptStart = html.lastIndexOf("<script>") + "<script>".length;
-const app = html.slice(scriptStart, html.indexOf("</script>", scriptStart))
+// La logique de l'appli est dans www/app.js (la page www/index.html ne contient que la structure)
+const app = fs.readFileSync(path.join(__dirname, "..", "www", "app.js"), "utf8")
   .replace(/\}\)\(\);\s*$/, "window.__t={S,monthCounts,chronicFlag,ichd,periodStarts,menstrual,recurrences,set2h,medsAwaiting2h,isWeak,applyPreset,presetCount,T,G,stLabel,symLabel,noPainNow,missedDays,recentMeds,medStatus,takeMed,untakeMed,handleLink,docSummary,rdvFrom,rdvDone,addDocQ,isCrisis,scheduleReminders,readCache,putEntry,removeEntry,restoreText,resetAll,undoQuick,medWarn,medsOf,summarize,endTime,dayDetailHtml,cleanEntry,cleanSettings,writeSnapshot,restoreFromSnapshot,crisisDuration,usualFrom,periodTitle,nextDoses,midasScore,midasGrade,quickCrisis,daysSince,saveFile,renderStats,setMode:m=>{sMode=m},setAnchor:d=>{sAnchor=d}};})();");
 
 // --- Faux écran : chaque élément accepte toutes les opérations ---

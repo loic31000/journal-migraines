@@ -172,7 +172,7 @@ L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](http
 
 | Couche | Choix | Rôle |
 |---|---|---|
-| Interface et logique | HTML, CSS, JavaScript, sans framework | Un seul fichier, `www/index.html` |
+| Interface et logique | HTML, CSS, JavaScript, sans framework | `www/index.html` (structure), `www/app.css` (styles), `www/app.js` (logique) ; aucun script écrit dans la page (CSP `script-src 'self'`) |
 | Appli Android | [Capacitor](https://capacitorjs.com) 8.5 | Enveloppe la page dans une vraie appli Android |
 | Plugins natifs | `@capacitor/app`, `filesystem`, `share`, `local-notifications` | Bouton retour, fichiers, menu de partage, rappel du soir |
 | Code natif | Java (`JournalWidget.java`, `LinkGuard.java`), ressources Android | Widget de l'écran d'accueil, raccourcis de l'icône, liens `journalmigraines://` protégés par une clé propre à l'appli |
@@ -262,7 +262,9 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 ```
 ├── www/
-│   └── index.html          l'appli (interface et logique)
+│   ├── index.html          structure de l'appli (écrans, formulaires)
+│   ├── app.css             styles (thèmes jour, nuit et crise)
+│   └── app.js              logique (stockage, bilans, rapport PDF, notifications)
 ├── android/                projet Android généré par Capacitor
 ├── assets/                 icône et écrans de démarrage sources
 ├── docs/captures/          captures d'écran du README
