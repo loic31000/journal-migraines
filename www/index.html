@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'"></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px));padding-bottom:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px))}html{scroll-padding-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px))}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self' data: blob:; object-src 'none'; base-uri 'none'; form-action 'none'"></head><body>
 <title>Mon Journal Migraines</title>
 <script>document.documentElement.lang="fr"</script>
 <link rel="stylesheet" href="vendor/fonts.css">
@@ -60,8 +60,8 @@ body[data-sky="calm"]{--dawn-1:#ffd9b0;--dawn-2:#d9c8ff;--dawn-3:#b8dcf5}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.55;-webkit-font-smoothing:antialiased;background:var(--bg);
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
-  padding-block:0 calc(122px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent;font-feature-settings:"ss01","cv11"}
+  padding-left:max(16px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)));padding-right:max(16px,var(--safe-area-inset-right,env(safe-area-inset-right,0px)));
+  padding-block:0 calc(122px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px)));-webkit-tap-highlight-color:transparent;font-feature-settings:"ss01","cv11"}
 /* Aurore : trois halos qui dérivent lentement derrière la page */
 body::before{content:"";position:fixed;inset:-25% -25% auto;height:95vh;z-index:-2;pointer-events:none;filter:blur(36px);opacity:.85;
   background:
@@ -72,7 +72,7 @@ body::before{content:"";position:fixed;inset:-25% -25% auto;height:95vh;z-index:
 /* Grain de papier : rend les aplats moins numériques */
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:var(--grain);mix-blend-mode:var(--grain-blend);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-body.in-form{padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
+body.in-form{padding-bottom:calc(112px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px)))}
 .wrap{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:16px;width:100%}
 h1,h2{font-family:var(--display);font-weight:600;margin:0;text-wrap:balance;line-height:1.1;letter-spacing:-.015em}
 h1{font-size:2.3rem}
@@ -310,14 +310,14 @@ input[type=range]::-moz-range-thumb{width:30px;height:30px;border-radius:50%;bac
 .counter button:active{transform:scale(.82);transition-duration:.08s}
 
 .formbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--glass);border-top:1px solid var(--line);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
-  padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  padding:12px max(16px,var(--safe-area-inset-right,env(safe-area-inset-right,0px))) calc(12px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px))) max(16px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)))}
 .formbar .in{max-width:520px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:10px;align-items:center}
 .formbar .quit{grid-template-columns:1fr 1fr}
 .formbar .quit p{grid-column:1/-1;font-weight:800;text-align:center}
 
 /* onglets : dock sombre flottant, la pastille glisse vers l'onglet choisi (--i posé par show()) */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;pointer-events:none;
-  padding:0 max(14px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(14px,env(safe-area-inset-left,0px))}
+  padding:0 max(14px,var(--safe-area-inset-right,env(safe-area-inset-right,0px))) calc(14px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px))) max(14px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)))}
 nav.tabs .in{--i:0;position:relative;pointer-events:auto;max-width:420px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding:6px;border-radius:32px;
   background:var(--dock);border:1px solid color-mix(in srgb,var(--dock-ink) 14%,transparent);box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 22px 40px -16px rgba(42,20,37,.6)}
 nav.tabs .in::before{content:"";position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px) / 4);border-radius:26px;background:var(--dock-pill);
@@ -327,7 +327,7 @@ nav.tabs button svg{width:22px;height:22px;transition:transform .45s var(--sprin
 /* Le libellé tient toujours sur une ligne : sous 400 px, marges resserrées et texte légèrement réduit */
 nav.tabs button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (max-width:400px){
-  nav.tabs{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+  nav.tabs{padding-left:max(8px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)));padding-right:max(8px,var(--safe-area-inset-right,env(safe-area-inset-right,0px)))}
   nav.tabs .in{padding:4px}
   nav.tabs .in::before{top:4px;bottom:4px;left:4px;width:calc((100% - 8px) / 4)}
   nav.tabs button{font-size:clamp(.6875rem,3.3vw,.8125rem);letter-spacing:-.01em}
@@ -354,7 +354,7 @@ nav.tabs button:focus-visible{outline-color:var(--dock-pill);outline-offset:-3px
 /* panneau du jour, qui monte du bas */
 .sheet-bg{position:fixed;inset:0;z-index:29;background:color-mix(in srgb,var(--ink) 38%,transparent);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);animation:fade .25s ease-out}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:30;max-height:84vh;overflow:auto;border-radius:34px 34px 0 0;border-bottom:0;background:var(--surface);
-  padding:12px max(20px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(20px,env(safe-area-inset-left,0px));animation:up .32s var(--ease) both}
+  padding:12px max(20px,var(--safe-area-inset-right,env(safe-area-inset-right,0px))) calc(22px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px))) max(20px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)));animation:up .32s var(--ease) both}
 .sheet > *{width:100%;max-width:520px;margin-inline:auto}
 .sheet .pillrow{display:flex}
 .sheet .grab{width:44px;height:5px;border-radius:99px;background:var(--line-strong);opacity:.6}
@@ -501,7 +501,7 @@ details.more > .cmp + .cmp{margin-top:14px}
 .qrow small{display:block;font-weight:600;color:var(--ink-2)}
 details.paste summary{font-weight:800;color:var(--accent);cursor:pointer;min-height:48px;display:flex;align-items:center}
 details.paste .field{margin:6px 0 12px}
-.toast{position:fixed;left:50%;bottom:calc(108px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px) scale(.96);background:var(--dock);color:var(--dock-pill);padding:13px 20px;border-radius:999px;font-weight:800;font-size:.95rem;z-index:40;opacity:0;
+.toast{position:fixed;left:50%;bottom:calc(108px + var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px)));transform:translate(-50%,20px) scale(.96);background:var(--dock);color:var(--dock-pill);padding:13px 20px;border-radius:999px;font-weight:800;font-size:.95rem;z-index:40;opacity:0;
   transition:opacity .25s,transform .5s var(--spring);pointer-events:none;width:max-content;max-width:calc(100% - 32px);text-align:center;box-shadow:0 18px 36px -14px rgba(0,0,0,.55)}
 .toast.show{opacity:1;transform:translate(-50%,0) scale(1)}
 .toast.act{pointer-events:auto;display:flex;align-items:center;gap:14px;padding:8px 8px 8px 20px}
@@ -618,7 +618,7 @@ nav.tabs .in.nocur::before{opacity:0}
   .sum{grid-template-columns:1fr;justify-items:start}.stats3{grid-template-columns:1fr 1fr}.chip{white-space:normal}}
 /* Très étroit (zoom 200 % sur téléphone) : onglets en icônes seules, le nom reste lu par le lecteur d'écran */
 @media (max-width:300px){
-  nav.tabs{padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
+  nav.tabs{padding-left:max(4px,var(--safe-area-inset-left,env(safe-area-inset-left,0px)));padding-right:max(4px,var(--safe-area-inset-right,env(safe-area-inset-right,0px)))}
   .card,.hero{padding:16px 12px}
   .week{gap:1px}.wd{font-size:.7rem}.wd span.c{font-size:.78rem;border-width:1.5px}
   nav.tabs .in{padding:4px}
@@ -1206,7 +1206,7 @@ async function scheduleReminders(){
   for(let i=0;i<RM_DAYS;i++){
     const d=addDays(now,i),at=new Date(d.getFullYear(),d.getMonth(),d.getDate(),hh,mm);
     if(at<=now||S.entries[ymd(d)])continue;
-    list.push({id:RM_BASE+i,title:"Mon Journal",body:T("remind"),schedule:{at,allowWhileIdle:true}});
+    list.push({id:RM_BASE+i,title:"Mon Journal",body:T("remind"),schedule:{at,allowWhileIdle:true},isExactNotification:false});
   }
   if(list.length)try{await ln.schedule({notifications:list})}catch(e){}
 }
@@ -1245,7 +1245,7 @@ async function schedule2h(){
   try{const pm=await ln.checkPermissions();if(pm.display!=="granted")return}catch(e){return}
   await registerActions(ln);
   try{await ln.schedule({notifications:l.map((x,i)=>({id:M2H_BASE+i,title:"Mon Journal",body:T("m2h",{med:x.name,h:hm(x.time)}),actionTypeId:"MED_2H",
-    extra:{date:x.date,name:x.name,time:x.time},schedule:{at:x.at,allowWhileIdle:true}}))})}catch(e){}
+    extra:{date:x.date,name:x.name,time:x.time},schedule:{at:x.at,allowWhileIdle:true},isExactNotification:false}))})}catch(e){}
 }
 async function set2h(date,name,time,v){
   if(!EFF_OF[v])return false;const ex=S.entries[date];if(!ex)return false;
@@ -1260,7 +1260,7 @@ async function crisisCheckIn(hours){
   await registerActions(ln);
   try{await ln.cancel({notifications:[{id:CRISIS_NOTIF}]})}catch(e){}
   try{await ln.schedule({notifications:[{id:CRISIS_NOTIF,title:"Mon Journal",body:T("crisisAsk"),actionTypeId:"CRISIS_END",
-    schedule:{at:new Date(Date.now()+hours*3600e3),allowWhileIdle:true}}]})}catch(e){}
+    schedule:{at:new Date(Date.now()+hours*3600e3),allowWhileIdle:true},isExactNotification:false}]})}catch(e){}
 }
 async function cancelCrisisCheck(){const ln=LN();if(ln)try{await ln.cancel({notifications:[{id:CRISIS_NOTIF}]})}catch(e){}}
 // Prochaine prise possible : dernière prise de chaque médicament (aujourd'hui ou hier) + écart réglé
@@ -1283,7 +1283,7 @@ async function scheduleDoseReminders(){
   try{await ln.cancel({notifications:Array.from({length:DOSE_MAX},(_,i)=>({id:DOSE_BASE+i}))})}catch(e){}
   const l=nextDoses(S.entries,S.settings.medGaps,new Date()).slice(0,DOSE_MAX);if(!l.length)return;
   try{const pm=await ln.checkPermissions();if(pm.display!=="granted")return}catch(e){return}
-  try{await ln.schedule({notifications:l.map((x,i)=>({id:DOSE_BASE+i,title:"Mon Journal",body:T("dose",{med:x.name}),schedule:{at:x.next,allowWhileIdle:true}}))})}catch(e){}
+  try{await ln.schedule({notifications:l.map((x,i)=>({id:DOSE_BASE+i,title:"Mon Journal",body:T("dose",{med:x.name}),schedule:{at:x.next,allowWhileIdle:true},isExactNotification:false}))})}catch(e){}
 }
 const GAP_OPTS=[[0,"Pas de rappel"],[4,"4 h"],[6,"6 h"],[8,"8 h"],[12,"12 h"],[24,"24 h"]];
 function renderGaps(){

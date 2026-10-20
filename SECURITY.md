@@ -22,3 +22,5 @@ Indiquez si possible :
 - Données nettoyées à chaque lecture et restauration (types, longueurs, identifiants), texte échappé avant tout affichage.
 - Politique de sécurité du contenu (CSP) : rien ne se charge depuis l'extérieur.
 - APK de publication signé et non débogable.
+- Liens du widget et des raccourcis (`journalmigraines://`) protégés : l'appli génère une clé aléatoire à son premier lancement, gardée dans son espace privé, et ignore tout lien qui n'a pas cette clé. Une autre appli installée ne peut donc pas ajouter d'entrée au journal.
+- Fabrication vérifiable : versions des dépendances verrouillées (`package-lock.json`), empreinte de la distribution Gradle contrôlée au téléchargement, actions GitHub épinglées sur une empreinte.

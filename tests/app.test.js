@@ -47,7 +47,7 @@ function boot(withPhone) {
       deleteFile: async o => { delete native.files[o.path] } },
     Share: { share: async o => { if (native.cancelShare) throw new Error("Share canceled"); native.shared.push(o) } },
     App: { addListener() {}, exitApp() {} },
-    LocalNotifications: { cancel: async () => { native.cancelled++ }, schedule: async o => { native.scheduled.push(o.notifications) },
+    LocalNotifications: { cancel: async () => { native.cancelled++ }, schedule: async o => { native.scheduled.push(o.notifications); (native.every = native.every || []).push(...o.notifications) },
       checkPermissions: async () => ({ display: "granted" }), requestPermissions: async () => ({ display: "granted" }),
       registerActionTypes: async o => { native.actionTypes = o.types }, addListener: (ev, fn) => { native.listeners[ev] = fn } },
   } };
@@ -438,6 +438,9 @@ const ok = (c, m) => { console.log((c ? "OK   " : "FAIL ") + m); if (!c) fails++
   try { T.renderStats(); T.setMode("month"); T.renderStats(); await T.putEntry({ date: "2026-10-14", migraine: true, intensity: 5, zones: [], symptoms: [] }); T.renderStats(); ok(true, "bilan semaine et mois sans erreur") }
   catch (err) { ok(false, "bilan : " + err.message) }
 
+  // Module de notifications 8 : une notification « exacte » ouvrirait l'écran « Alarmes et rappels » à chaque programmation
+  ok((native.every || []).length > 0 && native.every.every(n => n.isExactNotification === false),
+    `toutes les notifications programmées sont « non exactes » (${(native.every || []).length} vérifiées)`);
   console.log(fails ? `\n${fails} test(s) en échec` : "\nTous les tests passent");
   process.exit(fails ? 1 : 0);
 })();

@@ -9,18 +9,18 @@ Noter sa journée en quelques touchers, voir le bilan de la semaine et du mois, 
 
 **[Télécharger l'APK (dernière version)](https://github.com/loic31000/journal-migraines/releases/latest)**
 
-![Version](https://img.shields.io/badge/version-2.4.0-a92c49)
+![Version](https://img.shields.io/badge/version-2.4.1-a92c49)
 ![Android](https://img.shields.io/badge/Android-7.0%2B%20·%20cible%2014-3DDC84?logo=android&logoColor=white)
 ![Hors ligne](https://img.shields.io/badge/internet-aucune%20permission-7d4ccc)
 ![Compte](https://img.shields.io/badge/compte-aucun-7d4ccc)
-![Tests](https://img.shields.io/badge/tests-110%20réussis-1f7a5c)
+![Tests](https://img.shields.io/badge/tests-111%20réussis-1f7a5c)
 ![Licence](https://img.shields.io/badge/licence-MIT-555)
 
-![Capacitor](https://img.shields.io/badge/Capacitor-6.2-119EFF?logo=capacitor&logoColor=white)
+![Capacitor](https://img.shields.io/badge/Capacitor-8.5-119EFF?logo=capacitor&logoColor=white)
 ![HTML CSS JS](https://img.shields.io/badge/HTML%20·%20CSS%20·%20JavaScript-sans%20framework-f7df1e?logo=javascript&logoColor=black)
 ![jsPDF](https://img.shields.io/badge/jsPDF-4.2.1-a92c49)
-![Node](https://img.shields.io/badge/Node.js-build-339933?logo=nodedotjs&logoColor=white)
-![Java](https://img.shields.io/badge/Java-17-ED8B00?logo=openjdk&logoColor=white)
+![Node](https://img.shields.io/badge/Node.js-22%2B-339933?logo=nodedotjs&logoColor=white)
+![Java](https://img.shields.io/badge/Java-21-ED8B00?logo=openjdk&logoColor=white)
 
 </div>
 
@@ -173,17 +173,17 @@ L'APK n'est pas dans le dépôt : il est joint à chaque [version publiée](http
 | Couche | Choix | Rôle |
 |---|---|---|
 | Interface et logique | HTML, CSS, JavaScript, sans framework | Un seul fichier, `www/index.html` |
-| Appli Android | [Capacitor](https://capacitorjs.com) 6.2 | Enveloppe la page dans une vraie appli Android |
+| Appli Android | [Capacitor](https://capacitorjs.com) 8.5 | Enveloppe la page dans une vraie appli Android |
 | Plugins natifs | `@capacitor/app`, `filesystem`, `share`, `local-notifications` | Bouton retour, fichiers, menu de partage, rappel du soir |
-| Code natif | Java (`JournalWidget.java`), ressources Android | Widget de l'écran d'accueil, raccourcis de l'icône, liens `journalmigraines://` |
+| Code natif | Java (`JournalWidget.java`, `LinkGuard.java`), ressources Android | Widget de l'écran d'accueil, raccourcis de l'icône, liens `journalmigraines://` protégés par une clé propre à l'appli |
 | Stockage | `localStorage` de la WebView | Privé à l'appli, persistant |
 | PDF | jsPDF 4.2.1 + jsPDF-AutoTable 5.0.8 | Rapport pour le médecin, intégré à l'APK |
 | Polices | Fraunces (titres, chiffres) et Manrope (texte), via Fontsource | Intégrées à l'APK, aucune requête réseau |
 | Icônes | `sharp` + `@capacitor/assets` | Icône adaptative et écrans de démarrage clair et sombre |
-| Compilation | Node.js, Java 17, SDK Android 34, Gradle | Fabrication de l'APK |
+| Compilation | Node.js 22 ou plus, Java 21, SDK Android 36, Gradle 8.14 (empreinte vérifiée) | Fabrication de l'APK |
 | Tests | Node.js, sans dépendance | Logique de stockage, sauvegardes, partage, rappels |
 
-**Android** : version minimale 7.0 (API 24), avec la WebView Android à jour (Play Store). Cible Android 14 (API 34). Les couleurs de l'interface utilisent `color-mix()`, géré par les WebView depuis 2023 ; Android 5 et 6 ne reçoivent plus ces mises à jour.
+**Android** : version minimale 7.0 (API 24), avec la WebView Android à jour (Play Store). Cible Android 16 (API 36), affichage bord à bord. Les couleurs de l'interface utilisent `color-mix()`, géré par les WebView depuis 2023 ; Android 5 et 6 ne reçoivent plus ces mises à jour.
 
 ## Fabriquer l'APK
 
@@ -209,15 +209,15 @@ keyPassword=<mot de passe>
 ### Prérequis (une seule fois, sous Windows)
 
 ```powershell
-winget install Microsoft.OpenJDK.17
+winget install Microsoft.OpenJDK.21
 ```
 
-Puis les outils Android en ligne de commande, installés dans `%LOCALAPPDATA%\Android\Sdk`, avec les paquets `platform-tools`, `platforms;android-34` et `build-tools;34.0.0`. Android Studio n'est pas nécessaire.
+Puis les outils Android en ligne de commande, installés dans `%LOCALAPPDATA%\Android\Sdk`, avec les paquets `platform-tools`, `platforms;android-36` et `build-tools;35.0.0`. Android Studio n'est pas nécessaire.
 
 ### Commandes
 
 ```powershell
-$env:JAVA_HOME = "C:\Program Files\Microsoft\jdk-17.0.20.101-hotspot"
+$env:JAVA_HOME = "C:\Program Files\Microsoft\jdk-21.0.12.101-hotspot"
 $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk"
 
 npm install
@@ -252,6 +252,7 @@ Pour redessiner l'icône : `node scripts/icons.js` puis `npx @capacitor/assets g
 - « Ma tête va bien » en un toucher, journée type notée d'office sans remplacer une réponse donnée, jours oubliés ;
 - mode crise : médicaments habituels, « J'ai pris » et « Annuler », prochaine prise possible ;
 - liens du widget et des raccourcis (liens inconnus ignorés, même lien jamais traité deux fois) ;
+- notifications toutes programmées « non exactes » (aucune demande d'autorisation « Alarmes et rappels ») ;
 - onglet Médecin : résumé depuis le dernier rendez-vous, questions à poser, rendez-vous passé ;
 - bilan précis : jours de mal par mois et seuil des 15 jours, critères ICHD-3 de la migraine, 1ers jours des règles et fenêtre menstruelle, réponses « 2 h après », récurrences dans les 48 h, pistes encore faibles.
 
@@ -293,6 +294,7 @@ Les tests ne remplacent pas un essai sur un vrai téléphone (affichage, menu de
 
 | Version | Code | Contenu |
 |---|---|---|
+| **2.4.1** | 12 | Sécurité et maintenance, sans changement visible : les liens du widget et des raccourcis portent une clé propre à l'appli (une autre appli ne peut plus ajouter d'entrée au journal), passage à Capacitor 8, cible Android 16 (API 36) avec affichage bord à bord, outils de fabrication sans faille connue (`npm audit` : 0), empreinte de Gradle vérifiée, module Google Services inutile retiré. |
 | **2.4.0** | 11 | Bilan plus précis : jours de mal par mois et seuil des 15 jours, critères ICHD-3 de la migraine (nouveaux signes : d'un seul côté, qui bat, pire en bougeant, aura, vomissements), 1er jour des règles et fenêtre menstruelle, efficacité 2 h après la prise (notification et question sur l'accueil), récurrences dans les 48 h, pistes « encore faibles » signalées ; tout est repris dans le rapport PDF. Journée type, graphique du bilan par bandes de force. |
 | **2.3.0** | 10 | « Pas de mal » en un toucher, jour oublié signalé, *Forte* passe en mode crise, mode crise avec minuteur et *J'ai pris*, *Enregistrer* à chaque étape du formulaire, médicaments habituels en un toucher, onglet **Médecin** (rendez-vous, résumé, questions à poser), **Réglages** (prénom, petit nom, accords, ton), widget et raccourcis Android, action *J'ai pris…* dans la notification, libellés de 14 px minimum, APK de test via GitHub Actions. |
 | **2.2.3** | 9 | Salutation de l'accueil sans cœur, captures d'écran mises à jour. |

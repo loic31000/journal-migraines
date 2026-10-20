@@ -5,12 +5,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.widget.RemoteViews;
 
 /**
  * Widget de l'écran d'accueil : noter sa journée ou une crise en un toucher.
- * Chaque bouton ouvre l'appli avec un lien journalmigraines://… que la page traite (handleLink).
+ * Chaque bouton ouvre l'appli avec un lien journalmigraines://… que la page traite (handleLink),
+ * accompagné de la clé de l'appli (LinkGuard) : un lien venu d'une autre appli est ignoré.
  * Le widget ne lit aucune note : il n'affiche que des boutons, rien de personnel.
  */
 public class JournalWidget extends AppWidgetProvider {
@@ -29,7 +29,7 @@ public class JournalWidget extends AppWidgetProvider {
     }
 
     private static PendingIntent link(Context ctx, String uri, int code) {
-        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri), ctx, MainActivity.class);
+        Intent i = LinkGuard.link(ctx, uri);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         return PendingIntent.getActivity(ctx, code, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
     }
