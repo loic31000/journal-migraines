@@ -11,16 +11,16 @@
     "test": "node tests/app.test.js"
   },
   "dependencies": {
-    "@capacitor/android": "8.5.3",
+    "@capacitor/android": "8.6.0",
     "@capacitor/app": "8.1.2",
-    "@capacitor/core": "8.5.3",
+    "@capacitor/core": "8.6.0",
     "@capacitor/filesystem": "8.1.5",
     "@capacitor/local-notifications": "8.3.1",
     "@capacitor/share": "8.0.3"
   },
   "devDependencies": {
-    "@capacitor/assets": "3.0.5",
-    "@capacitor/cli": "8.5.3",
+    "@capacitor/assets": "4.0.0",
+    "@capacitor/cli": "8.6.0",
     "@fontsource/fraunces": "5.3.0",
     "@fontsource/manrope": "5.3.0",
     "jspdf": "4.2.1",
@@ -29,7 +29,7 @@
   "overrides": {
     "sharp": "0.35.5",
     "uuid": "11.1.1",
-    "@capacitor/cli": "8.5.3"
+    "@capacitor/cli": "8.6.0"
   },
   "engines": {
     "node": ">=22"
